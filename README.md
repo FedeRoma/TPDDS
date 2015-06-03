@@ -10,3 +10,5 @@ Integrantes:
 Juan     Tonelli    134254-0
 
 Federico Torres     148739-5
+
+Diego A. Torralba   144444-0
