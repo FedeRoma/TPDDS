@@ -1,0 +1,32 @@
+Cambio 1 (Enunciado general)
+Actualmente: dice "registrar las suyas y/o compartirlas entre sus amigos y/o grupos a los que pertenezca"
+Comentario: es el único lugar donde hace mención a la idea de amigos, por lo que resolví eliminarlo
+Nuevo texto: dice "registrar las suyas y/o compartirlas en los grupos a los que pertenezca"
+
+
+Cambio 2 (Enunciado general)
+Actualmente: dice "el sistema ofrecerá la posibilidad de armar grupos de usuarios"
+Comentario: no queda claro si sólo se pueden crear grupos o también modificar, eliminar, etc.
+Nuevo texto: dice "el sistema ofrecerá la posibilidad de administrar (crear, modificar, eliminar) grupos de usuarios"
+
+
+Cambio 3 (Enunciado general)
+Actualmente: dice "si el usuario está interesado en una determinada receta para una comida, el mismo deberá confirmarla con el objetivo de dejarla en su historial y confirmar así esa receta para esa determinada comida"
+Comentario: no queda claro si al referirse a confirmar son 2 confirmaciones (una para dejarla en el historial y otra para incorporarla a la comida). Resuelvo que cada vez que la confirmas para la comida queda en el historial.
+Nuevo texto: dice "si el usuario está interesado en una determinada receta para una comida deberá confirmarla incorporandola a la misma; además con esta acción la receta quedará incorporada a su historial"
+
+
+Cambio 4 (Enunciado general)
+Actualmente dice: "Se las puede clasificar. Para ello se usa un criterio de 5 estrellas"
+Comentario: en este párrafo y el anterior se usa el término clasificar para dos ideas distintas. Debemos aclarar esto. Consideremos clasificar a la idea de definir a qué categoría pertenece y calificar es definir si te gusta o no te gusta.
+Nuevo texto: revisen porque cambié el párrafo completo.
+
+
+Cambio 5 (Entrega 3)
+en función de los casos de uso definidos en estas entregas y las aclaraciones anteriormente realizadas modifiqué los casos de uso que deben ser tratados en la Entrega 3.
+Entrega 3: cambié "armar grupo del usuario" por "administrar grupo del usuario"
+Entrega 3: eliminé "generar recetas por perfil" dado que era similar a lo previsto en la entrega 2
+
+
+Observaciones adicionales (Entrega 2)
+En la entrega 2, seleccionar recetas hace referencia al párrafo 3 y 4 ubicado bajo el subtítulo "El usuario"
