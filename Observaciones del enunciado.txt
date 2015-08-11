@@ -1,3 +1,6 @@
+====================== ENTREGA 1 ======================
+==============================================================================================================
+
 Cambio 1 (Enunciado general)
 Actualmente: dice "registrar las suyas y/o compartirlas entre sus amigos y/o grupos a los que pertenezca"
 Comentario: es el único lugar donde hace mención a la idea de amigos, por lo que resolví eliminarlo
@@ -30,3 +33,28 @@ Entrega 3: eliminé "generar recetas por perfil" dado que era similar a lo previ
 
 Observaciones adicionales (Entrega 2)
 En la entrega 2, seleccionar recetas hace referencia al párrafo 3 y 4 ubicado bajo el subtítulo "El usuario"
+
+==============================================================================================================
+====================== ENTREGA 2 ======================
+==============================================================================================================
+
+1. Los que no hayan incorporado en la Entrega 2 las correcciones de la Entrega 1 deben incorporarlo
+
+2. Tengan en cuenta respetar los principios SOLID, principalmente la S (Single Responsability). No le asignen a una misma clase diferentes responsabilidades. Por ejemplo, un atributo recetas propias dentro de la clase Usuario. El usuario debe contener información propia de la persona. La información asociada a recetas debe estar en la clase recetas y el usuario relacionado con dicha clase.
+
+3. No utilicen FK como si fuera de un DER. 
+
+4. Revisen que las operaciones existentes en el Diagrama de Actividades estén presentes como métodos de las clases, sino no podrían ser llamadas por ninguna clase.
+
+5. Aquellos que no hayan indicado los tipos de datos en el Diagrama de Clases deben incluirlos
+
+6. Los tipos de datos deben ser, según el estándar UML, los básicos como string, numérico, decimal, etc. En algunos casos aceptamos algunas colecciones aunque no estén definidas en el estándar UML, porque es una práctica extendida en la construcción de UML por parte de los equipos programadores. Otra opción es que sean objetos de otra clase (no es lo más recomendado), pero NUNCA UN ATRIBUTO PUEDE SER DE UN TIPO OBJETO DE UNA CLASE QUE NO EXISTE.
+
+7. Si en el escenario de los casos de uso o en el diagrama de clases incluyen "validar tal cosa" deben especificar, de alguna forma, por lo menos en formato prosa, texto o tabla, qué validaciones realizarán.
+
+8. Si en el escenario de los casos de uso indican que se realiza filtrado de información, de alguna forma deben indicar cuáles son los campos por los cuales se puede filtrar
+
+==============================================================================================================
+====================== ENTREGA 3 ======================
+==============================================================================================================
+
