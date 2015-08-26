@@ -1,0 +1,5 @@
+C:\Users\jtonelli\Documents\Visual Studio 2013\Projects\TP_DDS\DDS_TP.Domain\obj\Debug\DDS_TP.Domain.csprojResolveAssemblyReference.cache
+C:\Users\jtonelli\Documents\Visual Studio 2013\Projects\TP_DDS\DDS_TP.Domain\bin\Debug\DDS_TP.Domain.dll
+C:\Users\jtonelli\Documents\Visual Studio 2013\Projects\TP_DDS\DDS_TP.Domain\bin\Debug\DDS_TP.Domain.pdb
+C:\Users\jtonelli\Documents\Visual Studio 2013\Projects\TP_DDS\DDS_TP.Domain\obj\Debug\DDS_TP.Domain.dll
+C:\Users\jtonelli\Documents\Visual Studio 2013\Projects\TP_DDS\DDS_TP.Domain\obj\Debug\DDS_TP.Domain.pdb
