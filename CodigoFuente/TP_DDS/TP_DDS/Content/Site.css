@@ -49,3 +49,7 @@ input[type="checkbox"].input-validation-error {
 	background-size: cover;
 	background-position: 50% 50%;
 }
+
+#appIcono {
+    padding-right: 5px;
+}
