@@ -164,7 +164,38 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BusinessException.cs" />
+    <Compile Include="Models\Calificacion.cs" />
+    <Compile Include="Models\Clasificacion.cs" />
+    <Compile Include="Models\Condiciones\CondicionPreexistente.cs" />
+    <Compile Include="Models\Condimento.cs" />
+    <Compile Include="Models\Dieta.cs" />
+    <Compile Include="Models\Estadisticas\Estadistica.cs" />
+    <Compile Include="Models\Estadisticas\EstadisticaDificultad.cs" />
+    <Compile Include="Models\Estadisticas\EstadisticaRanking.cs" />
+    <Compile Include="Models\Estadisticas\EstadisticaSexo.cs" />
+    <Compile Include="Models\Grupo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Ingrediente.cs" />
+    <Compile Include="Models\IngredienteReceta.cs" />
+    <Compile Include="Models\Interfaces\IGenerarReporte.cs" />
+    <Compile Include="Models\Interfaces\IProcesarEstadistica.cs" />
+    <Compile Include="Models\Preferencia.cs" />
+    <Compile Include="Models\Procedimiento.cs" />
+    <Compile Include="Models\Receta.cs" />
+    <Compile Include="Models\Reportes\PreferenciasPorPeriodo.cs" />
+    <Compile Include="Models\Reportes\RecetasNuevas.cs" />
+    <Compile Include="Models\Reportes\RecetasPorCalorias.cs" />
+    <Compile Include="Models\Reportes\RecetasPorPeriodo.cs" />
+    <Compile Include="Models\Reportes\Reporte.cs" />
+    <Compile Include="Models\Rutina.cs" />
+    <Compile Include="Models\Sexo.cs" />
+    <Compile Include="Models\Temporada.cs" />
+    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Validaciones\ValidacionDatos.cs" />
+    <Compile Include="Models\Validaciones\ValidacionFechaNacimiento.cs" />
+    <Compile Include="Models\Validaciones\ValidacionNombre.cs" />
+    <Compile Include="Models\Validaciones\ValidacionUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -216,6 +247,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Filtros\" />
+    <Folder Include="Models\Procesamientos\" />
+    <Folder Include="Models\Repositorios\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
