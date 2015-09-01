@@ -7,7 +7,7 @@ namespace DDS_TP.Models
 {
     public class Temporada
     {
-        public string Nombre { get; protected set; }
+        public string Nombre { get; set; }
 
         public Temporada(string nombre)
         {

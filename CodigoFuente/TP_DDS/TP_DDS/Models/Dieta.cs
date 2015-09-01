@@ -7,7 +7,7 @@ namespace DDS_TP.Models
 {
     public class Dieta
     {
-        public String Nombre { get; protected set; }
+        public String Nombre { get; set; }
 
         public Dieta(string nombre)
         {

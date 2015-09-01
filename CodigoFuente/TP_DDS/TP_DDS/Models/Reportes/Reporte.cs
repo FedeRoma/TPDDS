@@ -7,7 +7,7 @@ namespace DDS_TP.Models
 {
     public class Reporte
     {
-        public String Tipo { get; protected set; }
+        public String Tipo { get; set; }
 
         public void Ejecutar()
         { 

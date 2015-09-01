@@ -7,9 +7,9 @@ namespace DDS_TP.Models
 {
     public class Ingrediente
     {
-        public string Nombre { get; protected set; }
-        public int Porcion { get; protected set; }
-        public double CaloriasPorcion { get; protected set; }
+        public string Nombre { get; set; }
+        public int Porcion { get; set; }
+        public double CaloriasPorcion { get; set; }
 
         public Ingrediente(string nombre, int porcion, double caloriasPorcion)
         {

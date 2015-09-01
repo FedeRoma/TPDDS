@@ -7,11 +7,13 @@ namespace DDS_TP.Models
 {
     public class Calificacion
     {
-        public int Valor { get; protected set; }
+        public int Valor { get; set; }
+        public Usuario Usuario { get; set; }
 
-        public Calificacion(int valor)
+        public Calificacion(int valor, Usuario usuario)
         {
             Valor = valor;
+            Usuario = usuario;
         }
     }
 }

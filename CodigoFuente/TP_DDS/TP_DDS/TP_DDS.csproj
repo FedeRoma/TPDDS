@@ -200,6 +200,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\TP_DDS_BD.mdf" />
+    <Content Include="App_Data\TP_DDS_BD_log.ldf">
+      <DependentUpon>TP_DDS_BD.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\fondo1.jpg" />
@@ -246,7 +250,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\Filtros\" />
     <Folder Include="Models\Procesamientos\" />
     <Folder Include="Models\Repositorios\" />

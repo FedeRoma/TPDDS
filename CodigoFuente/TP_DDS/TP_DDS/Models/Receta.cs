@@ -7,17 +7,17 @@ namespace DDS_TP.Models
 {
     public class Receta
     {
-        public string Nombre { get; protected set; }
-        public int Dificultad { get; protected set; }
-        public double TotalCalorias { get; protected set; }
-        public string SectorPiramide { get; protected set; }
+        public string Nombre { get; set; }
+        public int Dificultad { get; set; }
+        public double TotalCalorias { get; set; }
+        public string SectorPiramide { get; set; }
         public Usuario Creador { get; set; }
-        public List<IngredienteReceta> Ingredientes { get; protected set; }
-        public List<Condimento> Condimentos { get; protected set; }
-        public List<Procedimiento> Procedimientos { get; protected set; }
-        public List<Temporada> Temporadas { get; protected set; }
-        public Calificacion Calificacion { get; protected set; }
-        public Clasificacion Clasificacion { get; protected set; }
+        public ICollection<IngredienteReceta> Ingredientes { get; set; }
+        public ICollection<Condimento> Condimentos { get; set; }
+        public ICollection<Procedimiento> Procedimientos { get; set; }
+        public ICollection<Temporada> Temporadas { get; set; }
+        public ICollection<Calificacion> Calificacion { get; set; }
+        public ICollection<Clasificacion> Clasificacion { get; set; }
 
         public Receta()
         {
@@ -50,20 +50,20 @@ namespace DDS_TP.Models
 
 	    public void Initialize() 
         {
-		    Ingredientes = new List<IngredienteReceta>();
-            Condimentos = new List<Condimento>();
-            Procedimientos = new List<Procedimiento>();
-            Temporadas = new List<Temporada>();
+            //Ingredientes = new List<IngredienteReceta>();
+            //Condimentos = new List<Condimento>();
+            //Procedimientos = new List<Procedimiento>();
+            //Temporadas = new List<Temporada>();
 	    }
 
         public void Clasificar(Clasificacion clasificacion) 
         {
-            Clasificacion = clasificacion;
+            Clasificacion.Add(clasificacion);
         }
 
         public void Calificar(Calificacion calificacion)
         {
-            Calificacion = calificacion;
+            Calificacion.Add(calificacion);
         }
 
         public void AgregarIngrediente(IngredienteReceta ingrediente)

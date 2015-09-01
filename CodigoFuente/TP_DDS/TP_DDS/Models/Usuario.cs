@@ -7,21 +7,22 @@ namespace DDS_TP.Models
 {
     public class Usuario
     {
-        public String UserName { get; protected set; }
-        public String Pass { get; protected set; }
-        public String Email { get; protected set; }
-        public String Nombre { get; protected set; }
-	    public Sexo? Sexo { get; protected set; }
-	    public DateTime FechaNacimiento { get; protected set; }
-        public DateTime FechaAltaPerfil { get; protected set; }
-	    public double Peso { get; protected set; }
-	    public double Altura { get; protected set; }
-	    public Rutina? Rutina { get; protected set; }
-        public List<Dieta> Dieta { get; protected set; }
-        public List<Preferencia> PreferenciasAlimenticias { get; protected set; }
-	    public List<CondicionPreexistente> CondicionesPreexistentes { get; protected set; }
-	    public List<Receta> Recetas { get; protected set; }
-	    public List<Grupo> Grupos { get; protected set; }
+        public int Id { get; set; }
+        public String UserName { get; set; }
+        public String Pass { get; set; }
+        public String Email { get; set; }
+        public String Nombre { get; set; }
+        public String Sexo { get; set; }
+	    public DateTime FechaNacimiento { get; set; }
+        public DateTime FechaAltaPerfil { get; set; }
+	    public double Peso { get; set; }
+	    public double Altura { get; set; }
+	    public Rutina? Rutina { get; set; }
+        public CondicionPreexistente CondicionPreexistente { get; set; }
+        public ICollection<Dieta> Dieta { get; set; }
+        public ICollection<Preferencia> PreferenciasAlimenticias { get; set; }
+        public ICollection<Receta> Recetas { get; set; }
+        public ICollection<Grupo> Grupos { get; set; }
 
         private List<ValidacionUsuario> validaciones;
 	    
@@ -30,7 +31,7 @@ namespace DDS_TP.Models
 		    Initialize();
 	    }
 
-	    public Usuario(String nombre, Sexo sexo, Rutina rutina, double peso, double altura, DateTime fechaNacimiento) 
+        public Usuario(String nombre, String sexo, Rutina rutina, double peso, double altura, DateTime fechaNacimiento, CondicionPreexistente condicionPreexistente) 
         {
 		    Initialize();
 		    this.Nombre = nombre;
@@ -39,15 +40,15 @@ namespace DDS_TP.Models
 		    this.Peso = peso;
 		    this.Altura = altura;
 		    this.FechaNacimiento = fechaNacimiento;
+            this.CondicionPreexistente = condicionPreexistente;
 	    }
 
 	    public void Initialize() 
         {
-            PreferenciasAlimenticias = new List<Preferencia>();
-		    CondicionesPreexistentes = new List<CondicionPreexistente>();
+            //PreferenciasAlimenticias = new List<Preferencia>();
             validaciones = new List<ValidacionUsuario>();
-		    Recetas = new List<Receta>();
-		    Grupos = new List<Grupo>();
+            //Recetas = new List<Receta>();
+            //Grupos = new List<Grupo>();
 
             CargarValidadores();
 	    }
@@ -81,11 +82,6 @@ namespace DDS_TP.Models
         {
             PreferenciasAlimenticias.Remove(preferencia);
         }
-
-	    public void AgregarCondicion(CondicionPreexistente condicionPreexistente)
-        {
-		    CondicionesPreexistentes.Add(condicionPreexistente);
-	    }
 	
 	    public void AgregarGrupo(Grupo grupo)
         {
@@ -95,7 +91,8 @@ namespace DDS_TP.Models
 
         public bool ComparteGrupoCon(Usuario creadorReceta)
         {
-            return Grupos.Exists(grupo => grupo.perteneceUsuarioAlGrupo(creadorReceta));
+            //return Grupos.Exists(grupo => grupo.perteneceUsuarioAlGrupo(creadorReceta));
+            throw new NotImplementedException();
         }
 
         public void ActualizarPerfil(String nombre, Sexo sexo, Rutina rutina, double peso, double altura, DateTime fechaNacimiento)

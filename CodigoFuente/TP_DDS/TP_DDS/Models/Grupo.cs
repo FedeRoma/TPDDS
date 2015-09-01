@@ -7,8 +7,8 @@ namespace DDS_TP.Models
 {
     public class Grupo
     {
-        public String Nombre { get; protected set; }
-        public List<Preferencia> PreferenciasAlimenticias { get; protected set; }
+        public String Nombre { get; set; }
+        public ICollection<Preferencia> PreferenciasAlimenticias { get; set; }
 
         public Grupo() 
         {
@@ -16,13 +16,7 @@ namespace DDS_TP.Models
 
         public Grupo(String nombre) 
         {
-		    Initialize();
 		    this.Nombre = nombre;
-	    }
-
-	    public void Initialize() 
-        {
-            PreferenciasAlimenticias = new List<Preferencia>();
 	    }
 
         public void AgregarPreferencia(Preferencia preferencia)

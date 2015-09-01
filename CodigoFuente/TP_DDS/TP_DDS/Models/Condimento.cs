@@ -7,8 +7,8 @@ namespace DDS_TP.Models
 {
     public class Condimento
     {
-        public string Nombre { get; protected set; }
-        public string Tipo { get; protected set; }
+        public string Nombre { get; set; }
+        public string Tipo { get; set; }
 
         public Condimento(string nombre, string tipo)
         {

@@ -7,7 +7,7 @@ namespace DDS_TP.Models
 {
     public class Clasificacion
     {
-        public string Nombre { get; protected set; }
+        public string Nombre { get; set; }
 
         public Clasificacion(string nombre)
         {

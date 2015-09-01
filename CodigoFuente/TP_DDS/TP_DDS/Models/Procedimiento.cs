@@ -7,9 +7,9 @@ namespace DDS_TP.Models
 {
     public class Procedimiento
     {
-        public int Numero { get; protected set; }
-        public string Nombre { get; protected set; }
-        public string Imagen { get; protected set; }
+        public int Numero { get; set; }
+        public string Nombre { get; set; }
+        public string Imagen { get; set; }
 
         public Procedimiento(int numero, string nombre, string imagen)
         {

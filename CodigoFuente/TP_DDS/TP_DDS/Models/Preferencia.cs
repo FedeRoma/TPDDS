@@ -7,7 +7,7 @@ namespace DDS_TP.Models
 {
     public class Preferencia
     {
-        public String Nombre { get; protected set; }
+        public String Nombre { get; set; }
 
         public Preferencia(string nombre)
         {
