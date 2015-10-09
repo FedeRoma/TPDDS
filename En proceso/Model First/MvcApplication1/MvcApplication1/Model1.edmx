@@ -1,0 +1,758 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="UsuariosConjunto" EntityType="Model1.Store.UsuariosConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RutinaConjunto" EntityType="Model1.Store.RutinaConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RelacionUsuarioGruposConjunto" EntityType="Model1.Store.RelacionUsuarioGruposConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GruposConjunto" EntityType="Model1.Store.GruposConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ComplexionConjunto" EntityType="Model1.Store.ComplexionConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CondicionesConjunto" EntityType="Model1.Store.CondicionesConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="relacionUsuarioPreferenciaConjunto" EntityType="Model1.Store.relacionUsuarioPreferenciaConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="preferenciasAlimenticiasConjunto" EntityType="Model1.Store.preferenciasAlimenticiasConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RecetasConjunto" EntityType="Model1.Store.RecetasConjunto" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UsuariosrelacionUsuarioPreferencia" Association="Model1.Store.UsuariosrelacionUsuarioPreferencia">
+      <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+      <End Role="relacionUsuarioPreferencia" EntitySet="relacionUsuarioPreferenciaConjunto" />
+    </AssociationSet>
+    <AssociationSet Name="relacionUsuarioPreferenciapreferenciasAlimenticias" Association="Model1.Store.relacionUsuarioPreferenciapreferenciasAlimenticias">
+      <End Role="relacionUsuarioPreferencia" EntitySet="relacionUsuarioPreferenciaConjunto" />
+      <End Role="preferenciasAlimenticias" EntitySet="preferenciasAlimenticiasConjunto" />
+    </AssociationSet>
+    <AssociationSet Name="UsuariosRutina" Association="Model1.Store.UsuariosRutina">
+      <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+      <End Role="Rutina" EntitySet="RutinaConjunto" />
+    </AssociationSet>
+    <AssociationSet Name="UsuariosComplexion" Association="Model1.Store.UsuariosComplexion">
+      <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+      <End Role="Complexion" EntitySet="ComplexionConjunto" />
+    </AssociationSet>
+    <AssociationSet Name="UsuariosCondiciones" Association="Model1.Store.UsuariosCondiciones">
+      <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+      <End Role="Condiciones" EntitySet="CondicionesConjunto" />
+    </AssociationSet>
+    <AssociationSet Name="UsuariosRelacionUsuarioGrupos" Association="Model1.Store.UsuariosRelacionUsuarioGrupos">
+      <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+      <End Role="RelacionUsuarioGrupos" EntitySet="RelacionUsuarioGruposConjunto" />
+    </AssociationSet>
+    <AssociationSet Name="RelacionUsuarioGruposGrupos" Association="Model1.Store.RelacionUsuarioGruposGrupos">
+      <End Role="RelacionUsuarioGrupos" EntitySet="RelacionUsuarioGruposConjunto" />
+      <End Role="Grupos" EntitySet="GruposConjunto" />
+    </AssociationSet>
+    <AssociationSet Name="UsuariosRecetas" Association="Model1.Store.UsuariosRecetas">
+      <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+      <End Role="Recetas" EntitySet="RecetasConjunto" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UsuariosConjunto">
+    <Key>
+      <PropertyRef Name="nombreUsuario" />
+    </Key>
+    <Property Name="nombreUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Clave" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sexo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Altura" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="idComplexion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="idRutina" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="relacionUsuarioPreferencia_idPreferencia" Type="int" Nullable="false" />
+    <Property Name="Complexion_idComplexion" Type="int" Nullable="false" />
+    <Property Name="RelacionUsuarioGrupos_idGrupo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RutinaConjunto">
+    <Key>
+      <PropertyRef Name="IdRutina" />
+    </Key>
+    <Property Name="IdRutina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuarios_nombreUsuario" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RelacionUsuarioGruposConjunto">
+    <Key>
+      <PropertyRef Name="idGrupo" />
+    </Key>
+    <Property Name="idGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreUsuario" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GruposConjunto">
+    <Key>
+      <PropertyRef Name="idGrupo" />
+    </Key>
+    <Property Name="idGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreGrupo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Creador" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RelacionUsuarioGrupos_idGrupo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ComplexionConjunto">
+    <Key>
+      <PropertyRef Name="idComplexion" />
+    </Key>
+    <Property Name="idComplexion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="complexion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CondicionesConjunto">
+    <Key>
+      <PropertyRef Name="idCondicion" />
+    </Key>
+    <Property Name="idCondicion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Condicion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Usuarios_nombreUsuario" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="relacionUsuarioPreferenciaConjunto">
+    <Key>
+      <PropertyRef Name="idPreferencia" />
+    </Key>
+    <Property Name="idPreferencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreUsuario" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="preferenciasAlimenticiasConjunto">
+    <Key>
+      <PropertyRef Name="idPreferencia" />
+    </Key>
+    <Property Name="idPreferencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="relacionUsuarioPreferencia_idPreferencia" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RecetasConjunto">
+    <Key>
+      <PropertyRef Name="idReceta" />
+    </Key>
+    <Property Name="idReceta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idDificultad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Creador" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Usuarios_nombreUsuario" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UsuariosrelacionUsuarioPreferencia">
+    <End Role="Usuarios" Type="Model1.Store.UsuariosConjunto" Multiplicity="*" />
+    <End Role="relacionUsuarioPreferencia" Type="Model1.Store.relacionUsuarioPreferenciaConjunto" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="relacionUsuarioPreferencia">
+        <PropertyRef Name="idPreferencia" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="relacionUsuarioPreferencia_idPreferencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="relacionUsuarioPreferenciapreferenciasAlimenticias">
+    <End Role="relacionUsuarioPreferencia" Type="Model1.Store.relacionUsuarioPreferenciaConjunto" Multiplicity="1" />
+    <End Role="preferenciasAlimenticias" Type="Model1.Store.preferenciasAlimenticiasConjunto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="relacionUsuarioPreferencia">
+        <PropertyRef Name="idPreferencia" />
+      </Principal>
+      <Dependent Role="preferenciasAlimenticias">
+        <PropertyRef Name="relacionUsuarioPreferencia_idPreferencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuariosRutina">
+    <End Role="Usuarios" Type="Model1.Store.UsuariosConjunto" Multiplicity="1" />
+    <End Role="Rutina" Type="Model1.Store.RutinaConjunto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="nombreUsuario" />
+      </Principal>
+      <Dependent Role="Rutina">
+        <PropertyRef Name="Usuarios_nombreUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuariosComplexion">
+    <End Role="Usuarios" Type="Model1.Store.UsuariosConjunto" Multiplicity="*" />
+    <End Role="Complexion" Type="Model1.Store.ComplexionConjunto" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Complexion">
+        <PropertyRef Name="idComplexion" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="Complexion_idComplexion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuariosCondiciones">
+    <End Role="Usuarios" Type="Model1.Store.UsuariosConjunto" Multiplicity="1" />
+    <End Role="Condiciones" Type="Model1.Store.CondicionesConjunto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="nombreUsuario" />
+      </Principal>
+      <Dependent Role="Condiciones">
+        <PropertyRef Name="Usuarios_nombreUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuariosRelacionUsuarioGrupos">
+    <End Role="Usuarios" Type="Model1.Store.UsuariosConjunto" Multiplicity="*" />
+    <End Role="RelacionUsuarioGrupos" Type="Model1.Store.RelacionUsuarioGruposConjunto" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="RelacionUsuarioGrupos">
+        <PropertyRef Name="idGrupo" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="RelacionUsuarioGrupos_idGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RelacionUsuarioGruposGrupos">
+    <End Role="RelacionUsuarioGrupos" Type="Model1.Store.RelacionUsuarioGruposConjunto" Multiplicity="1" />
+    <End Role="Grupos" Type="Model1.Store.GruposConjunto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RelacionUsuarioGrupos">
+        <PropertyRef Name="idGrupo" />
+      </Principal>
+      <Dependent Role="Grupos">
+        <PropertyRef Name="RelacionUsuarioGrupos_idGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuariosRecetas">
+    <End Role="Usuarios" Type="Model1.Store.UsuariosConjunto" Multiplicity="1" />
+    <End Role="Recetas" Type="Model1.Store.RecetasConjunto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="nombreUsuario" />
+      </Principal>
+      <Dependent Role="Recetas">
+        <PropertyRef Name="Usuarios_nombreUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModeloContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UsuariosConjunto" EntityType="Model1.Usuarios" />
+          <EntitySet Name="RutinaConjunto" EntityType="Model1.Rutina" />
+          <EntitySet Name="RelacionUsuarioGruposConjunto" EntityType="Model1.RelacionUsuarioGrupos" />
+          <EntitySet Name="GruposConjunto" EntityType="Model1.Grupos" />
+          <EntitySet Name="ComplexionConjunto" EntityType="Model1.Complexion" />
+          <EntitySet Name="CondicionesConjunto" EntityType="Model1.Condiciones" />
+          <EntitySet Name="relacionUsuarioPreferenciaConjunto" EntityType="Model1.relacionUsuarioPreferencia" />
+          <EntitySet Name="preferenciasAlimenticiasConjunto" EntityType="Model1.preferenciasAlimenticias" />
+          <AssociationSet Name="UsuariosrelacionUsuarioPreferencia" Association="Model1.UsuariosrelacionUsuarioPreferencia">
+            <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+            <End Role="relacionUsuarioPreferencia" EntitySet="relacionUsuarioPreferenciaConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="relacionUsuarioPreferenciapreferenciasAlimenticias" Association="Model1.relacionUsuarioPreferenciapreferenciasAlimenticias">
+            <End Role="relacionUsuarioPreferencia" EntitySet="relacionUsuarioPreferenciaConjunto" />
+            <End Role="preferenciasAlimenticias" EntitySet="preferenciasAlimenticiasConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="UsuariosRutina" Association="Model1.UsuariosRutina">
+            <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+            <End Role="Rutina" EntitySet="RutinaConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="UsuariosComplexion" Association="Model1.UsuariosComplexion">
+            <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+            <End Role="Complexion" EntitySet="ComplexionConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="UsuariosCondiciones" Association="Model1.UsuariosCondiciones">
+            <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+            <End Role="Condiciones" EntitySet="CondicionesConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="UsuariosRelacionUsuarioGrupos" Association="Model1.UsuariosRelacionUsuarioGrupos">
+            <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+            <End Role="RelacionUsuarioGrupos" EntitySet="RelacionUsuarioGruposConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="RelacionUsuarioGruposGrupos" Association="Model1.RelacionUsuarioGruposGrupos">
+            <End Role="RelacionUsuarioGrupos" EntitySet="RelacionUsuarioGruposConjunto" />
+            <End Role="Grupos" EntitySet="GruposConjunto" />
+          </AssociationSet>
+          <EntitySet Name="RecetasConjunto" EntityType="Model1.Recetas" />
+          <AssociationSet Name="UsuariosRecetas" Association="Model1.UsuariosRecetas">
+            <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+            <End Role="Recetas" EntitySet="RecetasConjunto" />
+          </AssociationSet>
+          <EntitySet Name="relacionPreferenciaGrupoConjunto" EntityType="Model1.relacionPreferenciaGrupo" />
+          <AssociationSet Name="preferenciasAlimenticiasrelacionPreferenciaGrupo" Association="Model1.preferenciasAlimenticiasrelacionPreferenciaGrupo">
+            <End Role="preferenciasAlimenticias" EntitySet="preferenciasAlimenticiasConjunto" />
+            <End Role="relacionPreferenciaGrupo" EntitySet="relacionPreferenciaGrupoConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="GruposrelacionPreferenciaGrupo" Association="Model1.GruposrelacionPreferenciaGrupo">
+            <End Role="Grupos" EntitySet="GruposConjunto" />
+            <End Role="relacionPreferenciaGrupo" EntitySet="relacionPreferenciaGrupoConjunto" />
+          </AssociationSet>
+          <EntitySet Name="DietasConjunto" EntityType="Model1.Dietas" />
+          <AssociationSet Name="UsuariosDietas" Association="Model1.UsuariosDietas">
+            <End Role="Usuarios" EntitySet="UsuariosConjunto" />
+            <End Role="Dietas" EntitySet="DietasConjunto" />
+          </AssociationSet>
+          <EntitySet Name="PasosConjunto" EntityType="Model1.Pasos" />
+          <EntitySet Name="DificultadesConjunto" EntityType="Model1.Dificultades" />
+          <EntitySet Name="IngredientesConjunto" EntityType="Model1.Ingredientes" />
+          <EntitySet Name="CondimentosConjunto" EntityType="Model1.Condimentos" />
+          <EntitySet Name="relRecetaIngredientesConjunto" EntityType="Model1.relRecetaIngredientes" />
+          <EntitySet Name="relRecetaCondimentoConjunto" EntityType="Model1.relRecetaCondimento" />
+          <AssociationSet Name="RecetasPasos" Association="Model1.RecetasPasos">
+            <End Role="Recetas" EntitySet="RecetasConjunto" />
+            <End Role="Pasos" EntitySet="PasosConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="RecetasrelRecetaCondimento" Association="Model1.RecetasrelRecetaCondimento">
+            <End Role="Recetas" EntitySet="RecetasConjunto" />
+            <End Role="relRecetaCondimento" EntitySet="relRecetaCondimentoConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="RecetasrelRecetaIngredientes" Association="Model1.RecetasrelRecetaIngredientes">
+            <End Role="Recetas" EntitySet="RecetasConjunto" />
+            <End Role="relRecetaIngredientes" EntitySet="relRecetaIngredientesConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="relRecetaIngredientesIngredientes" Association="Model1.relRecetaIngredientesIngredientes">
+            <End Role="relRecetaIngredientes" EntitySet="relRecetaIngredientesConjunto" />
+            <End Role="Ingredientes" EntitySet="IngredientesConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="relRecetaCondimentoCondimentos" Association="Model1.relRecetaCondimentoCondimentos">
+            <End Role="relRecetaCondimento" EntitySet="relRecetaCondimentoConjunto" />
+            <End Role="Condimentos" EntitySet="CondimentosConjunto" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="nombreUsuario" />
+          </Key>
+          <Property Type="String" Name="nombreUsuario" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Clave" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" />
+          <Property Type="String" Name="Apellido" Nullable="false" />
+          <Property Type="String" Name="Sexo" Nullable="false" />
+          <Property Type="Int32" Name="Altura" Nullable="false" />
+          <Property Type="Int32" Name="idComplexion" Nullable="false" />
+          <Property Type="Int32" Name="idRutina" Nullable="false" />
+          <NavigationProperty Name="relacionUsuarioPreferencia" Relationship="Model1.UsuariosrelacionUsuarioPreferencia" FromRole="Usuarios" ToRole="relacionUsuarioPreferencia" />
+          <NavigationProperty Name="Rutina" Relationship="Model1.UsuariosRutina" FromRole="Usuarios" ToRole="Rutina" />
+          <NavigationProperty Name="Complexion" Relationship="Model1.UsuariosComplexion" FromRole="Usuarios" ToRole="Complexion" />
+          <NavigationProperty Name="Condiciones" Relationship="Model1.UsuariosCondiciones" FromRole="Usuarios" ToRole="Condiciones" />
+          <NavigationProperty Name="RelacionUsuarioGrupos" Relationship="Model1.UsuariosRelacionUsuarioGrupos" FromRole="Usuarios" ToRole="RelacionUsuarioGrupos" />
+          <NavigationProperty Name="Recetas" Relationship="Model1.UsuariosRecetas" FromRole="Usuarios" ToRole="Recetas" />
+          <NavigationProperty Name="Dietas" Relationship="Model1.UsuariosDietas" FromRole="Usuarios" ToRole="Dietas" />
+        </EntityType>
+        <EntityType Name="Rutina">
+          <Key>
+            <PropertyRef Name="IdRutina" />
+          </Key>
+          <Property Type="Int32" Name="IdRutina" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Usuarios" Relationship="Model1.UsuariosRutina" FromRole="Rutina" ToRole="Usuarios" />
+          <Property Type="String" Name="Usuarios_nombreUsuario" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelacionUsuarioGrupos">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+          </Key>
+          <Property Type="Int32" Name="idGrupo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="nombreUsuario" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Model1.UsuariosRelacionUsuarioGrupos" FromRole="RelacionUsuarioGrupos" ToRole="Usuarios" />
+          <NavigationProperty Name="Grupos" Relationship="Model1.RelacionUsuarioGruposGrupos" FromRole="RelacionUsuarioGrupos" ToRole="Grupos" />
+        </EntityType>
+        <EntityType Name="Grupos">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+          </Key>
+          <Property Type="Int32" Name="idGrupo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="nombreGrupo" Nullable="false" />
+          <Property Type="String" Name="Creador" Nullable="false" />
+          <NavigationProperty Name="RelacionUsuarioGrupos" Relationship="Model1.RelacionUsuarioGruposGrupos" FromRole="Grupos" ToRole="RelacionUsuarioGrupos" />
+          <Property Type="Int32" Name="RelacionUsuarioGrupos_idGrupo" Nullable="false" />
+          <NavigationProperty Name="relacionPreferenciaGrupo" Relationship="Model1.GruposrelacionPreferenciaGrupo" FromRole="Grupos" ToRole="relacionPreferenciaGrupo" />
+        </EntityType>
+        <EntityType Name="Complexion">
+          <Key>
+            <PropertyRef Name="idComplexion" />
+          </Key>
+          <Property Type="Int32" Name="idComplexion" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="complexion" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Model1.UsuariosComplexion" FromRole="Complexion" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Condiciones">
+          <Key>
+            <PropertyRef Name="idCondicion" />
+          </Key>
+          <Property Type="Int32" Name="idCondicion" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Condicion" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Model1.UsuariosCondiciones" FromRole="Condiciones" ToRole="Usuarios" />
+          <Property Type="Int32" Name="Usuarios_nombreUsuario" Nullable="false" />
+        </EntityType>
+        <EntityType Name="relacionUsuarioPreferencia">
+          <Key>
+            <PropertyRef Name="idPreferencia" />
+          </Key>
+          <Property Type="Int32" Name="idPreferencia" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="nombreUsuario" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Model1.UsuariosrelacionUsuarioPreferencia" FromRole="relacionUsuarioPreferencia" ToRole="Usuarios" />
+          <NavigationProperty Name="preferenciasAlimenticias" Relationship="Model1.relacionUsuarioPreferenciapreferenciasAlimenticias" FromRole="relacionUsuarioPreferencia" ToRole="preferenciasAlimenticias" />
+        </EntityType>
+        <EntityType Name="preferenciasAlimenticias">
+          <Key>
+            <PropertyRef Name="idPreferencia" />
+          </Key>
+          <Property Type="Int32" Name="idPreferencia" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Descripcion" Nullable="false" />
+          <NavigationProperty Name="relacionUsuarioPreferencia" Relationship="Model1.relacionUsuarioPreferenciapreferenciasAlimenticias" FromRole="preferenciasAlimenticias" ToRole="relacionUsuarioPreferencia" />
+          <Property Type="Int32" Name="relacionUsuarioPreferencia_idPreferencia" Nullable="false" />
+          <NavigationProperty Name="relacionPreferenciaGrupo" Relationship="Model1.preferenciasAlimenticiasrelacionPreferenciaGrupo" FromRole="preferenciasAlimenticias" ToRole="relacionPreferenciaGrupo" />
+        </EntityType>
+        <Association Name="UsuariosrelacionUsuarioPreferencia">
+          <End Type="Model1.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <End Type="Model1.relacionUsuarioPreferencia" Role="relacionUsuarioPreferencia" Multiplicity="1" />
+        </Association>
+        <Association Name="relacionUsuarioPreferenciapreferenciasAlimenticias">
+          <End Type="Model1.relacionUsuarioPreferencia" Role="relacionUsuarioPreferencia" Multiplicity="1" />
+          <End Type="Model1.preferenciasAlimenticias" Role="preferenciasAlimenticias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="relacionUsuarioPreferencia">
+              <PropertyRef Name="idPreferencia" />
+            </Principal>
+            <Dependent Role="preferenciasAlimenticias">
+              <PropertyRef Name="relacionUsuarioPreferencia_idPreferencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuariosRutina">
+          <End Type="Model1.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="Model1.Rutina" Role="Rutina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="nombreUsuario" />
+            </Principal>
+            <Dependent Role="Rutina">
+              <PropertyRef Name="Usuarios_nombreUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuariosComplexion">
+          <End Type="Model1.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="Model1.Complexion" Role="Complexion" Multiplicity="1" />
+        </Association>
+        <Association Name="UsuariosCondiciones">
+          <End Type="Model1.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="Model1.Condiciones" Role="Condiciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="nombreUsuario" />
+            </Principal>
+            <Dependent Role="Condiciones">
+              <PropertyRef Name="Usuarios_nombreUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuariosRelacionUsuarioGrupos">
+          <End Type="Model1.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <End Type="Model1.RelacionUsuarioGrupos" Role="RelacionUsuarioGrupos" Multiplicity="1" />
+        </Association>
+        <Association Name="RelacionUsuarioGruposGrupos">
+          <End Type="Model1.RelacionUsuarioGrupos" Role="RelacionUsuarioGrupos" Multiplicity="1" />
+          <End Type="Model1.Grupos" Role="Grupos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelacionUsuarioGrupos">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="Grupos">
+              <PropertyRef Name="RelacionUsuarioGrupos_idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Recetas">
+          <Key>
+            <PropertyRef Name="idReceta" />
+          </Key>
+          <Property Type="Int32" Name="idReceta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="idDificultad" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" />
+          <Property Type="String" Name="Creador" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Model1.UsuariosRecetas" FromRole="Recetas" ToRole="Usuarios" />
+          <Property Type="Int32" Name="Usuarios_nombreUsuario" Nullable="false" />
+          <NavigationProperty Name="Pasos" Relationship="Model1.RecetasPasos" FromRole="Recetas" ToRole="Pasos" />
+          <NavigationProperty Name="relRecetaCondimento" Relationship="Model1.RecetasrelRecetaCondimento" FromRole="Recetas" ToRole="relRecetaCondimento" />
+          <NavigationProperty Name="relRecetaIngredientes" Relationship="Model1.RecetasrelRecetaIngredientes" FromRole="Recetas" ToRole="relRecetaIngredientes" />
+        </EntityType>
+        <Association Name="UsuariosRecetas">
+          <End Type="Model1.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="Model1.Recetas" Role="Recetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="nombreUsuario" />
+            </Principal>
+            <Dependent Role="Recetas">
+              <PropertyRef Name="Usuarios_nombreUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="relacionPreferenciaGrupo">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+          </Key>
+          <Property Type="Int32" Name="idGrupo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="idPreferencia" Nullable="false" />
+          <NavigationProperty Name="preferenciasAlimenticias" Relationship="Model1.preferenciasAlimenticiasrelacionPreferenciaGrupo" FromRole="relacionPreferenciaGrupo" ToRole="preferenciasAlimenticias" />
+          <NavigationProperty Name="Grupos" Relationship="Model1.GruposrelacionPreferenciaGrupo" FromRole="relacionPreferenciaGrupo" ToRole="Grupos" />
+        </EntityType>
+        <Association Name="preferenciasAlimenticiasrelacionPreferenciaGrupo">
+          <End Type="Model1.preferenciasAlimenticias" Role="preferenciasAlimenticias" Multiplicity="*" />
+          <End Type="Model1.relacionPreferenciaGrupo" Role="relacionPreferenciaGrupo" Multiplicity="1" />
+        </Association>
+        <Association Name="GruposrelacionPreferenciaGrupo">
+          <End Type="Model1.Grupos" Role="Grupos" Multiplicity="*" />
+          <End Type="Model1.relacionPreferenciaGrupo" Role="relacionPreferenciaGrupo" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Dietas">
+          <Key>
+            <PropertyRef Name="idDieta" />
+          </Key>
+          <Property Type="Int32" Name="idDieta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="tipoDieta" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Model1.UsuariosDietas" FromRole="Dietas" ToRole="Usuarios" />
+          <Property Type="String" Name="Usuarios_nombreUsuario" Nullable="false" />
+        </EntityType>
+        <Association Name="UsuariosDietas">
+          <End Type="Model1.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="Model1.Dietas" Role="Dietas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="nombreUsuario" />
+            </Principal>
+            <Dependent Role="Dietas">
+              <PropertyRef Name="Usuarios_nombreUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pasos">
+          <Key>
+            <PropertyRef Name="idReceta" />
+          </Key>
+          <Property Type="Int32" Name="idReceta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="numeroPaso" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="false" />
+          <Property Type="String" Name="Foto" Nullable="false" />
+          <NavigationProperty Name="Recetas" Relationship="Model1.RecetasPasos" FromRole="Pasos" ToRole="Recetas" />
+          <Property Type="Int32" Name="Recetas_idReceta" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dificultades">
+          <Key>
+            <PropertyRef Name="idDificultad" />
+          </Key>
+          <Property Type="Int32" Name="idDificultad" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Descripcion" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingredientes">
+          <Key>
+            <PropertyRef Name="idIngrediente" />
+          </Key>
+          <Property Type="Int32" Name="idIngrediente" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombre" Nullable="false" />
+          <Property Type="String" Name="caloriasPorcion" Nullable="false" />
+          <NavigationProperty Name="relRecetaIngredientes" Relationship="Model1.relRecetaIngredientesIngredientes" FromRole="Ingredientes" ToRole="relRecetaIngredientes" />
+          <Property Type="Int32" Name="relRecetaIngredientes_idReceta" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Condimentos">
+          <Key>
+            <PropertyRef Name="idCondimento" />
+          </Key>
+          <Property Type="Int32" Name="idCondimento" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombre" Nullable="false" />
+          <NavigationProperty Name="relRecetaCondimento" Relationship="Model1.relRecetaCondimentoCondimentos" FromRole="Condimentos" ToRole="relRecetaCondimento" />
+          <Property Type="Int32" Name="relRecetaCondimento_idReceta" Nullable="false" />
+        </EntityType>
+        <EntityType Name="relRecetaIngredientes">
+          <Key>
+            <PropertyRef Name="idReceta" />
+          </Key>
+          <Property Type="Int32" Name="idReceta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="idIngrediente" Nullable="false" />
+          <Property Type="String" Name="Cantidad" Nullable="false" />
+          <NavigationProperty Name="Recetas" Relationship="Model1.RecetasrelRecetaIngredientes" FromRole="relRecetaIngredientes" ToRole="Recetas" />
+          <NavigationProperty Name="Ingredientes" Relationship="Model1.relRecetaIngredientesIngredientes" FromRole="relRecetaIngredientes" ToRole="Ingredientes" />
+        </EntityType>
+        <EntityType Name="relRecetaCondimento">
+          <Key>
+            <PropertyRef Name="idReceta" />
+          </Key>
+          <Property Type="Int32" Name="idReceta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="idCondimento" Nullable="false" />
+          <NavigationProperty Name="Recetas" Relationship="Model1.RecetasrelRecetaCondimento" FromRole="relRecetaCondimento" ToRole="Recetas" />
+          <NavigationProperty Name="Condimentos" Relationship="Model1.relRecetaCondimentoCondimentos" FromRole="relRecetaCondimento" ToRole="Condimentos" />
+        </EntityType>
+        <Association Name="RecetasPasos">
+          <End Type="Model1.Recetas" Role="Recetas" Multiplicity="1" />
+          <End Type="Model1.Pasos" Role="Pasos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="idReceta" />
+            </Principal>
+            <Dependent Role="Pasos">
+              <PropertyRef Name="Recetas_idReceta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RecetasrelRecetaCondimento">
+          <End Type="Model1.Recetas" Role="Recetas" Multiplicity="1" />
+          <End Type="Model1.relRecetaCondimento" Role="relRecetaCondimento" Multiplicity="*" />
+        </Association>
+        <Association Name="RecetasrelRecetaIngredientes">
+          <End Type="Model1.Recetas" Role="Recetas" Multiplicity="*" />
+          <End Type="Model1.relRecetaIngredientes" Role="relRecetaIngredientes" Multiplicity="1" />
+        </Association>
+        <Association Name="relRecetaIngredientesIngredientes">
+          <End Type="Model1.relRecetaIngredientes" Role="relRecetaIngredientes" Multiplicity="1" />
+          <End Type="Model1.Ingredientes" Role="Ingredientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="relRecetaIngredientes">
+              <PropertyRef Name="idReceta" />
+            </Principal>
+            <Dependent Role="Ingredientes">
+              <PropertyRef Name="relRecetaIngredientes_idReceta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="relRecetaCondimentoCondimentos">
+          <End Type="Model1.relRecetaCondimento" Role="relRecetaCondimento" Multiplicity="1" />
+          <End Type="Model1.Condimentos" Role="Condimentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="relRecetaCondimento">
+              <PropertyRef Name="idReceta" />
+            </Principal>
+            <Dependent Role="Condimentos">
+              <PropertyRef Name="relRecetaCondimento_idReceta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="ModeloContainer">
+    <EntitySetMapping Name="UsuariosConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Usuarios)">
+        <MappingFragment StoreEntitySet="UsuariosConjunto">
+          <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+          <ScalarProperty Name="Clave" ColumnName="Clave" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+          <ScalarProperty Name="Altura" ColumnName="Altura" />
+          <ScalarProperty Name="idComplexion" ColumnName="idComplexion" />
+          <ScalarProperty Name="idRutina" ColumnName="idRutina" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RutinaConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Rutina)">
+        <MappingFragment StoreEntitySet="RutinaConjunto">
+          <ScalarProperty Name="IdRutina" ColumnName="IdRutina" />
+          <ScalarProperty Name="Usuarios_nombreUsuario" ColumnName="Usuarios_nombreUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelacionUsuarioGruposConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.RelacionUsuarioGrupos)">
+        <MappingFragment StoreEntitySet="RelacionUsuarioGruposConjunto">
+          <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+          <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GruposConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Grupos)">
+        <MappingFragment StoreEntitySet="GruposConjunto">
+          <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+          <ScalarProperty Name="nombreGrupo" ColumnName="nombreGrupo" />
+          <ScalarProperty Name="Creador" ColumnName="Creador" />
+          <ScalarProperty Name="RelacionUsuarioGrupos_idGrupo" ColumnName="RelacionUsuarioGrupos_idGrupo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ComplexionConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Complexion)">
+        <MappingFragment StoreEntitySet="ComplexionConjunto">
+          <ScalarProperty Name="idComplexion" ColumnName="idComplexion" />
+          <ScalarProperty Name="complexion" ColumnName="complexion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CondicionesConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Condiciones)">
+        <MappingFragment StoreEntitySet="CondicionesConjunto">
+          <ScalarProperty Name="idCondicion" ColumnName="idCondicion" />
+          <ScalarProperty Name="Condicion" ColumnName="Condicion" />
+          <ScalarProperty Name="Usuarios_nombreUsuario" ColumnName="Usuarios_nombreUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="relacionUsuarioPreferenciaConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.relacionUsuarioPreferencia)">
+        <MappingFragment StoreEntitySet="relacionUsuarioPreferenciaConjunto">
+          <ScalarProperty Name="idPreferencia" ColumnName="idPreferencia" />
+          <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="preferenciasAlimenticiasConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.preferenciasAlimenticias)">
+        <MappingFragment StoreEntitySet="preferenciasAlimenticiasConjunto">
+          <ScalarProperty Name="idPreferencia" ColumnName="idPreferencia" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="relacionUsuarioPreferencia_idPreferencia" ColumnName="relacionUsuarioPreferencia_idPreferencia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecetasConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Recetas)">
+        <MappingFragment StoreEntitySet="RecetasConjunto">
+          <ScalarProperty Name="idReceta" ColumnName="idReceta" />
+          <ScalarProperty Name="idDificultad" ColumnName="idDificultad" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Creador" ColumnName="Creador" />
+          <ScalarProperty Name="Usuarios_nombreUsuario" ColumnName="Usuarios_nombreUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UsuariosrelacionUsuarioPreferencia" TypeName="Model1.UsuariosrelacionUsuarioPreferencia" StoreEntitySet="UsuariosConjunto">
+      <EndProperty Name="relacionUsuarioPreferencia">
+        <ScalarProperty Name="idPreferencia" ColumnName="relacionUsuarioPreferencia_idPreferencia" />
+      </EndProperty>
+      <EndProperty Name="Usuarios">
+        <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsuariosComplexion" TypeName="Model1.UsuariosComplexion" StoreEntitySet="UsuariosConjunto">
+      <EndProperty Name="Complexion">
+        <ScalarProperty Name="idComplexion" ColumnName="Complexion_idComplexion" />
+      </EndProperty>
+      <EndProperty Name="Usuarios">
+        <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsuariosRelacionUsuarioGrupos" TypeName="Model1.UsuariosRelacionUsuarioGrupos" StoreEntitySet="UsuariosConjunto">
+      <EndProperty Name="RelacionUsuarioGrupos">
+        <ScalarProperty Name="idGrupo" ColumnName="RelacionUsuarioGrupos_idGrupo" />
+      </EndProperty>
+      <EndProperty Name="Usuarios">
+        <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
