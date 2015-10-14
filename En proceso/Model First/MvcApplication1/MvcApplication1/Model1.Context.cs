@@ -46,5 +46,6 @@ namespace MvcApplication1
         public DbSet<GrupoPreferencias> GrupoPreferenciasConjunto { get; set; }
         public DbSet<CondimentoReceta> CondimentoRecetaConjunto { get; set; }
         public DbSet<ClasificacionReceta> ClasificacionRecetaConjunto { get; set; }
+        public DbSet<DietasExcluidas> DietasExcluidasConjunto { get; set; }
     }
 }

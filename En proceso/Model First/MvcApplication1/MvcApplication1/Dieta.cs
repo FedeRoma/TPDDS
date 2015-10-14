@@ -14,9 +14,15 @@ namespace MvcApplication1
     
     public partial class Dieta
     {
+        public Dieta()
+        {
+            this.DietasExcluidas = new HashSet<DietasExcluidas>();
+        }
+    
         public int Id { get; set; }
         public string nombre { get; set; }
     
         public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<DietasExcluidas> DietasExcluidas { get; set; }
     }
 }

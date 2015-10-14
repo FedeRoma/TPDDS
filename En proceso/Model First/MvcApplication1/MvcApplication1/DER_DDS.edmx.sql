@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/14/2015 17:41:12
+-- Date Created: 10/14/2015 18:13:35
 -- Generated from EDMX file: C:\Users\Diego\Desktop\DDS TP\TPDDS\En proceso\Model First\MvcApplication1\MvcApplication1\Model1.edmx
 -- --------------------------------------------------
 
@@ -147,6 +147,9 @@ IF OBJECT_ID(N'[dbo].[CondimentoRecetaConjunto]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ClasificacionRecetaConjunto]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ClasificacionRecetaConjunto];
+GO
+IF OBJECT_ID(N'[dbo].[DietasExcluidasConjunto]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DietasExcluidasConjunto];
 GO
 
 -- --------------------------------------------------
@@ -350,7 +353,15 @@ GO
 -- Creating table 'DietasExcluidasConjunto'
 CREATE TABLE [dbo].[DietasExcluidasConjunto] (
     [Id_Dieta] int IDENTITY(1,1) NOT NULL,
-    [Id_preferencia] smallint  NOT NULL
+    [Id_preferencia] smallint  NOT NULL,
+    [Preferencia_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'DietasExcluidasDieta'
+CREATE TABLE [dbo].[DietasExcluidasDieta] (
+    [DietasExcluidas_Id_Dieta] int  NOT NULL,
+    [Dieta_Id] int  NOT NULL
 );
 GO
 
@@ -488,6 +499,12 @@ GO
 ALTER TABLE [dbo].[DietasExcluidasConjunto]
 ADD CONSTRAINT [PK_DietasExcluidasConjunto]
     PRIMARY KEY CLUSTERED ([Id_Dieta] ASC);
+GO
+
+-- Creating primary key on [DietasExcluidas_Id_Dieta], [Dieta_Id] in table 'DietasExcluidasDieta'
+ALTER TABLE [dbo].[DietasExcluidasDieta]
+ADD CONSTRAINT [PK_DietasExcluidasDieta]
+    PRIMARY KEY NONCLUSTERED ([DietasExcluidas_Id_Dieta], [Dieta_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -786,6 +803,43 @@ ADD CONSTRAINT [FK_ClasificacionReceta1]
 CREATE INDEX [IX_FK_ClasificacionReceta1]
 ON [dbo].[ClasificacionConjunto]
     ([Receta_Id]);
+GO
+
+-- Creating foreign key on [DietasExcluidas_Id_Dieta] in table 'DietasExcluidasDieta'
+ALTER TABLE [dbo].[DietasExcluidasDieta]
+ADD CONSTRAINT [FK_DietasExcluidasDieta_DietasExcluidas]
+    FOREIGN KEY ([DietasExcluidas_Id_Dieta])
+    REFERENCES [dbo].[DietasExcluidasConjunto]
+        ([Id_Dieta])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Dieta_Id] in table 'DietasExcluidasDieta'
+ALTER TABLE [dbo].[DietasExcluidasDieta]
+ADD CONSTRAINT [FK_DietasExcluidasDieta_Dieta]
+    FOREIGN KEY ([Dieta_Id])
+    REFERENCES [dbo].[DietaConjunto]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DietasExcluidasDieta_Dieta'
+CREATE INDEX [IX_FK_DietasExcluidasDieta_Dieta]
+ON [dbo].[DietasExcluidasDieta]
+    ([Dieta_Id]);
+GO
+
+-- Creating foreign key on [Preferencia_Id] in table 'DietasExcluidasConjunto'
+ALTER TABLE [dbo].[DietasExcluidasConjunto]
+ADD CONSTRAINT [FK_DietasExcluidasPreferencia]
+    FOREIGN KEY ([Preferencia_Id])
+    REFERENCES [dbo].[PreferenciaConjunto]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DietasExcluidasPreferencia'
+CREATE INDEX [IX_FK_DietasExcluidasPreferencia]
+ON [dbo].[DietasExcluidasConjunto]
+    ([Preferencia_Id]);
 GO
 
 -- --------------------------------------------------

@@ -12,15 +12,17 @@ namespace MvcApplication1
     using System;
     using System.Collections.Generic;
     
-    public partial class Ingrediente
+    public partial class DietasExcluidas
     {
-        public int Id { get; set; }
-        public string nombre { get; set; }
-        public short porcion { get; set; }
-        public short caloriasPorcion { get; set; }
-        public int IngredienteReceta_id { get; set; }
-        public short preferenciaId { get; set; }
+        public DietasExcluidas()
+        {
+            this.Dieta = new HashSet<Dieta>();
+        }
     
-        public virtual IngredienteReceta IngredienteReceta { get; set; }
+        public int Id_Dieta { get; set; }
+        public short Id_preferencia { get; set; }
+    
+        public virtual ICollection<Dieta> Dieta { get; set; }
+        public virtual Preferencia Preferencia { get; set; }
     }
 }

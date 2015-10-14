@@ -27,6 +27,8 @@
     <EntitySet Name="GrupoPreferenciasConjunto" EntityType="Model1.Store.GrupoPreferenciasConjunto" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CondimentoRecetaConjunto" EntityType="Model1.Store.CondimentoRecetaConjunto" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ClasificacionRecetaConjunto" EntityType="Model1.Store.ClasificacionRecetaConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DietasExcluidasConjunto" EntityType="Model1.Store.DietasExcluidasConjunto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DietasExcluidasDieta" EntityType="Model1.Store.DietasExcluidasDieta" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UsuarioRecetaUsuario" Association="Model1.Store.UsuarioRecetaUsuario">
       <End Role="UsuarioReceta" EntitySet="UsuarioRecetaConjunto" />
       <End Role="Usuario" EntitySet="UsuarioConjunto" />
@@ -111,6 +113,18 @@
       <End Role="Clasificacion" EntitySet="ClasificacionConjunto" />
       <End Role="Receta" EntitySet="RecetaConjunto" />
     </AssociationSet>
+    <AssociationSet Name="FK_DietasExcluidasDieta_DietasExcluidas" Association="Model1.Store.FK_DietasExcluidasDieta_DietasExcluidas">
+      <End Role="DietasExcluidas" EntitySet="DietasExcluidasConjunto" />
+      <End Role="DietasExcluidasDieta" EntitySet="DietasExcluidasDieta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DietasExcluidasDieta_Dieta" Association="Model1.Store.FK_DietasExcluidasDieta_Dieta">
+      <End Role="Dieta" EntitySet="DietaConjunto" />
+      <End Role="DietasExcluidasDieta" EntitySet="DietasExcluidasDieta" />
+    </AssociationSet>
+    <AssociationSet Name="DietasExcluidasPreferencia" Association="Model1.Store.DietasExcluidasPreferencia">
+      <End Role="DietasExcluidas" EntitySet="DietasExcluidasConjunto" />
+      <End Role="Preferencia" EntitySet="PreferenciaConjunto" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="CalificacionConjunto">
     <Key>
@@ -180,6 +194,7 @@
     <Property Name="porcion" Type="smallint" Nullable="false" />
     <Property Name="caloriasPorcion" Type="smallint" Nullable="false" />
     <Property Name="IngredienteReceta_id" Type="int" Nullable="false" />
+    <Property Name="preferenciaId" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="IngredienteRecetaConjunto">
     <Key>
@@ -304,6 +319,22 @@
     <Property Name="IdClasificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdReceta" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Calificacion_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DietasExcluidasConjunto">
+    <Key>
+      <PropertyRef Name="Id_Dieta" />
+    </Key>
+    <Property Name="Id_Dieta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_preferencia" Type="smallint" Nullable="false" />
+    <Property Name="Preferencia_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DietasExcluidasDieta">
+    <Key>
+      <PropertyRef Name="DietasExcluidas_Id_Dieta" />
+      <PropertyRef Name="Dieta_Id" />
+    </Key>
+    <Property Name="DietasExcluidas_Id_Dieta" Type="int" Nullable="false" />
+    <Property Name="Dieta_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="UsuarioRecetaUsuario">
     <End Role="UsuarioReceta" Type="Model1.Store.UsuarioRecetaConjunto" Multiplicity="1" />
@@ -557,6 +588,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="DietasExcluidasPreferencia">
+    <End Role="DietasExcluidas" Type="Model1.Store.DietasExcluidasConjunto" Multiplicity="*" />
+    <End Role="Preferencia" Type="Model1.Store.PreferenciaConjunto" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Preferencia">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DietasExcluidas">
+        <PropertyRef Name="Preferencia_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DietasExcluidasDieta_DietasExcluidas">
+    <End Role="DietasExcluidas" Type="Model1.Store.DietasExcluidasConjunto" Multiplicity="1" />
+    <End Role="DietasExcluidasDieta" Type="Model1.Store.DietasExcluidasDieta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DietasExcluidas">
+        <PropertyRef Name="Id_Dieta" />
+      </Principal>
+      <Dependent Role="DietasExcluidasDieta">
+        <PropertyRef Name="DietasExcluidas_Id_Dieta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DietasExcluidasDieta_Dieta">
+    <End Role="DietasExcluidasDieta" Type="Model1.Store.DietasExcluidasDieta" Multiplicity="*" />
+    <End Role="Dieta" Type="Model1.Store.DietaConjunto" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Dieta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DietasExcluidasDieta">
+        <PropertyRef Name="Dieta_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -667,6 +734,15 @@
             <End Role="Clasificacion" EntitySet="ClasificacionConjunto" />
             <End Role="Receta" EntitySet="RecetaConjunto" />
           </AssociationSet>
+          <EntitySet Name="DietasExcluidasConjunto" EntityType="Model1.DietasExcluidas" />
+          <AssociationSet Name="DietasExcluidasDieta" Association="Model1.DietasExcluidasDieta">
+            <End Role="DietasExcluidas" EntitySet="DietasExcluidasConjunto" />
+            <End Role="Dieta" EntitySet="DietaConjunto" />
+          </AssociationSet>
+          <AssociationSet Name="DietasExcluidasPreferencia" Association="Model1.DietasExcluidasPreferencia">
+            <End Role="DietasExcluidas" EntitySet="DietasExcluidasConjunto" />
+            <End Role="Preferencia" EntitySet="PreferenciaConjunto" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Calificacion">
           <Key>
@@ -718,6 +794,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="nombre" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Model1.DietaUsuario" FromRole="Dieta" ToRole="Usuario" />
+          <NavigationProperty Name="DietasExcluidas" Relationship="Model1.DietasExcluidasDieta" FromRole="Dieta" ToRole="DietasExcluidas" />
         </EntityType>
         <EntityType Name="Grupo">
           <Key>
@@ -740,6 +817,7 @@
           <Property Type="Int16" Name="caloriasPorcion" Nullable="false" />
           <NavigationProperty Name="IngredienteReceta" Relationship="Model1.IngredienteRecetaIngrediente" FromRole="Ingrediente" ToRole="IngredienteReceta" />
           <Property Type="Int32" Name="IngredienteReceta_id" Nullable="false" />
+          <Property Type="Int16" Name="preferenciaId" Nullable="false" />
         </EntityType>
         <EntityType Name="IngredienteReceta">
           <Key>
@@ -771,6 +849,7 @@
           <NavigationProperty Name="UsuarioPreferencia" Relationship="Model1.UsuarioPreferenciaPreferencia" FromRole="Preferencia" ToRole="UsuarioPreferencia" />
           <Property Type="Int32" Name="UsuarioPreferenciaIdUsuario" Nullable="false" />
           <NavigationProperty Name="GrupoPreferencias" Relationship="Model1.PreferenciaGrupoPreferencias" FromRole="Preferencia" ToRole="GrupoPreferencias" />
+          <NavigationProperty Name="DietasExcluidas" Relationship="Model1.DietasExcluidasPreferencia" FromRole="Preferencia" ToRole="DietasExcluidas" />
         </EntityType>
         <EntityType Name="Procedimiento">
           <Key>
@@ -1047,6 +1126,23 @@
           <End Type="Model1.Clasificacion" Role="Clasificacion" Multiplicity="*" />
           <End Type="Model1.Receta" Role="Receta" Multiplicity="1" />
         </Association>
+        <EntityType Name="DietasExcluidas">
+          <Key>
+            <PropertyRef Name="Id_Dieta" />
+          </Key>
+          <Property Type="Int32" Name="Id_Dieta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="Id_preferencia" Nullable="false" />
+          <NavigationProperty Name="Dieta" Relationship="Model1.DietasExcluidasDieta" FromRole="DietasExcluidas" ToRole="Dieta" />
+          <NavigationProperty Name="Preferencia" Relationship="Model1.DietasExcluidasPreferencia" FromRole="DietasExcluidas" ToRole="Preferencia" />
+        </EntityType>
+        <Association Name="DietasExcluidasDieta">
+          <End Type="Model1.DietasExcluidas" Role="DietasExcluidas" Multiplicity="*" />
+          <End Type="Model1.Dieta" Role="Dieta" Multiplicity="*" />
+        </Association>
+        <Association Name="DietasExcluidasPreferencia">
+          <End Type="Model1.DietasExcluidas" Role="DietasExcluidas" Multiplicity="*" />
+          <End Type="Model1.Preferencia" Role="Preferencia" Multiplicity="1" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1121,6 +1217,7 @@
           <ScalarProperty Name="porcion" ColumnName="porcion" />
           <ScalarProperty Name="caloriasPorcion" ColumnName="caloriasPorcion" />
           <ScalarProperty Name="IngredienteReceta_id" ColumnName="IngredienteReceta_id" />
+          <ScalarProperty Name="preferenciaId" ColumnName="preferenciaId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1255,6 +1352,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DietasExcluidasConjunto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.DietasExcluidas)">
+        <MappingFragment StoreEntitySet="DietasExcluidasConjunto">
+          <ScalarProperty Name="Id_Dieta" ColumnName="Id_Dieta" />
+          <ScalarProperty Name="Id_preferencia" ColumnName="Id_preferencia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="UsuarioUsuarioGrupo" TypeName="Model1.UsuarioUsuarioGrupo" StoreEntitySet="UsuarioConjunto">
       <EndProperty Name="UsuarioGrupo">
         <ScalarProperty Name="IdUsuario" ColumnName="UsuarioGrupo_IdUsuario" />
@@ -1349,6 +1454,22 @@
       </EndProperty>
       <EndProperty Name="Clasificacion">
         <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DietasExcluidasDieta" TypeName="Model1.DietasExcluidasDieta" StoreEntitySet="DietasExcluidasDieta">
+      <EndProperty Name="DietasExcluidas">
+        <ScalarProperty Name="Id_Dieta" ColumnName="DietasExcluidas_Id_Dieta" />
+      </EndProperty>
+      <EndProperty Name="Dieta">
+        <ScalarProperty Name="Id" ColumnName="Dieta_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DietasExcluidasPreferencia" TypeName="Model1.DietasExcluidasPreferencia" StoreEntitySet="DietasExcluidasConjunto">
+      <EndProperty Name="Preferencia">
+        <ScalarProperty Name="Id" ColumnName="Preferencia_Id" />
+      </EndProperty>
+      <EndProperty Name="DietasExcluidas">
+        <ScalarProperty Name="Id_Dieta" ColumnName="Id_Dieta" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

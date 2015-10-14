@@ -14,11 +14,17 @@ namespace MvcApplication1
     
     public partial class Preferencia
     {
+        public Preferencia()
+        {
+            this.DietasExcluidas = new HashSet<DietasExcluidas>();
+        }
+    
         public int Id { get; set; }
         public string nombre { get; set; }
         public int UsuarioPreferenciaIdUsuario { get; set; }
     
         public virtual UsuarioPreferencia UsuarioPreferencia { get; set; }
         public virtual GrupoPreferencias GrupoPreferencias { get; set; }
+        public virtual ICollection<DietasExcluidas> DietasExcluidas { get; set; }
     }
 }
