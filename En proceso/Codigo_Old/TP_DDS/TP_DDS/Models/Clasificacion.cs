@@ -6,7 +6,13 @@ using System.Text;
 namespace TP_DDS.Models
 {
     public class Clasificacion
-    {
+    {//partial
+
+        //public Clasificaciones()
+        //{
+        //    this.Recetas = new HashSet<Recetas>();
+        //}
+
         public int Id { get; set; }
         public string Nombre { get; set; }
 
