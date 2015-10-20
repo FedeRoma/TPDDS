@@ -64,11 +64,11 @@ namespace TP_DDS.DAL
                         Pass="1234", 
                         Email="admin@quecomemoshoy.com.ar", 
                         Nombre ="Admin",
-                        Sexo=Sexo.Hombre,
+                        SexoId=1,
                         FechaNacimiento =DateTime.Parse("1990-01-01"),
                         FechaAltaPerfil = DateTime.Now,
                         Altura = 1.75m,
-                        Rutina = Rutina.Activa,
+                        RutinaId = 4,
                         ComplexionId=2,
                         DietaId=1
                         },
@@ -77,11 +77,11 @@ namespace TP_DDS.DAL
                         Pass="1234", 
                         Email="juan@quecomemoshoy.com.ar", 
                         Nombre ="Juani Tone",
-                        Sexo=Sexo.Hombre,
+                        SexoId=1,
                         FechaNacimiento =DateTime.Parse("1990-01-01"),
                         FechaAltaPerfil = DateTime.Now,
                         Altura = 1.76m,
-                        Rutina = Rutina.Activa,
+                        RutinaId =4,
                         ComplexionId=2,
                         DietaId=1
                         }

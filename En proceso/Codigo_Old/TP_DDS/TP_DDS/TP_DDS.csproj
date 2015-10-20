@@ -177,6 +177,18 @@
     <Compile Include="Migrations\201510170119212_mejoras.Designer.cs">
       <DependentUpon>201510170119212_mejoras.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510192358085_otramigration.cs" />
+    <Compile Include="Migrations\201510192358085_otramigration.Designer.cs">
+      <DependentUpon>201510192358085_otramigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510200018076_AddPesoUsuario.cs" />
+    <Compile Include="Migrations\201510200018076_AddPesoUsuario.Designer.cs">
+      <DependentUpon>201510200018076_AddPesoUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510200518179_cambioCols.cs" />
+    <Compile Include="Migrations\201510200518179_cambioCols.Designer.cs">
+      <DependentUpon>201510200518179_cambioCols.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessException.cs" />
@@ -283,6 +295,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510170119212_mejoras.resx">
       <DependentUpon>201510170119212_mejoras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510192358085_otramigration.resx">
+      <DependentUpon>201510192358085_otramigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510200018076_AddPesoUsuario.resx">
+      <DependentUpon>201510200018076_AddPesoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510200518179_cambioCols.resx">
+      <DependentUpon>201510200518179_cambioCols.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

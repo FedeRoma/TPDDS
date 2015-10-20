@@ -70,7 +70,11 @@ namespace TP_DDS.Migrations
             //new Preferencia{Id=5,Nombre="Vegetales"},
             //new Preferencia{Id=6,Nombre="Lacteos"},
             //new Preferencia{Id=7,Nombre="Cereales"},
-            //new Preferencia{Id=8,Nombre="Pastas"}
+            //new Preferencia{Id=8,Nombre="Pastas"},
+            //new Preferencia{Id=9,Nombre="Frutas"},
+            //new Preferencia{Id=10,Nombre="Legumbres"},
+            //new Preferencia{Id=11,Nombre="Integrales"},
+            //new Preferencia{Id=12,Nombre="Huevos"}
             //};
 
             //Preferencias.ForEach(s => context.Preferencias.Add(s));
@@ -83,11 +87,11 @@ namespace TP_DDS.Migrations
             //            Pass="1234", 
             //            Email="admin@quecomemoshoy.com.ar", 
             //            Nombre ="Admin",
-            //            Sexo=Sexo.Hombre,
+            //            SexoId=1,
             //            FechaNacimiento =DateTime.Parse("1990-01-01"),
             //            FechaAltaPerfil = DateTime.Now,
             //            Altura = 1.75m,
-            //            Rutina = Rutina.Activa,
+            //            RutinaId = 4,
             //            ComplexionId=2,
             //            DietaId=1
             //            },
@@ -96,11 +100,11 @@ namespace TP_DDS.Migrations
             //            Pass="1234", 
             //            Email="juan@quecomemoshoy.com.ar", 
             //            Nombre ="Juani Tone",
-            //            Sexo=Sexo.Hombre,
+            //            SexoId=1,
             //            FechaNacimiento =DateTime.Parse("1990-01-01"),
             //            FechaAltaPerfil = DateTime.Now,
             //            Altura = 1.76m,
-            //            Rutina = Rutina.Activa,
+            //            RutinaId = 4,
             //            ComplexionId=2,
             //            DietaId=1
             //            }
@@ -179,6 +183,27 @@ namespace TP_DDS.Migrations
             //};
 
             //Temporadas.ForEach(s => context.Temporadas.Add(s));
+            //context.SaveChanges();
+
+            //var Sexo = new List<Sexo>
+            //{
+            //new Sexo{Id=1,Nombre="Hombre", CoefCalcCalorias = 66, CoefCalcCalPeso = 13.7m, CoefCalcCalAltura = 5, CoefCalcCalEdad = 6.8m},
+            //new Sexo{Id=2,Nombre="Mujer", CoefCalcCalorias = 655, CoefCalcCalPeso = 9.6m, CoefCalcCalAltura = 1.8m, CoefCalcCalEdad = 4.7m},
+            //};
+
+            //Sexo.ForEach(s => context.Sexo.Add(s));
+            //context.SaveChanges();
+
+            //var Rutinas = new List<Rutina>
+            //{
+            //new Rutina{Id=1,Nombre="Sedentaria con nada de ejercicio", CoefCalcCalorias = 1.2m},
+            //new Rutina{Id=2,Nombre="Sedentaria con algo de ejercicio", CoefCalcCalorias = 1.375m},
+            //new Rutina{Id=3,Nombre="Sedentaria con ejercicio", CoefCalcCalorias = 1.55m},
+            //new Rutina{Id=4,Nombre="Activa con ejercicio adicional", CoefCalcCalorias = 1.725m},
+            //new Rutina{Id=5,Nombre="Activa sin ejercicio adicional", CoefCalcCalorias = 1.9m}
+            //};
+
+            //Rutinas.ForEach(s => context.Rutinas.Add(s));
             //context.SaveChanges();
         }
     }

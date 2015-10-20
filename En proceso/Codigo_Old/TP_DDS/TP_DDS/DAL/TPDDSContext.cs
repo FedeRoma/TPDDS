@@ -18,6 +18,8 @@ namespace TP_DDS.DAL
         public DbSet<CondicionPreexistente> CondicionesPreexistentes { get; set; }
         public DbSet<Complexion> Complexiones { get; set; }
         public DbSet<Dieta> Dietas { get; set; }
+        public DbSet<Sexo> Sexo { get; set; }
+        public DbSet<Rutina> Rutinas { get; set; }
         public DbSet<Preferencia> Preferencias { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Grupo> Grupos { get; set; }
@@ -36,6 +38,8 @@ namespace TP_DDS.DAL
             modelBuilder.Entity<CondicionPreexistente>().ToTable("CondicionesPreexistentes");
             modelBuilder.Entity<Complexion>().ToTable("Complexiones");
             modelBuilder.Entity<Dieta>().ToTable("Dietas");
+            modelBuilder.Entity<Sexo>().ToTable("Sexo");
+            modelBuilder.Entity<Rutina>().ToTable("Rutinas");
             modelBuilder.Entity<Preferencia>().ToTable("Preferencias");
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");
             modelBuilder.Entity<Grupo>().ToTable("Grupos");

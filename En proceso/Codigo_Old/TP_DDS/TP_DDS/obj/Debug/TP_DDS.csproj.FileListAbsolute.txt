@@ -226,3 +226,6 @@ C:\Users\Juan\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Deb
 C:\Users\Juan\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Debug\TP_DDS.csproj.GenerateResource.Cache
 C:\Users\Juan\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Debug\TP_DDS.dll
 C:\Users\Juan\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Debug\TP_DDS.pdb
+C:\Users\jtonelli\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.otramigration.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.AddPesoUsuario.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.cambioCols.resources

@@ -10,7 +10,7 @@ namespace TP_DDS.Models
         public int Id { get; set; }
         public string Nombre { get; set; }
         public int Porcion { get; set; }
-        public float CaloriasPorcion { get; set; }
+        public decimal CaloriasPorcion { get; set; }
         public int PreferenciaId { get; set; }
 
         public virtual Preferencia Preferencia { get; set; }

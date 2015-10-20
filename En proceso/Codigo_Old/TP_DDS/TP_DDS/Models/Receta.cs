@@ -10,7 +10,7 @@ namespace TP_DDS.Models
         public int Id { get; set; }
         public string Nombre { get; set; }
         public int Dificultad { get; set; }
-        public float TotalCalorias { get; set; }
+        public decimal TotalCalorias { get; set; }
 
         public int PiramideId { get; set; }
         public int UsuarioId { get; set; }
