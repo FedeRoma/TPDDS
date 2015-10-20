@@ -127,7 +127,9 @@ Inner Join Procedimientos P On P.RecetaId = R.Id
 Inner Join IngredientesRecetas IR ON IR.RecetaId = R.Id
 Inner Join Ingredientes I On I.Id = IR.IngredienteId
 Inner Join CondimentosRecetas CR On CR.Receta_Id = R.Id
-Inner Join Condimentos C On C.Id = CR.Condimento_Id 
+Inner Join Condimentos C On C.Id = CR.Condimento_Id
+Inner Join Calificaciones C ON C.RecetaId = R.Id
+	And C.Valor = @calificacion
 Where R.TotalCalorias between @CaloriasMin And @CaloriasMax
 
 /*================================================
