@@ -12,20 +12,11 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Complexion.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CondicionPreexistente.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Dieta.Nombre)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.UserName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Pass)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
@@ -41,17 +32,53 @@
         <th>
             @Html.DisplayNameFor(model => model.FechaAltaPerfil)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Altura)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Rutina)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Complexion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CondicionPreexistente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dieta)
+        </th>*@
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Pass)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sexo.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaNacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaAltaPerfil)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Altura)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rutina.Nombre)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Complexion.Nombre)
         </td>
@@ -60,34 +87,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Dieta.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pass)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sexo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaNacimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaAltaPerfil)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Altura)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rutina)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |

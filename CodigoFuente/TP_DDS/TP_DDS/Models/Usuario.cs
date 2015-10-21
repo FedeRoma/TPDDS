@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -15,8 +16,11 @@ namespace TP_DDS.Models
         public String Email { get; set; }
         public String Nombre { get; set; }
         public int SexoId { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 	    public DateTime FechaNacimiento { get; set; }
+
         public DateTime FechaAltaPerfil { get; set; }
         public decimal? Peso { get; set; }
         public decimal? Altura { get; set; }

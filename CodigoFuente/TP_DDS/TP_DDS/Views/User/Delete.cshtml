@@ -12,30 +12,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Complexion.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Complexion.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CondicionPreexistente.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CondicionPreexistente.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Dieta.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.Nombre)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.UserName)
         </dt>
 
@@ -72,7 +48,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Sexo)
+            @Html.DisplayFor(model => model.Sexo.Nombre)
         </dd>
 
         <dt>
@@ -100,13 +76,43 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Peso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Peso)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Rutina)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Rutina)
+            @Html.DisplayFor(model => model.Rutina.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Complexion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Complexion.Nombre)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.CondicionPreexistente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CondicionPreexistente.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dieta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dieta.Nombre)
+        </dd>
     </dl>
 
     @using (Html.BeginForm()) {

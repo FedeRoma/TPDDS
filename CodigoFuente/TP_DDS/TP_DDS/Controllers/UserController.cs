@@ -18,7 +18,7 @@ namespace TP_DDS.Controllers
         // GET: /User/
         public ActionResult Index()
         {
-            var usuarios = db.Usuarios.Include(u => u.Complexion).Include(u => u.CondicionPreexistente).Include(u => u.Dieta);
+            var usuarios = db.Usuarios.Include(u => u.Complexion).Include(u => u.CondicionPreexistente).Include(u => u.Dieta).Include(u => u.Sexo).Include(u => u.Rutina);
             return View(usuarios.ToList());
         }
 
@@ -43,12 +43,16 @@ namespace TP_DDS.Controllers
             ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
             ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
             ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
-            ViewBag.Sexo = new SelectList(new[]
-                                          {
-                                              new {Sexo="0",Name="Hombre"},
-                                              new{Sexo="1",Name="Mujer"},
-                                          },
-                                       "Sexo", "Name", 0);
+            ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
+            ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
+
+            //ViewBag.Sexo = new SelectList(new[]
+            //                              {
+            //                                  new {Sexo="0",Name="Hombre"},
+            //                                  new{Sexo="1",Name="Mujer"},
+            //                              },
+            //                           "Sexo", "Name", 0);
+
             return View();
         }
 
@@ -57,7 +61,7 @@ namespace TP_DDS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,UserName,Pass,Email,Nombre,Sexo,FechaNacimiento,Altura,Rutina,CondicionPreexistenteId,ComplexionId,DietaId")] Usuario usuario)
+        public ActionResult Create([Bind(Include="Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,Altura,Peso,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -67,15 +71,12 @@ namespace TP_DDS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre", usuario.ComplexionId);
-            ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre", usuario.CondicionPreexistenteId);
-            ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre", usuario.DietaId);
-            ViewBag.Sexo = new SelectList(new[]
-                                          {
-                                              new {Sexo="0",Name="Hombre"},
-                                              new{Sexo="1",Name="Mujer"},
-                                          },
-                                       "Sexo", "Name", 0);
+            ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
+            ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
+            ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
+            ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
+            ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
+
             return View(usuario);
         }
 
@@ -91,15 +92,13 @@ namespace TP_DDS.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre", usuario.ComplexionId);
             ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre", usuario.CondicionPreexistenteId);
             ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre", usuario.DietaId);
-            ViewBag.Sexo = new SelectList(new[]
-                                          {
-                                              new {Sexo="0",Name="Hombre"},
-                                              new{Sexo="1",Name="Mujer"},
-                                          },
-                                       "Sexo", "Name", 0);
+            ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre", usuario.SexoId);
+            ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre", usuario.RutinaId);
+
             return View(usuario);
         }
 
@@ -108,7 +107,7 @@ namespace TP_DDS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,UserName,Pass,Email,Nombre,Sexo,FechaNacimiento,Altura,Rutina,CondicionPreexistenteId,ComplexionId,DietaId")] Usuario usuario)
+        public ActionResult Edit([Bind(Include="Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,Altura,Peso,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -117,15 +116,13 @@ namespace TP_DDS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre", usuario.ComplexionId);
-            ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre", usuario.CondicionPreexistenteId);
-            ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre", usuario.DietaId);
-            ViewBag.Sexo = new SelectList(new[]
-                                          {
-                                              new {Sexo="0",Name="Hombre"},
-                                              new{Sexo="1",Name="Mujer"},
-                                          },
-                                       "Sexo", "Name", 0);
+
+            ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
+            ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
+            ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
+            ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
+            ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
+
             return View(usuario);
         }
 

@@ -108,7 +108,6 @@ C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\bin\Microsof
 C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.csprojResolveAssemblyReference.cache
 C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.dll
 C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.pdb
-C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.InitialCreate.resources
 C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.csproj.GenerateResource.Cache
 C:\Users\jtonelli\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\bin\TP_DDS.dll.config
 C:\Users\jtonelli\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\bin\TP_DDS.dll
@@ -240,3 +239,19 @@ C:\Users\jtonelli\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj
 C:\Users\jtonelli\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.arreglos.resources
 C:\Users\jtonelli\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.rollbackusuariosgrupos.resources
 C:\Users\jtonelli\Documents\GitHub\TPDDS\En proceso\Codigo_Old\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.nuevarelusrgrp.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.inicial.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.mejoras.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.otramigration.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.AddPesoUsuario.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.cambioCols.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.usuariosgrupos.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.prueba.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.usergrp.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.usergrpnormal.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.creadordegrupos.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.unidos.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.recuperarerror.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.errores.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.arreglos.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.rollbackusuariosgrupos.resources
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.nuevarelusrgrp.resources
