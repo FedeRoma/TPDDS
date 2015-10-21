@@ -1,0 +1,1392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TPDDS_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Calificaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecetaId" Type="int" Nullable="false" />
+          <Property Name="Valor" Type="int" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clasificaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ClasificacionesRecetas">
+          <Key>
+            <PropertyRef Name="Clasificacion_Id" />
+            <PropertyRef Name="Receta_Id" />
+          </Key>
+          <Property Name="Clasificacion_Id" Type="int" Nullable="false" />
+          <Property Name="Receta_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Complexiones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CondicionesPreexistentes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Condimentos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Tipo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CondimentosRecetas">
+          <Key>
+            <PropertyRef Name="Condimento_Id" />
+            <PropertyRef Name="Receta_Id" />
+          </Key>
+          <Property Name="Condimento_Id" Type="int" Nullable="false" />
+          <Property Name="Receta_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dietas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DietasPreferencias">
+          <Key>
+            <PropertyRef Name="Preferencia_Id" />
+            <PropertyRef Name="Dieta_Id" />
+          </Key>
+          <Property Name="Preferencia_Id" Type="int" Nullable="false" />
+          <Property Name="Dieta_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grupos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Usuario_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="GruposPreferencias">
+          <Key>
+            <PropertyRef Name="Grupo_Id" />
+            <PropertyRef Name="Preferencia_Id" />
+          </Key>
+          <Property Name="Grupo_Id" Type="int" Nullable="false" />
+          <Property Name="Preferencia_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingredientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Porcion" Type="int" Nullable="false" />
+          <Property Name="CaloriasPorcion" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PreferenciaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IngredientesRecetas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Tipo" Type="int" />
+          <Property Name="IngredienteId" Type="int" Nullable="false" />
+          <Property Name="RecetaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PiramideAlimenticia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreGrupo" Type="nvarchar(max)" />
+          <Property Name="DescripcionGrupo" Type="nvarchar(max)" />
+          <Property Name="Contraindicaciones" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Preferencias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Procedimientos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Imagen" Type="nvarchar(max)" />
+          <Property Name="RecetaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recetas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Dificultad" Type="int" Nullable="false" />
+          <Property Name="TotalCalorias" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PiramideId" Type="int" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rutinas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="CoefCalcCalorias" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="CoefCalcCalorias" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CoefCalcCalPeso" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CoefCalcCalAltura" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CoefCalcCalEdad" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Temporadas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TemporadasRecetas">
+          <Key>
+            <PropertyRef Name="Temporada_Id" />
+            <PropertyRef Name="Receta_Id" />
+          </Key>
+          <Property Name="Temporada_Id" Type="int" Nullable="false" />
+          <Property Name="Receta_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pass" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="datetime" Nullable="false" />
+          <Property Name="FechaAltaPerfil" Type="datetime" Nullable="false" />
+          <Property Name="Altura" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CondicionPreexistenteId" Type="int" Nullable="false" />
+          <Property Name="ComplexionId" Type="int" Nullable="false" />
+          <Property Name="DietaId" Type="int" Nullable="false" />
+          <Property Name="SexoId" Type="int" Nullable="false" />
+          <Property Name="RutinaId" Type="int" Nullable="false" />
+          <Property Name="Peso" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="UsuariosPreferencias">
+          <Key>
+            <PropertyRef Name="Preferencia_Id" />
+            <PropertyRef Name="Usuario_Id" />
+          </Key>
+          <Property Name="Preferencia_Id" Type="int" Nullable="false" />
+          <Property Name="Usuario_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Calificaciones_dbo_Recetas_RecetaId">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="RecetaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Calificaciones_dbo_Usuarios_UsuarioId">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ClasificacionesRecetas_dbo_Clasificaciones_Clasificacion_Id">
+          <End Role="Clasificaciones" Type="Self.Clasificaciones" Multiplicity="1" />
+          <End Role="ClasificacionesRecetas" Type="Self.ClasificacionesRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clasificaciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClasificacionesRecetas">
+              <PropertyRef Name="Clasificacion_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ClasificacionesRecetas_dbo_Recetas_Receta_Id">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="1" />
+          <End Role="ClasificacionesRecetas" Type="Self.ClasificacionesRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClasificacionesRecetas">
+              <PropertyRef Name="Receta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CondimentosRecetas_dbo_Condimentos_Condimento_Id">
+          <End Role="Condimentos" Type="Self.Condimentos" Multiplicity="1" />
+          <End Role="CondimentosRecetas" Type="Self.CondimentosRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Condimentos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CondimentosRecetas">
+              <PropertyRef Name="Condimento_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CondimentosRecetas_dbo_Recetas_Receta_Id">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="1" />
+          <End Role="CondimentosRecetas" Type="Self.CondimentosRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CondimentosRecetas">
+              <PropertyRef Name="Receta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_DietasPreferencias_dbo_Dietas_Dieta_Id">
+          <End Role="Dietas" Type="Self.Dietas" Multiplicity="1" />
+          <End Role="DietasPreferencias" Type="Self.DietasPreferencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dietas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DietasPreferencias">
+              <PropertyRef Name="Dieta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_DietasPreferencias_dbo_Preferencias_Preferencia_Id">
+          <End Role="Preferencias" Type="Self.Preferencias" Multiplicity="1" />
+          <End Role="DietasPreferencias" Type="Self.DietasPreferencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preferencias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DietasPreferencias">
+              <PropertyRef Name="Preferencia_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Grupos_dbo_Usuarios_Usuario_Id">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Grupos" Type="Self.Grupos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Grupos">
+              <PropertyRef Name="Usuario_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_GruposPreferencias_dbo_Grupos_Grupo_Id">
+          <End Role="Grupos" Type="Self.Grupos" Multiplicity="1" />
+          <End Role="GruposPreferencias" Type="Self.GruposPreferencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GruposPreferencias">
+              <PropertyRef Name="Grupo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_GruposPreferencias_dbo_Preferencias_Preferencia_Id">
+          <End Role="Preferencias" Type="Self.Preferencias" Multiplicity="1" />
+          <End Role="GruposPreferencias" Type="Self.GruposPreferencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preferencias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GruposPreferencias">
+              <PropertyRef Name="Preferencia_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Ingredientes_dbo_Preferencias_PreferenciaId">
+          <End Role="Preferencias" Type="Self.Preferencias" Multiplicity="1" />
+          <End Role="Ingredientes" Type="Self.Ingredientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preferencias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ingredientes">
+              <PropertyRef Name="PreferenciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IngredientesRecetas_dbo_Ingredientes_IngredienteId">
+          <End Role="Ingredientes" Type="Self.Ingredientes" Multiplicity="1" />
+          <End Role="IngredientesRecetas" Type="Self.IngredientesRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IngredientesRecetas">
+              <PropertyRef Name="IngredienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IngredientesRecetas_dbo_Recetas_RecetaId">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="1" />
+          <End Role="IngredientesRecetas" Type="Self.IngredientesRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IngredientesRecetas">
+              <PropertyRef Name="RecetaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Procedimientos_dbo_Recetas_RecetaId">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="1" />
+          <End Role="Procedimientos" Type="Self.Procedimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Procedimientos">
+              <PropertyRef Name="RecetaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Recetas_dbo_PiramideAlimenticia_PiramideId">
+          <End Role="PiramideAlimenticia" Type="Self.PiramideAlimenticia" Multiplicity="1" />
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PiramideAlimenticia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recetas">
+              <PropertyRef Name="PiramideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Recetas_dbo_Usuarios_UsuarioId">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recetas">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TemporadasRecetas_dbo_Recetas_Receta_Id">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="1" />
+          <End Role="TemporadasRecetas" Type="Self.TemporadasRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TemporadasRecetas">
+              <PropertyRef Name="Receta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TemporadasRecetas_dbo_Temporadas_Temporada_Id">
+          <End Role="Temporadas" Type="Self.Temporadas" Multiplicity="1" />
+          <End Role="TemporadasRecetas" Type="Self.TemporadasRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temporadas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TemporadasRecetas">
+              <PropertyRef Name="Temporada_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_Complexiones_ComplexionId">
+          <End Role="Complexiones" Type="Self.Complexiones" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Complexiones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="ComplexionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_CondicionesPreexistentes_CondicionPreexistenteId">
+          <End Role="CondicionesPreexistentes" Type="Self.CondicionesPreexistentes" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CondicionesPreexistentes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="CondicionPreexistenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_Dietas_DietaId">
+          <End Role="Dietas" Type="Self.Dietas" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dietas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="DietaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_Rutinas_RutinaId">
+          <End Role="Rutinas" Type="Self.Rutinas" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rutinas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="RutinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_Sexo_SexoId">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="SexoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UsuariosPreferencias_dbo_Preferencias_Preferencia_Id">
+          <End Role="Preferencias" Type="Self.Preferencias" Multiplicity="1" />
+          <End Role="UsuariosPreferencias" Type="Self.UsuariosPreferencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preferencias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsuariosPreferencias">
+              <PropertyRef Name="Preferencia_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UsuariosPreferencias_dbo_Usuarios_Usuario_Id">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosPreferencias" Type="Self.UsuariosPreferencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsuariosPreferencias">
+              <PropertyRef Name="Usuario_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TPDDS_BDModelStoreContainer">
+          <EntitySet Name="Calificaciones" EntityType="Self.Calificaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clasificaciones" EntityType="Self.Clasificaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClasificacionesRecetas" EntityType="Self.ClasificacionesRecetas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Complexiones" EntityType="Self.Complexiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CondicionesPreexistentes" EntityType="Self.CondicionesPreexistentes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Condimentos" EntityType="Self.Condimentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CondimentosRecetas" EntityType="Self.CondimentosRecetas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dietas" EntityType="Self.Dietas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DietasPreferencias" EntityType="Self.DietasPreferencias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grupos" EntityType="Self.Grupos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GruposPreferencias" EntityType="Self.GruposPreferencias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingredientes" EntityType="Self.Ingredientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IngredientesRecetas" EntityType="Self.IngredientesRecetas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PiramideAlimenticia" EntityType="Self.PiramideAlimenticia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Preferencias" EntityType="Self.Preferencias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Procedimientos" EntityType="Self.Procedimientos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recetas" EntityType="Self.Recetas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rutinas" EntityType="Self.Rutinas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temporadas" EntityType="Self.Temporadas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemporadasRecetas" EntityType="Self.TemporadasRecetas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosPreferencias" EntityType="Self.UsuariosPreferencias" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Calificaciones_dbo_Recetas_RecetaId" Association="Self.FK_dbo_Calificaciones_dbo_Recetas_RecetaId">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Calificaciones_dbo_Usuarios_UsuarioId" Association="Self.FK_dbo_Calificaciones_dbo_Usuarios_UsuarioId">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ClasificacionesRecetas_dbo_Clasificaciones_Clasificacion_Id" Association="Self.FK_dbo_ClasificacionesRecetas_dbo_Clasificaciones_Clasificacion_Id">
+            <End Role="Clasificaciones" EntitySet="Clasificaciones" />
+            <End Role="ClasificacionesRecetas" EntitySet="ClasificacionesRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ClasificacionesRecetas_dbo_Recetas_Receta_Id" Association="Self.FK_dbo_ClasificacionesRecetas_dbo_Recetas_Receta_Id">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="ClasificacionesRecetas" EntitySet="ClasificacionesRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CondimentosRecetas_dbo_Condimentos_Condimento_Id" Association="Self.FK_dbo_CondimentosRecetas_dbo_Condimentos_Condimento_Id">
+            <End Role="Condimentos" EntitySet="Condimentos" />
+            <End Role="CondimentosRecetas" EntitySet="CondimentosRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CondimentosRecetas_dbo_Recetas_Receta_Id" Association="Self.FK_dbo_CondimentosRecetas_dbo_Recetas_Receta_Id">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="CondimentosRecetas" EntitySet="CondimentosRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_DietasPreferencias_dbo_Dietas_Dieta_Id" Association="Self.FK_dbo_DietasPreferencias_dbo_Dietas_Dieta_Id">
+            <End Role="Dietas" EntitySet="Dietas" />
+            <End Role="DietasPreferencias" EntitySet="DietasPreferencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_DietasPreferencias_dbo_Preferencias_Preferencia_Id" Association="Self.FK_dbo_DietasPreferencias_dbo_Preferencias_Preferencia_Id">
+            <End Role="Preferencias" EntitySet="Preferencias" />
+            <End Role="DietasPreferencias" EntitySet="DietasPreferencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Grupos_dbo_Usuarios_Usuario_Id" Association="Self.FK_dbo_Grupos_dbo_Usuarios_Usuario_Id">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Grupos" EntitySet="Grupos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_GruposPreferencias_dbo_Grupos_Grupo_Id" Association="Self.FK_dbo_GruposPreferencias_dbo_Grupos_Grupo_Id">
+            <End Role="Grupos" EntitySet="Grupos" />
+            <End Role="GruposPreferencias" EntitySet="GruposPreferencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_GruposPreferencias_dbo_Preferencias_Preferencia_Id" Association="Self.FK_dbo_GruposPreferencias_dbo_Preferencias_Preferencia_Id">
+            <End Role="Preferencias" EntitySet="Preferencias" />
+            <End Role="GruposPreferencias" EntitySet="GruposPreferencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Ingredientes_dbo_Preferencias_PreferenciaId" Association="Self.FK_dbo_Ingredientes_dbo_Preferencias_PreferenciaId">
+            <End Role="Preferencias" EntitySet="Preferencias" />
+            <End Role="Ingredientes" EntitySet="Ingredientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IngredientesRecetas_dbo_Ingredientes_IngredienteId" Association="Self.FK_dbo_IngredientesRecetas_dbo_Ingredientes_IngredienteId">
+            <End Role="Ingredientes" EntitySet="Ingredientes" />
+            <End Role="IngredientesRecetas" EntitySet="IngredientesRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IngredientesRecetas_dbo_Recetas_RecetaId" Association="Self.FK_dbo_IngredientesRecetas_dbo_Recetas_RecetaId">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="IngredientesRecetas" EntitySet="IngredientesRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Procedimientos_dbo_Recetas_RecetaId" Association="Self.FK_dbo_Procedimientos_dbo_Recetas_RecetaId">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="Procedimientos" EntitySet="Procedimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Recetas_dbo_PiramideAlimenticia_PiramideId" Association="Self.FK_dbo_Recetas_dbo_PiramideAlimenticia_PiramideId">
+            <End Role="PiramideAlimenticia" EntitySet="PiramideAlimenticia" />
+            <End Role="Recetas" EntitySet="Recetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Recetas_dbo_Usuarios_UsuarioId" Association="Self.FK_dbo_Recetas_dbo_Usuarios_UsuarioId">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Recetas" EntitySet="Recetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TemporadasRecetas_dbo_Recetas_Receta_Id" Association="Self.FK_dbo_TemporadasRecetas_dbo_Recetas_Receta_Id">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="TemporadasRecetas" EntitySet="TemporadasRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TemporadasRecetas_dbo_Temporadas_Temporada_Id" Association="Self.FK_dbo_TemporadasRecetas_dbo_Temporadas_Temporada_Id">
+            <End Role="Temporadas" EntitySet="Temporadas" />
+            <End Role="TemporadasRecetas" EntitySet="TemporadasRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_Complexiones_ComplexionId" Association="Self.FK_dbo_Usuarios_dbo_Complexiones_ComplexionId">
+            <End Role="Complexiones" EntitySet="Complexiones" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_CondicionesPreexistentes_CondicionPreexistenteId" Association="Self.FK_dbo_Usuarios_dbo_CondicionesPreexistentes_CondicionPreexistenteId">
+            <End Role="CondicionesPreexistentes" EntitySet="CondicionesPreexistentes" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_Dietas_DietaId" Association="Self.FK_dbo_Usuarios_dbo_Dietas_DietaId">
+            <End Role="Dietas" EntitySet="Dietas" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_Rutinas_RutinaId" Association="Self.FK_dbo_Usuarios_dbo_Rutinas_RutinaId">
+            <End Role="Rutinas" EntitySet="Rutinas" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_Sexo_SexoId" Association="Self.FK_dbo_Usuarios_dbo_Sexo_SexoId">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UsuariosPreferencias_dbo_Preferencias_Preferencia_Id" Association="Self.FK_dbo_UsuariosPreferencias_dbo_Preferencias_Preferencia_Id">
+            <End Role="Preferencias" EntitySet="Preferencias" />
+            <End Role="UsuariosPreferencias" EntitySet="UsuariosPreferencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UsuariosPreferencias_dbo_Usuarios_Usuario_Id" Association="Self.FK_dbo_UsuariosPreferencias_dbo_Usuarios_Usuario_Id">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosPreferencias" EntitySet="UsuariosPreferencias" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TPDDS_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Calificaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecetaId" Type="Int32" Nullable="false" />
+          <Property Name="Valor" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Recetas" Relationship="Self.FK_dbo_Calificaciones_dbo_Recetas_RecetaId" FromRole="Calificaciones" ToRole="Recetas" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_Calificaciones_dbo_Usuarios_UsuarioId" FromRole="Calificaciones" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Clasificaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recetas" Relationship="Self.ClasificacionesRecetas" FromRole="Clasificaciones" ToRole="Recetas" />
+        </EntityType>
+        <EntityType Name="Complexiones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_Usuarios_dbo_Complexiones_ComplexionId" FromRole="Complexiones" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="CondicionesPreexistentes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_Usuarios_dbo_CondicionesPreexistentes_CondicionPreexistenteId" FromRole="CondicionesPreexistentes" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Condimentos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recetas" Relationship="Self.CondimentosRecetas" FromRole="Condimentos" ToRole="Recetas" />
+        </EntityType>
+        <EntityType Name="Dietas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_Usuarios_dbo_Dietas_DietaId" FromRole="Dietas" ToRole="Usuarios" />
+          <NavigationProperty Name="Preferencias" Relationship="Self.DietasPreferencias" FromRole="Dietas" ToRole="Preferencias" />
+        </EntityType>
+        <EntityType Name="Grupos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Usuario_Id" Type="Int32" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_Grupos_dbo_Usuarios_Usuario_Id" FromRole="Grupos" ToRole="Usuarios" />
+          <NavigationProperty Name="Preferencias" Relationship="Self.GruposPreferencias" FromRole="Grupos" ToRole="Preferencias" />
+        </EntityType>
+        <EntityType Name="Ingredientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Porcion" Type="Int32" Nullable="false" />
+          <Property Name="CaloriasPorcion" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PreferenciaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Preferencias" Relationship="Self.FK_dbo_Ingredientes_dbo_Preferencias_PreferenciaId" FromRole="Ingredientes" ToRole="Preferencias" />
+          <NavigationProperty Name="IngredientesRecetas" Relationship="Self.FK_dbo_IngredientesRecetas_dbo_Ingredientes_IngredienteId" FromRole="Ingredientes" ToRole="IngredientesRecetas" />
+        </EntityType>
+        <EntityType Name="IngredientesRecetas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Tipo" Type="Int32" />
+          <Property Name="IngredienteId" Type="Int32" Nullable="false" />
+          <Property Name="RecetaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ingredientes" Relationship="Self.FK_dbo_IngredientesRecetas_dbo_Ingredientes_IngredienteId" FromRole="IngredientesRecetas" ToRole="Ingredientes" />
+          <NavigationProperty Name="Recetas" Relationship="Self.FK_dbo_IngredientesRecetas_dbo_Recetas_RecetaId" FromRole="IngredientesRecetas" ToRole="Recetas" />
+        </EntityType>
+        <EntityType Name="PiramideAlimenticia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreGrupo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescripcionGrupo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contraindicaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recetas" Relationship="Self.FK_dbo_Recetas_dbo_PiramideAlimenticia_PiramideId" FromRole="PiramideAlimenticia" ToRole="Recetas" />
+        </EntityType>
+        <EntityType Name="Preferencias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ingredientes" Relationship="Self.FK_dbo_Ingredientes_dbo_Preferencias_PreferenciaId" FromRole="Preferencias" ToRole="Ingredientes" />
+          <NavigationProperty Name="Dietas" Relationship="Self.DietasPreferencias" FromRole="Preferencias" ToRole="Dietas" />
+          <NavigationProperty Name="Grupos" Relationship="Self.GruposPreferencias" FromRole="Preferencias" ToRole="Grupos" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.UsuariosPreferencias" FromRole="Preferencias" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Procedimientos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RecetaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Recetas" Relationship="Self.FK_dbo_Procedimientos_dbo_Recetas_RecetaId" FromRole="Procedimientos" ToRole="Recetas" />
+        </EntityType>
+        <EntityType Name="Recetas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Dificultad" Type="Int32" Nullable="false" />
+          <Property Name="TotalCalorias" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PiramideId" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Calificaciones" Relationship="Self.FK_dbo_Calificaciones_dbo_Recetas_RecetaId" FromRole="Recetas" ToRole="Calificaciones" />
+          <NavigationProperty Name="IngredientesRecetas" Relationship="Self.FK_dbo_IngredientesRecetas_dbo_Recetas_RecetaId" FromRole="Recetas" ToRole="IngredientesRecetas" />
+          <NavigationProperty Name="PiramideAlimenticia" Relationship="Self.FK_dbo_Recetas_dbo_PiramideAlimenticia_PiramideId" FromRole="Recetas" ToRole="PiramideAlimenticia" />
+          <NavigationProperty Name="Procedimientos" Relationship="Self.FK_dbo_Procedimientos_dbo_Recetas_RecetaId" FromRole="Recetas" ToRole="Procedimientos" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_Recetas_dbo_Usuarios_UsuarioId" FromRole="Recetas" ToRole="Usuarios" />
+          <NavigationProperty Name="Clasificaciones" Relationship="Self.ClasificacionesRecetas" FromRole="Recetas" ToRole="Clasificaciones" />
+          <NavigationProperty Name="Condimentos" Relationship="Self.CondimentosRecetas" FromRole="Recetas" ToRole="Condimentos" />
+          <NavigationProperty Name="Temporadas" Relationship="Self.TemporadasRecetas" FromRole="Recetas" ToRole="Temporadas" />
+        </EntityType>
+        <EntityType Name="Rutinas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CoefCalcCalorias" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_Usuarios_dbo_Rutinas_RutinaId" FromRole="Rutinas" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CoefCalcCalorias" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CoefCalcCalPeso" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CoefCalcCalAltura" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CoefCalcCalEdad" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_Usuarios_dbo_Sexo_SexoId" FromRole="Sexo" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Temporadas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recetas" Relationship="Self.TemporadasRecetas" FromRole="Temporadas" ToRole="Recetas" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaAltaPerfil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Altura" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CondicionPreexistenteId" Type="Int32" Nullable="false" />
+          <Property Name="ComplexionId" Type="Int32" Nullable="false" />
+          <Property Name="DietaId" Type="Int32" Nullable="false" />
+          <Property Name="SexoId" Type="Int32" Nullable="false" />
+          <Property Name="RutinaId" Type="Int32" Nullable="false" />
+          <Property Name="Peso" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Calificaciones" Relationship="Self.FK_dbo_Calificaciones_dbo_Usuarios_UsuarioId" FromRole="Usuarios" ToRole="Calificaciones" />
+          <NavigationProperty Name="Complexiones" Relationship="Self.FK_dbo_Usuarios_dbo_Complexiones_ComplexionId" FromRole="Usuarios" ToRole="Complexiones" />
+          <NavigationProperty Name="CondicionesPreexistentes" Relationship="Self.FK_dbo_Usuarios_dbo_CondicionesPreexistentes_CondicionPreexistenteId" FromRole="Usuarios" ToRole="CondicionesPreexistentes" />
+          <NavigationProperty Name="Dietas" Relationship="Self.FK_dbo_Usuarios_dbo_Dietas_DietaId" FromRole="Usuarios" ToRole="Dietas" />
+          <NavigationProperty Name="Grupos" Relationship="Self.FK_dbo_Grupos_dbo_Usuarios_Usuario_Id" FromRole="Usuarios" ToRole="Grupos" />
+          <NavigationProperty Name="Recetas" Relationship="Self.FK_dbo_Recetas_dbo_Usuarios_UsuarioId" FromRole="Usuarios" ToRole="Recetas" />
+          <NavigationProperty Name="Rutinas" Relationship="Self.FK_dbo_Usuarios_dbo_Rutinas_RutinaId" FromRole="Usuarios" ToRole="Rutinas" />
+          <NavigationProperty Name="Sexo" Relationship="Self.FK_dbo_Usuarios_dbo_Sexo_SexoId" FromRole="Usuarios" ToRole="Sexo" />
+          <NavigationProperty Name="Preferencias" Relationship="Self.UsuariosPreferencias" FromRole="Usuarios" ToRole="Preferencias" />
+        </EntityType>
+        <Association Name="FK_dbo_Calificaciones_dbo_Recetas_RecetaId">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="RecetaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Calificaciones_dbo_Usuarios_UsuarioId">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_Complexiones_ComplexionId">
+          <End Role="Complexiones" Type="Self.Complexiones" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Complexiones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="ComplexionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_CondicionesPreexistentes_CondicionPreexistenteId">
+          <End Role="CondicionesPreexistentes" Type="Self.CondicionesPreexistentes" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CondicionesPreexistentes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="CondicionPreexistenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_Dietas_DietaId">
+          <End Role="Dietas" Type="Self.Dietas" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dietas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="DietaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Grupos_dbo_Usuarios_Usuario_Id">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Grupos" Type="Self.Grupos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Grupos">
+              <PropertyRef Name="Usuario_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Ingredientes_dbo_Preferencias_PreferenciaId">
+          <End Role="Preferencias" Type="Self.Preferencias" Multiplicity="1" />
+          <End Role="Ingredientes" Type="Self.Ingredientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preferencias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ingredientes">
+              <PropertyRef Name="PreferenciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IngredientesRecetas_dbo_Ingredientes_IngredienteId">
+          <End Role="Ingredientes" Type="Self.Ingredientes" Multiplicity="1" />
+          <End Role="IngredientesRecetas" Type="Self.IngredientesRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IngredientesRecetas">
+              <PropertyRef Name="IngredienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IngredientesRecetas_dbo_Recetas_RecetaId">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="1" />
+          <End Role="IngredientesRecetas" Type="Self.IngredientesRecetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IngredientesRecetas">
+              <PropertyRef Name="RecetaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Recetas_dbo_PiramideAlimenticia_PiramideId">
+          <End Role="PiramideAlimenticia" Type="Self.PiramideAlimenticia" Multiplicity="1" />
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PiramideAlimenticia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recetas">
+              <PropertyRef Name="PiramideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Procedimientos_dbo_Recetas_RecetaId">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="1" />
+          <End Role="Procedimientos" Type="Self.Procedimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recetas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Procedimientos">
+              <PropertyRef Name="RecetaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Recetas_dbo_Usuarios_UsuarioId">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recetas">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_Rutinas_RutinaId">
+          <End Role="Rutinas" Type="Self.Rutinas" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rutinas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="RutinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Usuarios_dbo_Sexo_SexoId">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="SexoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ClasificacionesRecetas">
+          <End Role="Clasificaciones" Type="Self.Clasificaciones" Multiplicity="*" />
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="*" />
+        </Association>
+        <Association Name="CondimentosRecetas">
+          <End Role="Condimentos" Type="Self.Condimentos" Multiplicity="*" />
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="*" />
+        </Association>
+        <Association Name="DietasPreferencias">
+          <End Role="Dietas" Type="Self.Dietas" Multiplicity="*" />
+          <End Role="Preferencias" Type="Self.Preferencias" Multiplicity="*" />
+        </Association>
+        <Association Name="GruposPreferencias">
+          <End Role="Grupos" Type="Self.Grupos" Multiplicity="*" />
+          <End Role="Preferencias" Type="Self.Preferencias" Multiplicity="*" />
+        </Association>
+        <Association Name="TemporadasRecetas">
+          <End Role="Recetas" Type="Self.Recetas" Multiplicity="*" />
+          <End Role="Temporadas" Type="Self.Temporadas" Multiplicity="*" />
+        </Association>
+        <Association Name="UsuariosPreferencias">
+          <End Role="Preferencias" Type="Self.Preferencias" Multiplicity="*" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TPDDS_BDEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Calificaciones" EntityType="Self.Calificaciones" />
+          <EntitySet Name="Clasificaciones" EntityType="Self.Clasificaciones" />
+          <EntitySet Name="Complexiones" EntityType="Self.Complexiones" />
+          <EntitySet Name="CondicionesPreexistentes" EntityType="Self.CondicionesPreexistentes" />
+          <EntitySet Name="Condimentos" EntityType="Self.Condimentos" />
+          <EntitySet Name="Dietas" EntityType="Self.Dietas" />
+          <EntitySet Name="Grupos" EntityType="Self.Grupos" />
+          <EntitySet Name="Ingredientes" EntityType="Self.Ingredientes" />
+          <EntitySet Name="IngredientesRecetas" EntityType="Self.IngredientesRecetas" />
+          <EntitySet Name="PiramideAlimenticia" EntityType="Self.PiramideAlimenticia" />
+          <EntitySet Name="Preferencias" EntityType="Self.Preferencias" />
+          <EntitySet Name="Procedimientos" EntityType="Self.Procedimientos" />
+          <EntitySet Name="Recetas" EntityType="Self.Recetas" />
+          <EntitySet Name="Rutinas" EntityType="Self.Rutinas" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" />
+          <EntitySet Name="Temporadas" EntityType="Self.Temporadas" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_dbo_Calificaciones_dbo_Recetas_RecetaId" Association="Self.FK_dbo_Calificaciones_dbo_Recetas_RecetaId">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Calificaciones_dbo_Usuarios_UsuarioId" Association="Self.FK_dbo_Calificaciones_dbo_Usuarios_UsuarioId">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_Complexiones_ComplexionId" Association="Self.FK_dbo_Usuarios_dbo_Complexiones_ComplexionId">
+            <End Role="Complexiones" EntitySet="Complexiones" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_CondicionesPreexistentes_CondicionPreexistenteId" Association="Self.FK_dbo_Usuarios_dbo_CondicionesPreexistentes_CondicionPreexistenteId">
+            <End Role="CondicionesPreexistentes" EntitySet="CondicionesPreexistentes" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_Dietas_DietaId" Association="Self.FK_dbo_Usuarios_dbo_Dietas_DietaId">
+            <End Role="Dietas" EntitySet="Dietas" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Grupos_dbo_Usuarios_Usuario_Id" Association="Self.FK_dbo_Grupos_dbo_Usuarios_Usuario_Id">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Grupos" EntitySet="Grupos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Ingredientes_dbo_Preferencias_PreferenciaId" Association="Self.FK_dbo_Ingredientes_dbo_Preferencias_PreferenciaId">
+            <End Role="Preferencias" EntitySet="Preferencias" />
+            <End Role="Ingredientes" EntitySet="Ingredientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IngredientesRecetas_dbo_Ingredientes_IngredienteId" Association="Self.FK_dbo_IngredientesRecetas_dbo_Ingredientes_IngredienteId">
+            <End Role="Ingredientes" EntitySet="Ingredientes" />
+            <End Role="IngredientesRecetas" EntitySet="IngredientesRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IngredientesRecetas_dbo_Recetas_RecetaId" Association="Self.FK_dbo_IngredientesRecetas_dbo_Recetas_RecetaId">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="IngredientesRecetas" EntitySet="IngredientesRecetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Recetas_dbo_PiramideAlimenticia_PiramideId" Association="Self.FK_dbo_Recetas_dbo_PiramideAlimenticia_PiramideId">
+            <End Role="PiramideAlimenticia" EntitySet="PiramideAlimenticia" />
+            <End Role="Recetas" EntitySet="Recetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Procedimientos_dbo_Recetas_RecetaId" Association="Self.FK_dbo_Procedimientos_dbo_Recetas_RecetaId">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="Procedimientos" EntitySet="Procedimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Recetas_dbo_Usuarios_UsuarioId" Association="Self.FK_dbo_Recetas_dbo_Usuarios_UsuarioId">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Recetas" EntitySet="Recetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_Rutinas_RutinaId" Association="Self.FK_dbo_Usuarios_dbo_Rutinas_RutinaId">
+            <End Role="Rutinas" EntitySet="Rutinas" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuarios_dbo_Sexo_SexoId" Association="Self.FK_dbo_Usuarios_dbo_Sexo_SexoId">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="ClasificacionesRecetas" Association="Self.ClasificacionesRecetas">
+            <End Role="Clasificaciones" EntitySet="Clasificaciones" />
+            <End Role="Recetas" EntitySet="Recetas" />
+          </AssociationSet>
+          <AssociationSet Name="CondimentosRecetas" Association="Self.CondimentosRecetas">
+            <End Role="Condimentos" EntitySet="Condimentos" />
+            <End Role="Recetas" EntitySet="Recetas" />
+          </AssociationSet>
+          <AssociationSet Name="DietasPreferencias" Association="Self.DietasPreferencias">
+            <End Role="Dietas" EntitySet="Dietas" />
+            <End Role="Preferencias" EntitySet="Preferencias" />
+          </AssociationSet>
+          <AssociationSet Name="GruposPreferencias" Association="Self.GruposPreferencias">
+            <End Role="Grupos" EntitySet="Grupos" />
+            <End Role="Preferencias" EntitySet="Preferencias" />
+          </AssociationSet>
+          <AssociationSet Name="TemporadasRecetas" Association="Self.TemporadasRecetas">
+            <End Role="Recetas" EntitySet="Recetas" />
+            <End Role="Temporadas" EntitySet="Temporadas" />
+          </AssociationSet>
+          <AssociationSet Name="UsuariosPreferencias" Association="Self.UsuariosPreferencias">
+            <End Role="Preferencias" EntitySet="Preferencias" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TPDDS_BDModelStoreContainer" CdmEntityContainer="TPDDS_BDEntities1">
+          <EntitySetMapping Name="Calificaciones">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Calificaciones">
+              <MappingFragment StoreEntitySet="Calificaciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RecetaId" ColumnName="RecetaId" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clasificaciones">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Clasificaciones">
+              <MappingFragment StoreEntitySet="Clasificaciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Complexiones">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Complexiones">
+              <MappingFragment StoreEntitySet="Complexiones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CondicionesPreexistentes">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.CondicionesPreexistentes">
+              <MappingFragment StoreEntitySet="CondicionesPreexistentes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Condimentos">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Condimentos">
+              <MappingFragment StoreEntitySet="Condimentos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dietas">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Dietas">
+              <MappingFragment StoreEntitySet="Dietas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grupos">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Grupos">
+              <MappingFragment StoreEntitySet="Grupos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Usuario_Id" ColumnName="Usuario_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingredientes">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Ingredientes">
+              <MappingFragment StoreEntitySet="Ingredientes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Porcion" ColumnName="Porcion" />
+                <ScalarProperty Name="CaloriasPorcion" ColumnName="CaloriasPorcion" />
+                <ScalarProperty Name="PreferenciaId" ColumnName="PreferenciaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IngredientesRecetas">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.IngredientesRecetas">
+              <MappingFragment StoreEntitySet="IngredientesRecetas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="IngredienteId" ColumnName="IngredienteId" />
+                <ScalarProperty Name="RecetaId" ColumnName="RecetaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PiramideAlimenticia">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.PiramideAlimenticia">
+              <MappingFragment StoreEntitySet="PiramideAlimenticia">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
+                <ScalarProperty Name="DescripcionGrupo" ColumnName="DescripcionGrupo" />
+                <ScalarProperty Name="Contraindicaciones" ColumnName="Contraindicaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Preferencias">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Preferencias">
+              <MappingFragment StoreEntitySet="Preferencias">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Procedimientos">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Procedimientos">
+              <MappingFragment StoreEntitySet="Procedimientos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="RecetaId" ColumnName="RecetaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recetas">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Recetas">
+              <MappingFragment StoreEntitySet="Recetas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Dificultad" ColumnName="Dificultad" />
+                <ScalarProperty Name="TotalCalorias" ColumnName="TotalCalorias" />
+                <ScalarProperty Name="PiramideId" ColumnName="PiramideId" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rutinas">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Rutinas">
+              <MappingFragment StoreEntitySet="Rutinas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CoefCalcCalorias" ColumnName="CoefCalcCalorias" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexo">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Sexo">
+              <MappingFragment StoreEntitySet="Sexo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CoefCalcCalorias" ColumnName="CoefCalcCalorias" />
+                <ScalarProperty Name="CoefCalcCalPeso" ColumnName="CoefCalcCalPeso" />
+                <ScalarProperty Name="CoefCalcCalAltura" ColumnName="CoefCalcCalAltura" />
+                <ScalarProperty Name="CoefCalcCalEdad" ColumnName="CoefCalcCalEdad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temporadas">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Temporadas">
+              <MappingFragment StoreEntitySet="Temporadas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="TPDDS_BDModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="FechaAltaPerfil" ColumnName="FechaAltaPerfil" />
+                <ScalarProperty Name="Altura" ColumnName="Altura" />
+                <ScalarProperty Name="CondicionPreexistenteId" ColumnName="CondicionPreexistenteId" />
+                <ScalarProperty Name="ComplexionId" ColumnName="ComplexionId" />
+                <ScalarProperty Name="DietaId" ColumnName="DietaId" />
+                <ScalarProperty Name="SexoId" ColumnName="SexoId" />
+                <ScalarProperty Name="RutinaId" ColumnName="RutinaId" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ClasificacionesRecetas" TypeName="TPDDS_BDModel.ClasificacionesRecetas" StoreEntitySet="ClasificacionesRecetas">
+            <EndProperty Name="Clasificaciones">
+              <ScalarProperty Name="Id" ColumnName="Clasificacion_Id" />
+            </EndProperty>
+            <EndProperty Name="Recetas">
+              <ScalarProperty Name="Id" ColumnName="Receta_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CondimentosRecetas" TypeName="TPDDS_BDModel.CondimentosRecetas" StoreEntitySet="CondimentosRecetas">
+            <EndProperty Name="Condimentos">
+              <ScalarProperty Name="Id" ColumnName="Condimento_Id" />
+            </EndProperty>
+            <EndProperty Name="Recetas">
+              <ScalarProperty Name="Id" ColumnName="Receta_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="DietasPreferencias" TypeName="TPDDS_BDModel.DietasPreferencias" StoreEntitySet="DietasPreferencias">
+            <EndProperty Name="Dietas">
+              <ScalarProperty Name="Id" ColumnName="Dieta_Id" />
+            </EndProperty>
+            <EndProperty Name="Preferencias">
+              <ScalarProperty Name="Id" ColumnName="Preferencia_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="GruposPreferencias" TypeName="TPDDS_BDModel.GruposPreferencias" StoreEntitySet="GruposPreferencias">
+            <EndProperty Name="Grupos">
+              <ScalarProperty Name="Id" ColumnName="Grupo_Id" />
+            </EndProperty>
+            <EndProperty Name="Preferencias">
+              <ScalarProperty Name="Id" ColumnName="Preferencia_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TemporadasRecetas" TypeName="TPDDS_BDModel.TemporadasRecetas" StoreEntitySet="TemporadasRecetas">
+            <EndProperty Name="Recetas">
+              <ScalarProperty Name="Id" ColumnName="Receta_Id" />
+            </EndProperty>
+            <EndProperty Name="Temporadas">
+              <ScalarProperty Name="Id" ColumnName="Temporada_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UsuariosPreferencias" TypeName="TPDDS_BDModel.UsuariosPreferencias" StoreEntitySet="UsuariosPreferencias">
+            <EndProperty Name="Preferencias">
+              <ScalarProperty Name="Id" ColumnName="Preferencia_Id" />
+            </EndProperty>
+            <EndProperty Name="Usuarios">
+              <ScalarProperty Name="Id" ColumnName="Usuario_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
