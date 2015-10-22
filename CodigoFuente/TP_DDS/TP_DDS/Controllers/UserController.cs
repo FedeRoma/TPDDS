@@ -61,7 +61,7 @@ namespace TP_DDS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,Altura,Peso,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,Altura,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId,Peso")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -107,12 +107,13 @@ namespace TP_DDS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,Altura,Peso,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,Altura,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId,Peso")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(usuario).State = EntityState.Modified;
-                usuario.FechaAltaPerfil = DateTime.Now;
+                Usuario usrOrig = db.Usuarios.Find(usuario.Id);
+                usuario.FechaAltaPerfil = usrOrig.FechaAltaPerfil;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -111,15 +111,10 @@ de receta 3.
 declare @sexoId int
 declare @complexionId int
 declare @calificacion int
-declare @CaloriasMax decimal(18,4)
-declare @CaloriasMin decimal(18,4)
 
 Set @sexoId = 1 --Hombre
 Set @complexionId = 2 --Mediana
 Set @calificacion = 3
--- Preguntar como se calcula en base a Complexion y Sexo??
-Set @CaloriasMin = 1500
-Set @CaloriasMax = 2500
 
 Select Top 10 *
 From Recetas R
@@ -128,9 +123,11 @@ Inner Join IngredientesRecetas IR ON IR.RecetaId = R.Id
 Inner Join Ingredientes I On I.Id = IR.IngredienteId
 Inner Join CondimentosRecetas CR On CR.Receta_Id = R.Id
 Inner Join Condimentos C On C.Id = CR.Condimento_Id
-Inner Join Calificaciones C ON C.RecetaId = R.Id
-	And C.Valor = @calificacion
-Where R.TotalCalorias between @CaloriasMin And @CaloriasMax
+Inner Join Calificaciones Ca ON Ca.RecetaId = R.Id
+	And Ca.Valor = @calificacion
+Inner Join Usuarios U On U.Id = Ca.UsuarioId 
+	And U.ComplexionId = @complexionId
+	And U.SexoId = @sexoId
 
 /*================================================
 Consulta 7 - Según Grupo Alimenticio de la 
