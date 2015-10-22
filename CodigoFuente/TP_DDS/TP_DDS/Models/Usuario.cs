@@ -18,14 +18,17 @@ namespace TP_DDS.Models
         public int SexoId { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 	    public DateTime FechaNacimiento { get; set; }
 
         public DateTime FechaAltaPerfil { get; set; }
-        public decimal? Peso { get; set; }
-        public decimal? Altura { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:0.##}")]
+        public decimal Peso { get; set; }
+
+        public decimal Altura { get; set; }
 	    public int RutinaId { get; set; }
-        public int? CondicionPreexistenteId { get; set; }
+        public int CondicionPreexistenteId { get; set; }
         public int ComplexionId { get; set; }
         public int DietaId { get; set; }
 

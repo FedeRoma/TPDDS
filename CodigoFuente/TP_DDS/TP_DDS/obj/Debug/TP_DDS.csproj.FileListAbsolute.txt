@@ -327,3 +327,4 @@ C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS
 C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.csproj.GenerateResource.Cache
 C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.dll
 C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.pdb
+C:\Users\jtonelli\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.cambios1.resources

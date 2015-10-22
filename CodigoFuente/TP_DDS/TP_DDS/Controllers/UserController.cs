@@ -107,13 +107,11 @@ namespace TP_DDS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,Altura,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId,Peso")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,FechaAltaPerfil,Altura,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId,Peso")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(usuario).State = EntityState.Modified;
-                Usuario usrOrig = db.Usuarios.Find(usuario.Id);
-                usuario.FechaAltaPerfil = usrOrig.FechaAltaPerfil;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

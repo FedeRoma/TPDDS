@@ -16,7 +16,7 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
-        @*@Html.HiddenFor(model => model.FechaAltaPerfil)*@
+        @Html.HiddenFor(model => model.FechaAltaPerfil)
 
         <div class="row">
             <div class="col-md-6">
@@ -61,19 +61,10 @@
                         </div>
                     </div>
 
-                    @*<div class="form-group">
-                        @Html.LabelFor(model => model.FechaNacimiento, "Fecha de Nacimiento", new {@class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            @Html.TextBoxFor(model => model.FechaNacimiento, new { @Value = Model.FechaNacimiento.ToString("dd/MM/yyyy"), @class = "form-control" })
-                            @Html.EditorFor(model => model.FechaNacimiento)
-                            @Html.ValidationMessageFor(model => model.FechaNacimiento)
-                        </div>
-                    </div>*@
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.FechaNacimiento, "Fecha de Nacimiento", new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.TextBoxFor(model => model.FechaNacimiento, new { @type = "date", @class = "form-control" })
+                            @Html.TextBoxFor(model => model.FechaNacimiento, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.FechaNacimiento)
                         </div>
                     </div>

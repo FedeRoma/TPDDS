@@ -68,7 +68,7 @@
             @Html.DisplayFor(modelItem => item.Sexo.Nombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FechaNacimiento)
+            @Html.FormatValue((object)Convert.ChangeType(item.FechaNacimiento, typeof(object)),"{0: dd/MM/yyyy}")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FechaAltaPerfil)

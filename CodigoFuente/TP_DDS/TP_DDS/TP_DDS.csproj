@@ -165,7 +165,6 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\TPDDSContext.cs" />
     <Compile Include="DAL\TPDDSInitializer.cs" />
-    <Compile Include="DecimalModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -232,6 +231,10 @@
     <Compile Include="Migrations\201510202304549_nuevarelusrgrp.cs" />
     <Compile Include="Migrations\201510202304549_nuevarelusrgrp.Designer.cs">
       <DependentUpon>201510202304549_nuevarelusrgrp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510222207121_cambios1.cs" />
+    <Compile Include="Migrations\201510222207121_cambios1.Designer.cs">
+      <DependentUpon>201510222207121_cambios1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -381,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510202304549_nuevarelusrgrp.resx">
       <DependentUpon>201510202304549_nuevarelusrgrp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510222207121_cambios1.resx">
+      <DependentUpon>201510222207121_cambios1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
