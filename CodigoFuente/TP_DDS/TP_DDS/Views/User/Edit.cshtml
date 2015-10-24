@@ -17,6 +17,7 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.FechaAltaPerfil)
+        @Html.HiddenFor(model => model.Pass)
 
         <div class="row">
             <div class="col-md-6">
@@ -26,14 +27,6 @@
                         <div class="col-md-8">
                             @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.UserName)
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Pass, new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            @Html.PasswordFor(model => model.Pass, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Pass)
                         </div>
                     </div>
 
@@ -136,102 +129,6 @@
                 </div>
             </div>
         </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName)
-                @Html.ValidationMessageFor(model => model.UserName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pass, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pass)
-                @Html.ValidationMessageFor(model => model.Pass)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre)
-                @Html.ValidationMessageFor(model => model.Nombre)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Sexo, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Sexo", String.Empty)
-                @Html.ValidationMessageFor(model => model.Sexo)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FechaNacimiento, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FechaNacimiento)
-                @Html.ValidationMessageFor(model => model.FechaNacimiento)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Altura, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Altura)
-                @Html.ValidationMessageFor(model => model.Altura, null, new { @class = "help-inline" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rutina, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rutina)
-                @Html.ValidationMessageFor(model => model.Rutina)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CondicionPreexistenteId, "CondicionPreexistenteId", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CondicionPreexistenteId", String.Empty)
-                @Html.ValidationMessageFor(model => model.CondicionPreexistenteId)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ComplexionId, "ComplexionId", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ComplexionId", String.Empty)
-                @Html.ValidationMessageFor(model => model.ComplexionId)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DietaId, "DietaId", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("DietaId", String.Empty)
-                @Html.ValidationMessageFor(model => model.DietaId)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>*@
-
-    @*</div>*@
 }
 
 <div style="display:none">
