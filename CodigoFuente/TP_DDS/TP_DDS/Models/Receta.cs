@@ -11,6 +11,12 @@ namespace TP_DDS.Models
         public string Nombre { get; set; }
         public int Dificultad { get; set; }
         public decimal TotalCalorias { get; set; }
+        public int CalificacionPromedio { get; set; }
+
+        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaUltModif { get; set; }
+
+        public bool Eliminada { get; set; }
 
         public int PiramideId { get; set; }
         public int UsuarioId { get; set; }
@@ -25,9 +31,6 @@ namespace TP_DDS.Models
         public virtual ICollection<IngredienteReceta> Ingredientes { get; set; }
         public virtual ICollection<Condimento> Condimentos { get; set; }
         public virtual ICollection<Procedimiento> Procedimientos { get; set; }
-
-
-
 
         //public Receta()
         //{

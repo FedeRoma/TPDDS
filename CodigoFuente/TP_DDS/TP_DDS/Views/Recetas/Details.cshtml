@@ -1,0 +1,154 @@
+﻿@model TP_DDS.Models.Receta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="well">
+    <h2>@Html.Encode(Model.Nombre)</h2>
+    <hr />
+    <p><strong>Tot. Calorias:</strong> @Html.Encode(Model.TotalCalorias.ToString("0.##")) Kg.</p>
+    <p><strong>Dificultad:</strong> @Html.Encode(Model.Dificultad.ToString()) Estrellas</p>
+    <p><strong>Grupo Piramide:</strong> @Html.Encode(Model.Piramide.NombreGrupo)</p>
+    <p><strong>Creada Por:</strong> @Html.Encode(Model.Creador.Nombre) el @Html.Encode(Model.FechaCreacion.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Calificacion :</strong> @Html.Encode(Model.CalificacionPromedio.ToString()) Estrellas</p>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-2">
+        <h4>Temporadas</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Temporada</th>
+            </tr>
+
+            @foreach (var item in Model.Temporadas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-2">
+        <h4>Clasificaciones</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Clasificacion</th>
+            </tr>
+
+            @foreach (var item in Model.Clasificaciones)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-2">
+        <h4>Condimentos</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Condimento</th>
+            </tr>
+
+            @foreach (var item in Model.Condimentos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h4>Ingredientes</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Ingrediente</th>
+                <th>Cantidad</th>
+                <th>Cal.(Kg.)</th>
+            </tr>
+
+            @foreach (var item in Model.Ingredientes)
+            {
+                var calorias = (item.Ingrediente.CaloriasPorcion * item.Ingrediente.Porcion * item.Cantidad).ToString("0.##");
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ingrediente.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td>
+                        @Html.Encode(calorias)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <h4>Procedimiento</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>#</th>
+                <th>Pasos</th>
+            </tr>
+
+            @foreach (var item in Model.Procedimientos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-4">
+        <h4>Fotos</h4>
+        @foreach (var item in Model.Procedimientos)
+        {
+            var urlImagen = "";
+            if (item.Imagen != "")
+            {
+                urlImagen = item.Imagen;
+            }
+            else
+            {
+                urlImagen = "~/Content/Images/recetaSinFoto.png";
+            }
+
+            <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+                <a class="thumbnail" style="margin-bottom: 20px;" href="#">
+
+                    <img class="img-responsive" src="@Url.Content(urlImagen)" alt="">
+                </a>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+
+<a class="btn btn-primary" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

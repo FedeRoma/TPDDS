@@ -4,15 +4,24 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-using System.Web.Mvc;
+//using System.Web.Mvc;
 
 namespace TP_DDS.Models
 {
     public class Usuario
     {
         public int Id { get; set; }
-        public String UserName { get; set; }
+        //public String UserName { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
         public String Pass { get; set; }
+
+        [NotMapped]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirme su Contraseña")]
+        public string ConfirmPass { get; set; }
+
         public String Email { get; set; }
         public String Nombre { get; set; }
         public int SexoId { get; set; }
@@ -23,10 +32,8 @@ namespace TP_DDS.Models
 
         public DateTime FechaAltaPerfil { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:0.##}")]
-        public decimal Peso { get; set; }
-
-        public decimal Altura { get; set; }
+        public int Peso { get; set; }
+        public int Altura { get; set; }
 	    public int RutinaId { get; set; }
         public int CondicionPreexistenteId { get; set; }
         public int ComplexionId { get; set; }
@@ -41,6 +48,5 @@ namespace TP_DDS.Models
         public virtual ICollection<Preferencia> Preferencias { get; set; }
         public virtual ICollection<Receta> Recetas { get; set; }
         public virtual ICollection<Grupo> Grupos { get; set; }
-        //public virtual ICollection<Grupo> GruposUnidos { get; set; }
     }
 }

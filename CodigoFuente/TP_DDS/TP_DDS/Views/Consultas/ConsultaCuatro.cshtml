@@ -1,0 +1,78 @@
+﻿@model TP_DDS.ViewModels.RecetasByPreferencia
+
+@{
+    ViewBag.Title = "Consulta Cuatro";
+}
+
+<h2>Entrega 5 - Consulta 4</h2>
+<h4>Según Preferencia Alimenticias del usuario, mostrar 3 recetas posible.</h4>
+<hr />
+
+@using (Html.BeginForm("ConsultaCuatro", "Consultas", 
+                new { ReturnUrl = ViewBag.ReturnUrl }, 
+                FormMethod.Get, new { role = "form" }))
+{
+    <h5>Filtros</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.PreferenciaId,
+                        (SelectList)ViewBag.Preferencias, "-- Seleccione una Preferencia --", 
+                        new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PreferenciaId)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    </div>
+
+}
+
+<div class="row">
+    <div class="col-md-8">
+
+        <div style="height:5px"></div>
+
+        <table class="table">
+            <tr>
+                <th id="col_nombre">Nombre</th>
+                <th id="col_dificultad">Dificultad</th>
+                <th id="col_totcal">Tot. Cal.(Kg)</th>
+                <th id="col_piramide">Grupo Piramide</th>
+                <th id="col_creador">Creador</th>
+                <th id="col_acciones">Acciones</th>
+            </tr>
+            @if (Model.Results != null)
+            {
+                foreach (var item in Model.Results)
+                {
+                    <tr>
+                        <td id="col_nombre">
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td id="col_dificultad">
+                            @Html.DisplayFor(modelItem => item.Dificultad)
+                        </td>
+                        <td id="col_totcal">
+                            @Html.DisplayFor(modelItem => item.TotalCalorias)
+                        </td>
+                        <td id="col_piramide">
+                            @Html.DisplayFor(modelItem => item.SectorPiramide)
+                        </td>
+                        <td id="col_creador">
+                            @Html.DisplayFor(modelItem => item.Creador)
+                        </td>
+                        <td id="col_acciones">
+                            @Html.ActionLink("Detalle", "Details", "Recetas",
+                                                new { id = item.Id }, null)
+                        </td>
+
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

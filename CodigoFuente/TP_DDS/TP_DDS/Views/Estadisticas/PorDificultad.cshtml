@@ -1,0 +1,63 @@
+﻿@model TP_DDS.Models.Estadistica
+
+@{
+    ViewBag.Title = "Estadisticas";
+}
+
+<h2>Estadisticas</h2>
+<h4>Consultas según nivel de dificultad de la receta.</h4>
+<hr />
+
+@using (Html.BeginForm("PorDificultad", "Estadisticas", 
+                new { ReturnUrl = ViewBag.ReturnUrl }, 
+                FormMethod.Get, new { role = "form" }))
+{
+    <h5>Tipo</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.Tipo,
+                        (SelectList)ViewBag.Tipos, "-- Seleccione un Tipo --", 
+                        new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Tipo)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    </div>
+
+}
+
+<div class="row">
+    <div class="col-md-4">
+
+        <div style="height:10px"></div>
+
+        <table class="table">
+
+            <tr>
+                <th>Dificultad</th>
+                <th>Consultas</th>
+            </tr>
+
+            @if (ViewBag.Results != null)
+            {
+                foreach (var item in (IEnumerable<TP_DDS.Models.EstadisticaDificultad>)ViewBag.Results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dificultad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Consultas)
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+    </div>
+</div>

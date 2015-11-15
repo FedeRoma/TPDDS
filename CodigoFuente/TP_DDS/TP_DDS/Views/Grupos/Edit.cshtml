@@ -1,0 +1,68 @@
+﻿@model TP_DDS.Models.Grupo
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Grupos</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h4>Editar Gruppo</h4>
+    <hr />
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Eliminado)
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, "Nombre", new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <h4>Preferencias</h4>
+                <table class="table">
+                    <tr style="background-color:aliceblue">
+                        <th>Sel.</th>
+                        <th>Preferencia</th>
+                    </tr>
+
+                    @foreach (var item in (IEnumerable<TP_DDS.Models.Preferencia>)ViewBag.Preferencias)
+                    {
+                        <tr>
+                            <td>
+                                <input class="check-box" type="checkbox">
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-primary" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Crear Grupo" class="btn btn-primary" disabled="disabled">Editar Grupo</button>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

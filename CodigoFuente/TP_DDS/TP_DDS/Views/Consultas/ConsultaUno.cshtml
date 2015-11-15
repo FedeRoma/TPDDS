@@ -1,0 +1,58 @@
+﻿@model TP_DDS.ViewModels.CaloriasMaxByRutina
+
+@{
+    ViewBag.Title = "Consulta Uno";
+}
+
+<h2>Entrega 5 - Consulta 1</h2>
+<h4>Para una rutina determinada, muestra las Calorias Maximas a consumir en una receta.</h4>
+<hr />
+
+@using (Html.BeginForm("ConsultaUno", "Consultas", 
+            new { ReturnUrl = ViewBag.ReturnUrl }, 
+            FormMethod.Get, new { role = "form" }))
+{
+    <h5>Filtros</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.RutinaId, 
+                    (SelectList)ViewBag.Rutinas, "-- Seleccione una Rutina --", 
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RutinaId)
+            </div>
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    </div>
+
+}
+
+<div class="row">
+    <div class="col-md-4">
+
+        <div style="height:5px"></div>
+
+        <table class="table">
+            <tr>
+                <th>Usuario</th>
+                <th>Calorias Max.</th>
+            </tr>
+            @if (Model.Results != null)
+            {
+                foreach (var item in Model.Results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CaloriasMaximas)
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

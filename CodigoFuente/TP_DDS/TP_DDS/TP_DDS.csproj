@@ -161,7 +161,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ConsultasController.cs" />
+    <Compile Include="Controllers\EstadisticasController.cs" />
+    <Compile Include="Controllers\GruposController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RecetasController.cs" />
+    <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\TPDDSContext.cs" />
     <Compile Include="DAL\TPDDSInitializer.cs" />
@@ -236,6 +241,70 @@
     <Compile Include="Migrations\201510222207121_cambios1.Designer.cs">
       <DependentUpon>201510222207121_cambios1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510242218481_cambioAltura.cs" />
+    <Compile Include="Migrations\201510242218481_cambioAltura.Designer.cs">
+      <DependentUpon>201510242218481_cambioAltura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511081959592_usernameOut.cs" />
+    <Compile Include="Migrations\201511081959592_usernameOut.Designer.cs">
+      <DependentUpon>201511081959592_usernameOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511082248241_gruposusuarios.cs" />
+    <Compile Include="Migrations\201511082248241_gruposusuarios.Designer.cs">
+      <DependentUpon>201511082248241_gruposusuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511082250462_nuevatabla_prueba.cs" />
+    <Compile Include="Migrations\201511082250462_nuevatabla_prueba.Designer.cs">
+      <DependentUpon>201511082250462_nuevatabla_prueba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511082253588_TablaGrupoUsuario.cs" />
+    <Compile Include="Migrations\201511082253588_TablaGrupoUsuario.Designer.cs">
+      <DependentUpon>201511082253588_TablaGrupoUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511092134237_califpromedi.cs" />
+    <Compile Include="Migrations\201511092134237_califpromedi.Designer.cs">
+      <DependentUpon>201511092134237_califpromedi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511102222329_modifRecetas_Estadisticas.cs" />
+    <Compile Include="Migrations\201511102222329_modifRecetas_Estadisticas.Designer.cs">
+      <DependentUpon>201511102222329_modifRecetas_Estadisticas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511110516245_nullableFechaUltModReceta.cs" />
+    <Compile Include="Migrations\201511110516245_nullableFechaUltModReceta.Designer.cs">
+      <DependentUpon>201511110516245_nullableFechaUltModReceta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511110518082_fixnullfieldReceta.cs" />
+    <Compile Include="Migrations\201511110518082_fixnullfieldReceta.Designer.cs">
+      <DependentUpon>201511110518082_fixnullfieldReceta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511110619486_prueba12.cs" />
+    <Compile Include="Migrations\201511110619486_prueba12.Designer.cs">
+      <DependentUpon>201511110619486_prueba12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511110632529_mapeos_m_a_m_Recetas.cs" />
+    <Compile Include="Migrations\201511110632529_mapeos_m_a_m_Recetas.Designer.cs">
+      <DependentUpon>201511110632529_mapeos_m_a_m_Recetas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111500404_avances1111.cs" />
+    <Compile Include="Migrations\201511111500404_avances1111.Designer.cs">
+      <DependentUpon>201511111500404_avances1111.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111546066_avancesTp.cs" />
+    <Compile Include="Migrations\201511111546066_avancesTp.Designer.cs">
+      <DependentUpon>201511111546066_avancesTp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111557417_gruposrecetas.cs" />
+    <Compile Include="Migrations\201511111557417_gruposrecetas.Designer.cs">
+      <DependentUpon>201511111557417_gruposrecetas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111812120_prueba1.cs" />
+    <Compile Include="Migrations\201511111812120_prueba1.Designer.cs">
+      <DependentUpon>201511111812120_prueba1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111815143_prueba2.cs" />
+    <Compile Include="Migrations\201511111815143_prueba2.Designer.cs">
+      <DependentUpon>201511111815143_prueba2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessException.cs" />
@@ -250,6 +319,8 @@
     <Compile Include="Models\Estadisticas\EstadisticaRanking.cs" />
     <Compile Include="Models\Estadisticas\EstadisticaSexo.cs" />
     <Compile Include="Models\Grupo.cs" />
+    <Compile Include="Models\GrupoReceta.cs" />
+    <Compile Include="Models\GrupoUsuario.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Ingrediente.cs" />
     <Compile Include="Models\IngredienteReceta.cs" />
@@ -275,6 +346,13 @@
     <Compile Include="Models\Validaciones\ValidacionUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\RecetasByTempoCalif.cs" />
+    <Compile Include="ViewModels\RecetasBySexComplex.cs" />
+    <Compile Include="ViewModels\RecetasByPreferencia.cs" />
+    <Compile Include="ViewModels\RecetasByPiramide.cs" />
+    <Compile Include="ViewModels\RecetasByDieta.cs" />
+    <Compile Include="ViewModels\RecetasByCondimento.cs" />
+    <Compile Include="ViewModels\CaloriasMaxByRutina.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -323,6 +401,30 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Consultas\ConsultaUno.cshtml" />
+    <Content Include="Views\Consultas\ConsultaDos.cshtml" />
+    <Content Include="Views\Consultas\ConsultaTres.cshtml" />
+    <Content Include="Views\Consultas\ConsultaCuatro.cshtml" />
+    <Content Include="Views\Consultas\ConsultaCinco.cshtml" />
+    <Content Include="Views\Consultas\ConsultaSiete.cshtml" />
+    <Content Include="Views\Consultas\ConsultaSeis.cshtml" />
+    <Content Include="Views\Estadisticas\PorSexo.cshtml" />
+    <Content Include="Views\Estadisticas\PorDificultad.cshtml" />
+    <Content Include="Views\Estadisticas\Ranking.cshtml" />
+    <Content Include="Views\Recetas\Create.cshtml" />
+    <Content Include="Views\Recetas\Delete.cshtml" />
+    <Content Include="Views\Recetas\Details.cshtml" />
+    <Content Include="Views\Recetas\Edit.cshtml" />
+    <Content Include="Views\Recetas\Index.cshtml" />
+    <Content Include="Views\Grupos\Create.cshtml" />
+    <Content Include="Views\Grupos\Delete.cshtml" />
+    <Content Include="Views\Grupos\Details.cshtml" />
+    <Content Include="Views\Grupos\Edit.cshtml" />
+    <Content Include="Views\Grupos\Index.cshtml" />
+    <Content Include="Views\Grupos\Me.cshtml" />
+    <Content Include="Views\Reportes\Index.cshtml" />
+    <Content Include="Views\Recetas\Me.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -387,6 +489,54 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510222207121_cambios1.resx">
       <DependentUpon>201510222207121_cambios1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510242218481_cambioAltura.resx">
+      <DependentUpon>201510242218481_cambioAltura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511081959592_usernameOut.resx">
+      <DependentUpon>201511081959592_usernameOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511082248241_gruposusuarios.resx">
+      <DependentUpon>201511082248241_gruposusuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511082250462_nuevatabla_prueba.resx">
+      <DependentUpon>201511082250462_nuevatabla_prueba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511082253588_TablaGrupoUsuario.resx">
+      <DependentUpon>201511082253588_TablaGrupoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511092134237_califpromedi.resx">
+      <DependentUpon>201511092134237_califpromedi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511102222329_modifRecetas_Estadisticas.resx">
+      <DependentUpon>201511102222329_modifRecetas_Estadisticas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511110516245_nullableFechaUltModReceta.resx">
+      <DependentUpon>201511110516245_nullableFechaUltModReceta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511110518082_fixnullfieldReceta.resx">
+      <DependentUpon>201511110518082_fixnullfieldReceta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511110619486_prueba12.resx">
+      <DependentUpon>201511110619486_prueba12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511110632529_mapeos_m_a_m_Recetas.resx">
+      <DependentUpon>201511110632529_mapeos_m_a_m_Recetas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111500404_avances1111.resx">
+      <DependentUpon>201511111500404_avances1111.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111546066_avancesTp.resx">
+      <DependentUpon>201511111546066_avancesTp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111557417_gruposrecetas.resx">
+      <DependentUpon>201511111557417_gruposrecetas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111812120_prueba1.resx">
+      <DependentUpon>201511111812120_prueba1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111815143_prueba2.resx">
+      <DependentUpon>201511111815143_prueba2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

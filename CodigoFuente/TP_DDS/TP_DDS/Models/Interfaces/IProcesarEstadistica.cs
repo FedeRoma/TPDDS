@@ -5,8 +5,8 @@ using System.Text;
 
 namespace TP_DDS.Models
 {
-    interface IProcesarEstadistica
+    public interface IProcesarEstadistica
     {
-        void ObtenerEstadistica();
+        object ObtenerEstadistica(int tipo);
     }
 }

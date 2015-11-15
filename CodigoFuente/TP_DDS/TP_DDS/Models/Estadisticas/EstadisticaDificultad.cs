@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TP_DDS.DAL;
 
 namespace TP_DDS.Models
 {
     public class EstadisticaDificultad : IProcesarEstadistica
     {
-        public void ObtenerEstadistica()
+        public string Dificultad { get; set; }
+        public int Consultas { get; set; }
+
+        public object ObtenerEstadistica(int tipo)
         {
-            throw new NotImplementedException();
+            TPDDSContext db = new TPDDSContext();
+
+            return db.GetEstadisticaByDificultad(tipo);
         }
     }
 }

@@ -31,13 +31,13 @@ namespace TP_DDS.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Usuario")]
-        public string UserName { get; set; }
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+        [Display(Name = "Contraseña")]
+        public string Pass { get; set; }
 
         [Display(Name = "Recordarme?")]
         public bool RememberMe { get; set; }

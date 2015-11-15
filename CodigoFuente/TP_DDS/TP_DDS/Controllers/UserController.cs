@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using TP_DDS.Models;
 using TP_DDS.DAL;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TP_DDS.Controllers
 {
@@ -22,14 +25,67 @@ namespace TP_DDS.Controllers
             return View(usuarios.ToList());
         }
 
-        // GET: /User/Details/5
-        public ActionResult Details(int? id)
+        // GET: /User/Login
+        [HttpGet]
+        public ActionResult Login()
         {
-            if (id == null)
+            return View();
+        }
+
+        // POST: /User/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel user, string returnUrl)
+        {
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                 Usuario myUser = db.Usuarios.FirstOrDefault
+                                 (u => u.Email.Equals(user.Email) && u.Pass.Equals(user.Pass));
+
+                if (myUser != null) 
+                {
+                    FormsAuthentication.SetAuthCookie(myUser.Email, false);
+
+                    if(!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)){
+                        return Redirect(returnUrl);
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Sus datos son incorrectos.");
+                }
             }
-            Usuario usuario = db.Usuarios.Find(id);
+            return View(user);
+        }
+
+        // GET: /User/LogOff
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        // GET: /User/Details/5
+        public ActionResult Details()
+        {
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Usuario myUser = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
+            if (myUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            Usuario usuario = db.Usuarios.Find(myUser.Id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -46,6 +102,8 @@ namespace TP_DDS.Controllers
             ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
             ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
 
+            ViewBag.Preferencias = db.Preferencias.OrderBy(p => p.Nombre);
+
             //ViewBag.Sexo = new SelectList(new[]
             //                              {
             //                                  new {Sexo="0",Name="Hombre"},
@@ -61,14 +119,14 @@ namespace TP_DDS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,Altura,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId,Peso")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Id,Pass,Email,Nombre,SexoId,FechaNacimiento,Altura,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId,Peso")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 usuario.FechaAltaPerfil = DateTime.Now;
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("LogIn", "User");
             }
 
             ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
@@ -77,17 +135,26 @@ namespace TP_DDS.Controllers
             ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
             ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
 
+            ViewBag.Preferencias = db.Preferencias.OrderBy(p => p.Nombre);
+
             return View(usuario);
         }
 
         // GET: /User/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit()
         {
-            if (id == null)
+            //int? id
+
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home");
             }
-            Usuario usuario = db.Usuarios.Find(id);
+
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -99,6 +166,8 @@ namespace TP_DDS.Controllers
             ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre", usuario.SexoId);
             ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre", usuario.RutinaId);
 
+            ViewBag.Preferencias = db.Preferencias.OrderBy(p => p.Nombre);
+
             return View(usuario);
         }
 
@@ -107,13 +176,13 @@ namespace TP_DDS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserName,Pass,Email,Nombre,SexoId,FechaNacimiento,FechaAltaPerfil,Altura,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId,Peso")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,Pass,Email,Nombre,SexoId,FechaNacimiento,FechaAltaPerfil,Altura,RutinaId,CondicionPreexistenteId,ComplexionId,DietaId,Peso")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
@@ -122,34 +191,36 @@ namespace TP_DDS.Controllers
             ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
             ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
 
+            ViewBag.Preferencias = db.Preferencias.OrderBy(p => p.Nombre);
+
             return View(usuario);
         }
 
-        // GET: /User/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
-        }
+        //// GET: /User/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Usuario usuario = db.Usuarios.Find(id);
+        //    if (usuario == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(usuario);
+        //}
 
-        // POST: /User/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: /User/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Usuario usuario = db.Usuarios.Find(id);
+        //    db.Usuarios.Remove(usuario);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

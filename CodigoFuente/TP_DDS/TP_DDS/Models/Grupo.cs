@@ -9,10 +9,14 @@ namespace TP_DDS.Models
     {
         public int Id { get; set; }
         public String Nombre { get; set; }
+
+        public bool Eliminado { get; set; }
+
         public int UsuarioId { get; set; }
 
         public virtual Usuario Creador { get; set; }
         public virtual ICollection<Preferencia> Preferencias { get; set; }
-        //public virtual ICollection<Usuario> UsuariosUnidos { get; set; }
+        public virtual ICollection<GrupoReceta> Recetas { get; set; }
+        public virtual ICollection<GrupoUsuario> Usuarios { get; set; }
     }
 }

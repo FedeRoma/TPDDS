@@ -15,9 +15,6 @@ namespace TP_DDS.Models
         public virtual Usuario Usuario { get; set; }
         public virtual Receta Receta { get; set; }
 
-
-
-
         //public Calificacion(int valor, Usuario usuario)
         //{
         //    Valor = valor;

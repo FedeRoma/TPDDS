@@ -1,0 +1,82 @@
+﻿@model TP_DDS.Models.Estadistica
+
+@{
+    ViewBag.Title = "Estadisticas";
+}
+
+<h2>Estadisticas</h2>
+<h4>Según el Sexo: tipos de receta más consultadas.</h4>
+<hr />
+
+@using (Html.BeginForm("PorSexo", "Estadisticas", 
+                new { ReturnUrl = ViewBag.ReturnUrl }, 
+                FormMethod.Get, new { role = "form" }))
+{
+    <h5>Tipo</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.Tipo,
+                        (SelectList)ViewBag.Tipos, "-- Seleccione un Tipo --", 
+                        new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Tipo)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    </div>
+
+}
+
+<div class="row">
+    <div class="col-md-4">
+
+        <div style="height:5px"></div>
+
+        <table class="table">
+
+            <tr>
+                <th>Sexo</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            @if (ViewBag.Results != null)
+            {
+                var sexo = "";
+
+                foreach (var item in (IEnumerable<TP_DDS.Models.EstadisticaSexo>)ViewBag.Results)
+                {
+
+                    if (sexo != item.Sexo)
+                    {
+                        sexo = item.Sexo;
+                        <tr style="background-color:aliceblue">
+                            <th>@Html.Encode(item.Sexo)</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr style="background-color:lightgray">
+                            <th></th>
+                            <th>Dieta</th>
+                            <th>Consultas</th>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dieta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Consultas)
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+    </div>
+</div>

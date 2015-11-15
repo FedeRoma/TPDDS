@@ -51,5 +51,44 @@ input[type="checkbox"].input-validation-error {
 }
 
 #appIcono {
-    padding-right: 5px;
+    /*padding-right: 5px;*/
+    width: 40px;
+    height: 40px;
+}
+
+#brandIcono {
+    padding: 5px;
+}
+
+@media (max-width: 518px) {
+    #col_nombre{}
+    #col_dificultad{}
+    #col_totcal{}
+    #col_piramide{display:none;}
+    #col_creador{display:none;}
+    #col_acciones{}
+}
+
+@media (max-width: 377px) {
+	.navbar-brand {
+	    float: left;
+	    padding: 15px 5px;
+	    font-size: 16px;
+	    line-height: 20px;
+	}
+}
+
+@media (max-width: 337px) {
+	#brandIcono {display:none;}
+    #col_dificultad{display:none;}
+    #col_piramide{display:none;}
+    #col_creador{display:none;}
+}
+
+@media (max-width: 286px) {
+	#brandIcono {display:inline-block;}
+    .navbar-brand {display:none;}
+    #col_dificultad{display:none;}
+    #col_piramide{display:none;}
+    #col_creador{display:none;}
 }
