@@ -1,0 +1,15 @@
+﻿@model TP_DDS.Models.UsuarioPreferenciasViewModel
+
+@using HtmlHelpers.BeginCollectionItem
+
+@using (Html.BeginCollectionItem("PreferenciasList"))
+{
+    @Html.HiddenFor(m => m.Id)
+    <td>
+        @Html.CheckBoxFor(m => m.Sel, new { @class = "chkSelect" })
+    </td>
+    <td>
+        @Model.Nombre
+        @Html.HiddenFor(m => m.Nombre)
+    </td>
+}

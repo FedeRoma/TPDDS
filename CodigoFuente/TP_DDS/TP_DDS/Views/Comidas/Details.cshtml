@@ -1,0 +1,59 @@
+﻿@model TP_DDS.Models.Comida
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2>Recetas Planificadas</h2>
+<p><strong>Fecha:</strong> @Html.Encode(Model.Fecha.ToString("dd/MM/yyyy"))</p>
+<p><strong>Clasificación:</strong> @Html.Encode(Model.Clasificacion.Nombre)</p>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div style="height:5px"></div>
+        <h4>Recetas</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th id="col_nombre">Nombre</th>
+                <th id="col_dificultad">Dif.</th>
+                <th id="col_totcal">Cal.(Kg)</th>
+                <th id="col_creador">Calif.</th>
+                <th id="col_acciones"></th>
+            </tr>
+            @foreach (var item in Model.Recetas.Where(r => !r.Eliminada))
+            {
+                <tr>
+                    <td id="col_nombre">
+                        @Html.DisplayFor(modelItem => item.Receta.Nombre)
+                    </td>
+                    <td id="col_dificultad">
+                        @Html.DisplayFor(modelItem => item.Receta.Dificultad.Nombre)
+                    </td>
+                    <td id="col_totcal">
+                        @Html.DisplayFor(modelItem => item.Receta.TotalCalorias)
+                    </td>
+                    <td id="col_creador">
+                        @Html.DisplayFor(modelItem => item.Receta.CalificacionPromedio)
+                    </td>
+                    <td id="col_acciones">
+                        @if((bool)ViewBag.Historico)
+                        {
+                            @Html.ActionLink("Detalles", "Details", "Recetas", new { id = item.Receta.Id }, htmlAttributes: null) 
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Detalles", "Details", "Recetas", new { id = item.Receta.Id }, htmlAttributes: null) @Html.Encode("|")
+                            @Html.ActionLink("Eliminar", "DeleteReceta", "Comidas", new { id = item.Id }, htmlAttributes: null)
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>

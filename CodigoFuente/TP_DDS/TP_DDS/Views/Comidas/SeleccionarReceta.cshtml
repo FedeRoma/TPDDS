@@ -1,0 +1,57 @@
+﻿@model TP_DDS.Models.ComidaReceta
+
+@{
+    ViewBag.Title = "Seleccionar";
+}
+
+<div class="well">
+    <h2>@Html.DisplayFor(m => m.Receta.Nombre)</h2>
+    @*<hr />*@
+    @*<p><strong>Tot. Calorias:</strong> @Html.Encode(Model.Receta.TotalCalorias.ToString("0.##")) Kg.</p>
+    <p><strong>Dificultad:</strong> @Html.DisplayFor(m => m.Receta.Dificultad.Nombre)</p>
+    <p><strong>Grupo Piramide:</strong> @Html.Encode(Model.Receta.Piramide.NombreGrupo)</p>
+    <p><strong>Creada Por:</strong> @Html.Encode(Model.Receta.Creador.Nombre) <strong>el:</strong> @Html.Encode(Model.Receta.FechaCreacion.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Ultima modif.:</strong> @Html.Encode(Model.Receta.FechaUltModif.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Calificacion:</strong> @Html.Encode(Model.Receta.CalificacionPromedio.ToString()) Estrellas</p>*@
+</div>
+
+<hr />
+
+<h3>Seleccione la Planificación a la que desea agregar esta Receta</h3>
+<p><em>En caso de que la misma no exista, sera creada automaticamente.</em></p>
+<hr />
+
+<div style="height:10px;"></div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.RecetaId)
+    
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comida.Fecha, "Fecha", new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Comida.Fecha, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Comida.Fecha)
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comida.ClasificacionId, "Clasificacion", new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.Comida.ClasificacionId, (SelectList)ViewBag.ClasificacionId, "-- Seleccione --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Comida.ClasificacionId)
+            </div>
+        </div>
+    </div>
+    
+    <div style="height:10px"></div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Seleccionar" class="btn btn-primary">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+}

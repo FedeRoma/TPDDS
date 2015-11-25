@@ -1,0 +1,153 @@
+﻿@model TP_DDS.ViewModels.RecetasMeViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Mis Receta</h2>
+
+<p>
+    @Html.ActionLink("Crear Nueva Receta", "Create")
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div style="height:5px"></div>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th id="col_nombre"><h4>Creadas</h4></th>
+                <th id="col_dificultad"></th>
+                <th id="col_totcal"></th>
+                <th id="col_piramide"></th>
+                <th id="col_creador"></th>
+                <th id="col_acciones"></th>
+            </tr>
+            <tr style="background-color:lightgray">
+                <th id="col_nombre">Nombre</th>
+                <th id="col_dificultad">Dificultad</th>
+                <th id="col_totcal">Calorias (Kg)</th>
+                <th id="col_piramide">Grupo Piramide</th>
+                <th id="col_creador">Calificacion</th>
+                <th id="col_acciones"></th>
+            </tr>
+            @foreach (var item in Model.Creadas)
+            {
+                <tr>
+                    <td id="col_nombre">
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td id="col_dificultad">
+                        @Html.DisplayFor(modelItem => item.Dificultad.Nombre)
+                    </td>
+                    <td id="col_totcal">
+                        @Html.DisplayFor(modelItem => item.TotalCalorias)
+                    </td>
+                    <td id="col_piramide">
+                        @Html.DisplayFor(modelItem => item.Piramide.NombreGrupo)
+                    </td>
+                    <td id="col_creador">
+                        @Html.DisplayFor(modelItem => item.CalificacionPromedio)
+                    </td>
+                    <td id="col_acciones">
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div style="height:5px"></div>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th id="col_nombre"><h4>Calificadas</h4></th>
+                <th id="col_dificultad"></th>
+                <th id="col_totcal"></th>
+                <th id="col_creador"></th>
+                <th id="col_creador"></th>
+                <th id="col_acciones"></th>
+            </tr>
+            <tr style="background-color:lightgray">
+                <th id="col_nombre">Nombre</th>
+                <th id="col_dificultad">Dif.</th>
+                <th id="col_totcal">Cal.(Kg)</th>
+                <th id="col_creador">Mi Calif.</th>
+                <th id="col_creador">Calif. Total</th>
+                <th id="col_acciones"></th>
+            </tr>
+            @foreach (var item in Model.Calificadas)
+            {
+                int usuarioID = (int)ViewBag.UsuarioId;
+                
+                <tr>
+                    <td id="col_nombre">
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td id="col_dificultad">
+                        @Html.DisplayFor(modelItem => item.Dificultad.Nombre)
+                    </td>
+                    <td id="col_totcal">
+                        @Html.DisplayFor(modelItem => item.TotalCalorias)
+                    </td>
+                    <td id="col_creador">
+                        @Html.DisplayFor(modelItem => item.Calificaciones.
+                      FirstOrDefault(c => c.RecetaId == item.Id && c.UsuarioId == usuarioID).Valor)
+                    </td>
+                    <td id="col_creador">
+                        @Html.DisplayFor(modelItem => item.CalificacionPromedio)
+                    </td>
+                    <td id="col_acciones">
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <div style="height:5px"></div>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th id="col_nombre"><h4>Consultadas</h4></th>
+                <th id="col_dificultad"></th>
+                <th id="col_totcal"></th>
+                <th id="col_creador"></th>
+                <th id="col_acciones"></th>
+            </tr>
+            <tr style="background-color:lightgray">
+                <th id="col_nombre">Nombre</th>
+                <th id="col_dificultad">Dif.</th>
+                <th id="col_totcal">Cal.(Kg)</th>
+                <th id="col_creador">Calif.</th>
+                <th id="col_acciones"></th>
+            </tr>
+            @foreach (var item in Model.Consultadas)
+            {
+                <tr>
+                    <td id="col_nombre">
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td id="col_dificultad">
+                        @Html.DisplayFor(modelItem => item.Dificultad.Nombre)
+                    </td>
+                    <td id="col_totcal">
+                        @Html.DisplayFor(modelItem => item.TotalCalorias)
+                    </td>
+                    <td id="col_creador">
+                        @Html.DisplayFor(modelItem => item.CalificacionPromedio)
+                    </td>
+                    <td id="col_acciones">
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

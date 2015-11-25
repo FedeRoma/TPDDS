@@ -1,0 +1,43 @@
+﻿@model TP_DDS.Models.Comida
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h4>Crear Planificación</h4>
+    <hr />
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.UsuarioId)
+    
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Fecha, "Fecha", new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Fecha, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Fecha)
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClasificacionId, "Clasificacion", new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.ClasificacionId, (SelectList)ViewBag.ClasificacionId, "-- Seleccione --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClasificacionId)
+            </div>
+        </div>
+    </div>
+
+    <div style="height:20px;"></div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <input type="submit" value="Crear y Buscar Recetas" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

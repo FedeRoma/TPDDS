@@ -1,0 +1,101 @@
+﻿@model TP_DDS.Models.Reporte
+
+@{
+    ViewBag.Title = "Reportes";
+}
+
+<h2>Reportes</h2>
+<h4>Recetas segun rango de calorias.</h4>
+<hr />
+
+@using (Html.BeginForm("RecetasPorCalorias", "Reportes", 
+                new { ReturnUrl = ViewBag.ReturnUrl }, 
+                FormMethod.Get, new { role = "form" }))
+{
+    <h5>Calorias</h5>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FiltroIni, "Cal. Mínimas", new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.FiltroIni, new { @class = "form-control", @type = "number", @min = "1", @step = "1" })
+                @if (ViewBag.MsjErrorIni != null)
+                {
+                    <p style="color:red">@Html.Encode((string)ViewBag.MsjErrorIni)</p>
+                }
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FiltroFin, "Cal. Máximas", new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.FiltroFin, new { @class = "form-control", @type = "number", @min = "1", @step = "1" })
+                @if (ViewBag.MsjErrorFin != null)
+                {
+                    <p style="color:red">@Html.Encode((string)ViewBag.MsjErrorFin)</p>
+                }
+            </div>
+        </div>
+    </div>
+    if (ViewBag.MsjErrorMayor != null)
+    {
+        <p style="color:red">@Html.Encode((string)ViewBag.MsjErrorMayor)</p>
+    }
+    <div style="height:15px;"></div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    </div>
+
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div style="height:10px"></div>
+
+        <table class="table">
+
+            <tr style="background-color:lightgray">
+                <th id="col_nombre">Nombre</th>
+                <th id="col_dificultad">Dificultad</th>
+                <th id="col_totcal">Calorias (Kg)</th>
+                <th id="col_piramide">Grupo Piramide</th>
+                <th id="col_creador">Calificacion</th>
+                <th id="col_creador">Creador</th>
+                <th id="col_acciones"></th>
+            </tr>
+
+            @if (ViewBag.Results != null)
+            {
+                foreach (var item in (IEnumerable<TP_DDS.Models.RptRecetasPorCalorias>)ViewBag.Results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dificultad)
+                        </td>
+                        <td>
+                            @Html.Encode(item.TotalCalorias.ToString("0.##"))
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SectorPiramide)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CalificacionPromedio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Creador)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalle", "Details", "Recetas",
+                                                new { id = item.Id }, null)
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+    </div>
+</div>

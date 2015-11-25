@@ -1,0 +1,66 @@
+﻿@model TP_DDS.Models.Grupo
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h3>Crear nuevo Grupo</h3>
+    <hr />
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, "Nombre", new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Preferencias</h4>
+            <table class="table">
+                <tr style="background-color:aliceblue">
+                    <th><input type="checkbox" id="chkSelectAll" /></th>
+                    <th>Preferencia</th>
+                </tr>
+                @foreach (var item in Model.Preferencias)
+                {
+                    <tr>
+                        @Html.Partial("_PreferenciasList", item)
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Crear Grupo" class="btn btn-primary">Crear Grupo</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $("#chkSelectAll").bind("change", function () {
+            $(".chkSelect").prop("checked", $(this).prop("checked"));
+        });
+        $(".chkSelect").bind("change", function () {
+            if (!$(this).prop("checked"))
+                $("#chkSelectAll").prop("checked", false);
+        });
+    </script>
+}
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

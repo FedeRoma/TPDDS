@@ -1,0 +1,30 @@
+﻿@{
+    var alerts = TempData.ContainsKey(TP_DDS.Helpers.Alert.TempDataKey)
+                ? (List<TP_DDS.Helpers.Alert>)TempData[TP_DDS.Helpers.Alert.TempDataKey]
+                : new List<TP_DDS.Helpers.Alert>();
+
+    @*if (alerts.Any())
+    {
+        <hr />
+    }*@
+
+    foreach (var alert in alerts)
+    {
+        var dismissableClass = alert.Dismissable ? "alert-dismissable" : null;
+        <div class="alert alert-@alert.AlertStyle @dismissableClass" style="margin-bottom:5px;">
+            @if (alert.Dismissable)
+            {
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            }
+            @Html.Raw(alert.Message)
+        </div>
+    }
+
+    <script>
+        window.setTimeout(function () {
+            $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 1500);
+    </script>
+}

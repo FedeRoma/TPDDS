@@ -1,0 +1,34 @@
+﻿@model TP_DDS.Models.Receta
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<div class="well">
+    <h2>@Html.DisplayFor(m => m.Nombre)</h2>
+    <hr />
+    <p><strong>Tot. Calorias:</strong> @Html.Encode(Model.TotalCalorias.ToString("0.##")) Kg.</p>
+    <p><strong>Dificultad:</strong> @Html.DisplayFor(m => m.Dificultad.Nombre)</p>
+    <p><strong>Grupo Piramide:</strong> @Html.Encode(Model.Piramide.NombreGrupo)</p>
+    <p><strong>Creada Por:</strong> @Html.Encode(Model.Creador.Nombre) <strong>el:</strong> @Html.Encode(Model.FechaCreacion.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Ultima modif.:</strong> @Html.Encode(Model.FechaUltModif.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Calificacion :</strong> @Html.Encode(Model.CalificacionPromedio.ToString()) Estrellas</p>
+</div>
+
+<hr />
+
+<h3>Confirma que desea Eliminar esta Receta?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Eliminar Receta" class="btn btn-primary">Eliminar Receta</button>
+            </div>
+        </div>
+    </div>
+}

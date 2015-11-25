@@ -1,0 +1,102 @@
+﻿@model IEnumerable<TP_DDS.Models.Grupo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Mis Grupos</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Grupo", "Create")
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div style="height:5px"></div>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th><h4>Creados</h4></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr style="background-color:lightgray">
+                <th>Nombre</th>
+                <th>Integrantes</th>
+                <th>Recetas</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                var cantIntegrantes = item.Usuarios.Count();
+                var cantRecetas = item.Recetas.Count();
+                
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.Encode(cantIntegrantes)
+                    </td>
+                    <td>
+                        @Html.Encode(cantRecetas)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="col-md-6">
+
+        <div style="height:5px"></div>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th><h4>Pertenezco</h4></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr style="background-color:lightgray">
+                <th>Nombre</th>
+                <th>Creador</th>
+                <th>Integrantes</th>
+                <th>Recetas</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in (IEnumerable<TP_DDS.Models.Grupo>)ViewBag.MisGrupos)
+            {
+                var cantIntegrantes = item.Usuarios.Count();
+                var cantRecetas = item.Recetas.Count();
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Creador.Nombre)
+                    </td>
+                    <td>
+                        @Html.Encode(cantIntegrantes)
+                    </td>
+                    <td>
+                        @Html.Encode(cantRecetas)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,221 @@
+﻿@model TP_DDS.Models.Receta
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+@using (Html.BeginForm("Create", "Recetas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h3>Crear nueva Receta</h3>
+    <hr />
+    @Html.ValidationSummary(true)
+    
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre, "Nombre", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Nombre)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DificultadId, "Dificultad", new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.DificultadId, (SelectList)ViewBag.DificultadId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DificultadId)
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PiramideId, "Grupo Piramide", new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.PiramideId, (SelectList)ViewBag.PiramideId, "Seleccione un Grupo", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PiramideId)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <h4>Temporadas</h4>
+                    <table class="table">
+                        <tr style="background-color:aliceblue">
+                            <th><input type="checkbox" id="chkSelectAllTemporadas" /></th>
+                            <th>Temporada</th>
+                        </tr>
+                        @foreach (var item in Model.Temporadas)
+                        {
+                            <tr>
+                                @Html.Partial("_TemporadasList", item)
+                            </tr>
+                        }
+                    </table>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>Clasificaciones</h4>
+                    <table class="table">
+                        <tr style="background-color:aliceblue">
+                            <th><input type="checkbox" id="chkSelectAllClasificaciones" /></th>
+                            <th>Clasificación</th>
+                        </tr>
+                        @foreach (var item in Model.Clasificaciones)
+                        {
+                            <tr>
+                                @Html.Partial("_ClasificacionesList", item)
+                            </tr>
+                        }
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <h4>
+                        Condimentos <button id="addBtnCondimentos" type="button" class="btn btn-success btn-xs">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </h4>
+
+                    <table class="table" id="tableCondimentos">
+                        <tbody>
+                            <tr style="background-color:aliceblue">
+                                <th>Condimento</th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model.Condimentos)
+                            {
+                                <tr>
+                                    @Html.Partial("_CondimentoNewRow", item)
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-8">
+                    <h4>
+                        Ingredientes <button id="addBtnIngredientes" type="button" class="btn btn-success btn-xs">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </h4>
+
+                    <table class="table" id="tableIngredientes">
+                        <tbody>
+                            <tr style="background-color:aliceblue">
+                                <th>Ingrediente</th>
+                                <th>Cantidad</th>
+                                <th>Tipo</th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model.Ingredientes)
+                            {
+                                <tr>
+                                    @Html.Partial("_IngredienteNewRow", item)
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <h4>Procedimiento</h4>
+                    <table class="table">
+                        <tr style="background-color:aliceblue">
+                            <th>Nro.</th>
+                            <th>Pasos</th>
+                            <th>Foto</th>
+                        </tr>
+
+                        @foreach (var item in Model.Procedimientos)
+                        {
+                            <tr>
+                                @Html.Partial("_ProcedimientosList", item)
+                            </tr>
+                        }
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Crear Receta" class="btn btn-primary">Crear Receta</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#addBtnIngredientes").on("click", function () {
+
+                $.get('@Url.Action("AddIngredienteNewRow")', function (data) {
+                    $("#tableIngredientes tbody").append(data);
+                });
+
+            });
+            $("#addBtnCondimentos").on("click", function () {
+
+                $.get('@Url.Action("AddCondimentoNewRow")', function (data) {
+                    $("#tableCondimentos tbody").append(data);
+                });
+
+            });
+        });
+
+        function deleteRow() {
+            var trow = $(this).closest("tr");
+            trow.remove();
+        };
+        $("#tableIngredientes").on("click", "a.removeLink", deleteRow);
+        $("#tableCondimentos").on("click", "a.removeLink", deleteRow);
+
+        $("#chkSelectAllClasificaciones").bind("change", function () {
+            $(".chkSelectClasif").prop("checked", $(this).prop("checked"));
+        });
+        $(".chkSelectClasif").bind("change", function () {
+            if (!$(this).prop("checked"))
+                $("#chkSelectAllClasificaciones").prop("checked", false);
+        });
+
+        $("#chkSelectAllTemporadas").bind("change", function () {
+            $(".chkSelectTemp").prop("checked", $(this).prop("checked"));
+        });
+        $(".chkSelectTemp").bind("change", function () {
+            if (!$(this).prop("checked"))
+                $("#chkSelectAllTemporadas").prop("checked", false);
+        });
+
+    </script>
+}
