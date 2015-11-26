@@ -2,13 +2,25 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using TP_DDS.ViewModels;
+using TP_DDS.Models;
+using TP_DDS.DAL;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TP_DDS.Models
 {
     public class Usuario
     {
+        private TPDDSContext db = new TPDDSContext();
+
         public int Id { get; set; }
         public String Email { get; set; }
         public String Nombre { get; set; }
@@ -46,5 +58,16 @@ namespace TP_DDS.Models
         public virtual ICollection<Preferencia> Preferencias { get; set; }
         public virtual ICollection<Receta> Recetas { get; set; }
         public virtual ICollection<Grupo> Grupos { get; set; }
+
+        public Usuario GetUserByEmail(string email)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                return db.Usuarios.FirstOrDefault
+                    (u => u.Email.Equals(email));
+            }
+
+            return null;
+        }
     }
 }

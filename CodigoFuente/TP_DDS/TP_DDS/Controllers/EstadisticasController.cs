@@ -15,87 +15,121 @@ namespace TP_DDS.Controllers
     public class EstadisticasController : BaseController
     {
         //
+        // GET: /Estadisticas/
+        public ActionResult Index()
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+        //
         // GET: /Estadisticas/PorSexo
         public ActionResult PorSexo([Bind(Include = "Tipo")] Estadistica param)
         {
-            string userEmail = User.Identity.GetUserName();
-
-            if (string.IsNullOrEmpty(userEmail))
+            try
             {
-                return RedirectToAction("Index", "Home");
-            }
+                string userEmail = User.Identity.GetUserName();
 
-            var viewModel = new Estadistica();
+                if (string.IsNullOrEmpty(userEmail))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
-            ViewBag.Tipos = new SelectList(new[]
+                var viewModel = new Estadistica();
+
+                ViewBag.Tipos = new SelectList(new[]
                                           {
                                               new {Id="1",Valor="Mensual"},
                                               new {Id="2",Valor="Semanal"}
                                           },
-                                       "Id", "Valor");
+                                           "Id", "Valor");
 
-            if (param.Tipo > 0)
-            {
-                ViewBag.Results = (IEnumerable<EstadisticaSexo>)param.Ejecutar(new EstadisticaSexo()); ;
+                if (param.Tipo > 0)
+                {
+                    ViewBag.Results = (IEnumerable<EstadisticaSexo>)param.Ejecutar(new EstadisticaSexo()); ;
+                }
+
+                return View(viewModel);
             }
-
-            return View(viewModel);
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //
         // GET: /Estadisticas/PorDificultad
         public ActionResult PorDificultad([Bind(Include = "Tipo")] Estadistica param)
         {
-            string userEmail = User.Identity.GetUserName();
-
-            if (string.IsNullOrEmpty(userEmail))
+            try
             {
-                return RedirectToAction("Index", "Home");
-            }
+                string userEmail = User.Identity.GetUserName();
 
-            var viewModel = new Estadistica();
+                if (string.IsNullOrEmpty(userEmail))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
-            ViewBag.Tipos = new SelectList(new[]
+                var viewModel = new Estadistica();
+
+                ViewBag.Tipos = new SelectList(new[]
                                           {
                                               new {Id="1",Valor="Mensual"},
                                               new {Id="2",Valor="Semanal"}
                                           },
-                                       "Id", "Valor");
+                                           "Id", "Valor");
 
-            if (param.Tipo > 0)
-            {
-                ViewBag.Results = (IEnumerable<EstadisticaDificultad>)param.Ejecutar(new EstadisticaDificultad()); ;
+                if (param.Tipo > 0)
+                {
+                    ViewBag.Results = (IEnumerable<EstadisticaDificultad>)param.Ejecutar(new EstadisticaDificultad()); ;
+                }
+
+                return View(viewModel);
             }
-
-            return View(viewModel);
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //
         // GET: /Estadisticas/Ranking
         public ActionResult Ranking([Bind(Include = "Tipo")] Estadistica param)
         {
-            string userEmail = User.Identity.GetUserName();
-
-            if (string.IsNullOrEmpty(userEmail))
+            try
             {
-                return RedirectToAction("Index", "Home");
-            }
+                string userEmail = User.Identity.GetUserName();
 
-            var viewModel = new Estadistica();
+                if (string.IsNullOrEmpty(userEmail))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
-            ViewBag.Tipos = new SelectList(new[]
+                var viewModel = new Estadistica();
+
+                ViewBag.Tipos = new SelectList(new[]
                                           {
                                               new {Id="1",Valor="Mensual"},
                                               new {Id="2",Valor="Semanal"}
                                           },
-                                       "Id", "Valor");
+                                           "Id", "Valor");
 
-            if (param.Tipo > 0)
-            {
-                ViewBag.Results = (IEnumerable<EstadisticaRanking>)param.Ejecutar(new EstadisticaRanking()); ;
+                if (param.Tipo > 0)
+                {
+                    ViewBag.Results = (IEnumerable<EstadisticaRanking>)param.Ejecutar(new EstadisticaRanking()); ;
+                }
+
+                return View(viewModel);
             }
-
-            return View(viewModel);
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
+                return RedirectToAction("Index", "Home");
+            }
         }
 	}
 }

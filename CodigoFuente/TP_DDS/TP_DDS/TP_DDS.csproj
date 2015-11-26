@@ -163,7 +163,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ComidasController.cs" />
     <Compile Include="Controllers\ConsultasController.cs" />
@@ -384,7 +383,6 @@
       <DependentUpon>201511260631142_fechaBajaAll.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessException.cs" />
     <Compile Include="Models\Calificacion.cs" />
     <Compile Include="Models\Clasificacion.cs" />
@@ -427,6 +425,7 @@
     <Compile Include="Models\Validaciones\ValidacionUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RecetasMeViewModel.cs" />
     <Compile Include="ViewModels\RecetasByTempoCalif.cs" />
     <Compile Include="ViewModels\RecetasBySexComplex.cs" />
@@ -477,11 +476,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
@@ -508,7 +502,6 @@
     <Content Include="Views\Grupos\Edit.cshtml" />
     <Content Include="Views\Grupos\Index.cshtml" />
     <Content Include="Views\Grupos\Me.cshtml" />
-    <Content Include="Views\Reportes\Index.cshtml" />
     <Content Include="Views\Recetas\Me.cshtml" />
     <Content Include="Views\User\_PreferenciasList.cshtml" />
     <Content Include="Views\Shared\_Alerts.cshtml" />

@@ -31,26 +31,36 @@ namespace TP_DDS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel user, string returnUrl)
         {
-            if (ModelState.IsValid)
+            try
             {
-                 Usuario myUser = db.Usuarios.FirstOrDefault
-                                 (u => u.Email.Equals(user.Email) && u.Pass.Equals(user.Pass));
-
-                if (myUser != null) 
+                if (ModelState.IsValid)
                 {
-                    FormsAuthentication.SetAuthCookie(myUser.Email, false);
+                    Usuario myUser = db.Usuarios.FirstOrDefault
+                                    (u => u.Email.Equals(user.Email) && u.Pass.Equals(user.Pass));
 
-                    if(!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)){
-                        return Redirect(returnUrl);
+                    if (myUser != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(myUser.Email, false);
+
+                        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        return RedirectToAction("Index", "Home");
                     }
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        ModelState.AddModelError("", "Sus datos son incorrectos.");
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Sus datos son incorrectos.");
-                }
+                return View(user);
             }
-            return View(user);
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // GET: /User/LogOff
@@ -63,40 +73,49 @@ namespace TP_DDS.Controllers
         // GET: /User/Create
         public ActionResult Create()
         {
-            string userEmail = User.Identity.GetUserName();
-
-            if (!string.IsNullOrEmpty(userEmail))
+            try
             {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+
+                if (usuario == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
+                ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
+                ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
+                ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
+                ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
+
+                UsuarioViewModel model = new UsuarioViewModel();
+                model.Usuario = new Usuario();
+                model.Usuario.FechaNacimiento = new DateTime(1915, 1, 1);
+                model.Usuario.Peso = 5;
+                model.Usuario.Altura = 100;
+
+                model.PreferenciasList = new List<UsuarioPreferenciasViewModel>();
+
+                UsuarioPreferenciasViewModel product = null;
+
+                foreach (var item in db.Preferencias.OrderBy(p => p.Nombre))
+                {
+                    product = new UsuarioPreferenciasViewModel();
+                    product.Nombre = item.Nombre;
+                    product.Id = item.Id;
+                    product.Sel = false;
+
+                    model.PreferenciasList.Add(product);
+                }
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
                 return RedirectToAction("Index", "Home");
             }
-
-            ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
-            ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
-            ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
-            ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
-            ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
-
-            UsuarioViewModel model = new UsuarioViewModel();
-            model.Usuario = new Usuario();
-            model.Usuario.FechaNacimiento = new DateTime(1915, 1, 1);
-            model.Usuario.Peso = 5;
-            model.Usuario.Altura = 100;
-
-            model.PreferenciasList = new List<UsuarioPreferenciasViewModel>();
-
-            UsuarioPreferenciasViewModel product = null;
-
-            foreach (var item in db.Preferencias.OrderBy(p => p.Nombre))
-            {
-                product = new UsuarioPreferenciasViewModel();
-                product.Nombre = item.Nombre;
-                product.Id = item.Id;
-                product.Sel = false;
-
-                model.PreferenciasList.Add(product);
-            }
-
-            return View(model);
         }
 
         // POST: /User/Create
@@ -104,82 +123,100 @@ namespace TP_DDS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UsuarioViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var selectedList = model.PreferenciasList.Where(t => t.Sel);
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
 
-                model.Usuario.Preferencias = new List<Preferencia>();
-
-                foreach (var item in selectedList)
+                if (usuario == null)
                 {
-                    if (item.Sel)
-                        model.Usuario.Preferencias.Add(db.Preferencias.Find(item.Id));
+                    return RedirectToAction("Index", "Home");
                 }
 
-                model.Usuario.FechaAltaPerfil = DateTime.Now;
-                db.Usuarios.Add(model.Usuario);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    var selectedList = model.PreferenciasList.Where(t => t.Sel);
 
-                Success(string.Format("<b>{0}!!</b> Su registro fue exitoso.", model.Usuario.Nombre), true);
+                    model.Usuario.Preferencias = new List<Preferencia>();
 
-                return RedirectToAction("LogIn", "User");
+                    foreach (var item in selectedList)
+                    {
+                        if (item.Sel)
+                            model.Usuario.Preferencias.Add(db.Preferencias.Find(item.Id));
+                    }
+
+                    model.Usuario.FechaAltaPerfil = DateTime.Now;
+                    db.Usuarios.Add(model.Usuario);
+                    db.SaveChanges();
+
+                    Success(string.Format("<b>{0}!!</b> Su registro fue exitoso.", model.Usuario.Nombre), true);
+
+                    return RedirectToAction("LogIn", "User");
+                }
+
+                ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
+                ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
+                ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
+                ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
+                ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
+
+                return View(model);
             }
-
-            ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
-            ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
-            ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
-            ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
-            ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
-
-            return View(model);
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // GET: /User/Edit/5
         public ActionResult Edit()
         {
-            string userEmail = User.Identity.GetUserName();
-
-            if (string.IsNullOrEmpty(userEmail))
+            try
             {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+
+                if (usuario == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                UsuarioViewModel model = new UsuarioViewModel();
+                model.Usuario = new Usuario();
+                model.Usuario = usuario;
+
+                model.PreferenciasList = new List<UsuarioPreferenciasViewModel>();
+
+                UsuarioPreferenciasViewModel prefer = null;
+
+                foreach (var item in db.Preferencias.OrderBy(p => p.Nombre))
+                {
+                    prefer = new UsuarioPreferenciasViewModel();
+                    prefer.Nombre = item.Nombre;
+                    prefer.Id = item.Id;
+                    prefer.Sel = false;
+
+                    if (usuario.Preferencias.FirstOrDefault(u => u.Id.Equals(item.Id)) != null)
+                        prefer.Sel = true;
+
+                    model.PreferenciasList.Add(prefer);
+                }
+
+                ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre", usuario.ComplexionId);
+                ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre", usuario.CondicionPreexistenteId);
+                ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre", usuario.DietaId);
+                ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre", usuario.SexoId);
+                ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre", usuario.RutinaId);
+
+                return View(model);
+
+            }
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
                 return RedirectToAction("Index", "Home");
             }
-
-            Usuario usuario = db.Usuarios.FirstOrDefault
-                (u => u.Email.Equals(userEmail));
-
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-
-            UsuarioViewModel model = new UsuarioViewModel();
-            model.Usuario = new Usuario();
-            model.Usuario = usuario;
-
-            model.PreferenciasList = new List<UsuarioPreferenciasViewModel>();
-
-            UsuarioPreferenciasViewModel prefer = null;
-
-            foreach (var item in db.Preferencias.OrderBy(p => p.Nombre))
-            {
-                prefer = new UsuarioPreferenciasViewModel();
-                prefer.Nombre = item.Nombre;
-                prefer.Id = item.Id;
-                prefer.Sel = false;
-
-                if(usuario.Preferencias.FirstOrDefault(u => u.Id.Equals(item.Id)) != null)
-                    prefer.Sel = true;
-
-                model.PreferenciasList.Add(prefer);
-            }
-
-            ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre", usuario.ComplexionId);
-            ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre", usuario.CondicionPreexistenteId);
-            ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre", usuario.DietaId);
-            ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre", usuario.SexoId);
-            ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre", usuario.RutinaId);
-
-            return View(model);
         }
 
         // POST: /User/Edit/5
@@ -187,63 +224,88 @@ namespace TP_DDS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UsuarioViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                //Usuario logueado
-                string userEmail = User.Identity.GetUserName();
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
 
-                //Usuario antes de modificar
-                var usuarioToUpdate = db.Usuarios
-                   .Include(i => i.Preferencias)
-                   .Where(i => i.Email == userEmail)
-                   .Single();
+                if (usuario == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
-                ActualizaDatosUsuario(model, usuarioToUpdate);
+                if (ModelState.IsValid)
+                {
+                    //Usuario logueado
+                    string userEmail = User.Identity.GetUserName();
 
-                db.SaveChanges();
+                    //Usuario antes de modificar
+                    var usuarioToUpdate = db.Usuarios
+                       .Include(i => i.Preferencias)
+                       .Where(i => i.Email == userEmail)
+                       .Single();
 
-                Success(string.Format("<b>{0}!!</b> Su perfil fue actualizado correctamente.", usuarioToUpdate.Nombre), true);
+                    ActualizaDatosUsuario(model, usuarioToUpdate);
 
+                    db.SaveChanges();
+
+                    Success(string.Format("<b>{0}!!</b> Su perfil fue actualizado correctamente.", usuarioToUpdate.Nombre), true);
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
+                ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
+                ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
+                ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
+                ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
                 return RedirectToAction("Index", "Home");
             }
-
-            ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
-            ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
-            ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
-            ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
-            ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
-
-            return View(model);
         }
 
         private void ActualizaDatosUsuario(UsuarioViewModel model, Usuario usuarioToUpdate)
         {
-            //preferencias antes de modificar
-            model.Usuario.Preferencias = usuarioToUpdate.Preferencias;
-
-            //actualizco con los datos de la vista
-            usuarioToUpdate = model.Usuario;
-
-            //actualizo preferencias
-            var selectedList = new HashSet<int>(model.PreferenciasList.Where(t => t.Sel).Select(c => c.Id));
-            var usuarioPreferencias = new HashSet<int>(usuarioToUpdate.Preferencias.Select(c => c.Id));
-
-            foreach (var item in db.Preferencias)
+            try
             {
-                if (selectedList.Contains(item.Id))
+                //preferencias antes de modificar
+                model.Usuario.Preferencias = usuarioToUpdate.Preferencias;
+
+                //actualizco con los datos de la vista
+                usuarioToUpdate = model.Usuario;
+
+                //actualizo preferencias
+                var selectedList = new HashSet<int>(model.PreferenciasList.Where(t => t.Sel).Select(c => c.Id));
+                var usuarioPreferencias = new HashSet<int>(usuarioToUpdate.Preferencias.Select(c => c.Id));
+
+                foreach (var item in db.Preferencias)
                 {
-                    if (!usuarioPreferencias.Contains(item.Id))
+                    if (selectedList.Contains(item.Id))
                     {
-                        usuarioToUpdate.Preferencias.Add(item);
+                        if (!usuarioPreferencias.Contains(item.Id))
+                        {
+                            usuarioToUpdate.Preferencias.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        if (usuarioPreferencias.Contains(item.Id))
+                        {
+                            usuarioToUpdate.Preferencias.Remove(item);
+                        }
                     }
                 }
-                else
-                {
-                    if (usuarioPreferencias.Contains(item.Id))
-                    {
-                        usuarioToUpdate.Preferencias.Remove(item);
-                    }
-                }
+            }
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
+                throw;
             }
         }
 

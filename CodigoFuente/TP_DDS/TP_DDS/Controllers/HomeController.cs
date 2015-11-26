@@ -21,30 +21,39 @@ namespace TP_DDS.Controllers
 
         public ActionResult Index()
         {
-            string userEmail = User.Identity.GetUserName();
-
-            if (!string.IsNullOrEmpty(userEmail))
+            try
             {
-                Usuario usuario = db.Usuarios.FirstOrDefault
-                    (u => u.Email.Equals(userEmail));
+                string userEmail = User.Identity.GetUserName();
 
-                ViewBag.Usuario = usuario.Nombre;
+                if (!string.IsNullOrEmpty(userEmail))
+                {
+                    Usuario usuario = db.Usuarios.FirstOrDefault
+                        (u => u.Email.Equals(userEmail));
 
-                DateTime hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                    ViewBag.Usuario = usuario.Nombre;
 
-                var comidas = db.ComidasRecetas.Include(c => c.Comida)
-                    .Include(c => c.Comida.Clasificacion)
-                    .Include(c => c.Comida.Usuario)
-                    .Include(c => c.Receta)
-                    .Include(c => c.Receta.Dificultad)
-                    .Include(c => c.Receta.Piramide)
-                    .Include(c => c.Receta.Creador)
-                    .Where(c => !c.Comida.Eliminada && !c.Eliminada && c.Comida.Fecha == hoy);
+                    DateTime hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
-                ViewBag.ComidasRecetas = comidas.ToList();
+                    var comidas = db.ComidasRecetas.Include(c => c.Comida)
+                        .Include(c => c.Comida.Clasificacion)
+                        .Include(c => c.Comida.Usuario)
+                        .Include(c => c.Receta)
+                        .Include(c => c.Receta.Dificultad)
+                        .Include(c => c.Receta.Piramide)
+                        .Include(c => c.Receta.Creador)
+                        .Where(c => !c.Comida.Eliminada && !c.Eliminada && c.Comida.Fecha == hoy);
+
+                    ViewBag.ComidasRecetas = comidas.ToList();
+                }
+
+                return View();
             }
-
-            return View();
+            catch (Exception)
+            {
+                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
+                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult About()
