@@ -1,0 +1,28 @@
+﻿@model TP_DDS.Models.GrupoUsuario
+
+@{
+    ViewBag.Title = "Dejar Grupo";
+}
+
+<div class="well">
+    <h2>@Html.DisplayFor(m => m.Grupo.Nombre)</h2>
+</div>
+
+<hr />
+
+<h4>Confirma que desea dejar de ser miembro de este Grupo?</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div style="height:10px"></div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Dejar Grupo" class="btn btn-primary">Dejar Grupo</button>
+            </div>
+        </div>
+    </div>
+}

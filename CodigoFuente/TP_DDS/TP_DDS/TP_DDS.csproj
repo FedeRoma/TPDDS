@@ -371,6 +371,14 @@
     <Compile Include="Migrations\201511260358170_fixcolumn.Designer.cs">
       <DependentUpon>201511260358170_fixcolumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511260427593_GrupoUsuEliminado.cs" />
+    <Compile Include="Migrations\201511260427593_GrupoUsuEliminado.Designer.cs">
+      <DependentUpon>201511260427593_GrupoUsuEliminado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511260544001_fixColEliminado.cs" />
+    <Compile Include="Migrations\201511260544001_fixColEliminado.Designer.cs">
+      <DependentUpon>201511260544001_fixColEliminado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessException.cs" />
@@ -521,6 +529,8 @@
     <Content Include="Views\Reportes\RecetasPorPeriodo.cshtml" />
     <Content Include="Views\Recetas\CompartirReceta.cshtml" />
     <Content Include="Views\Grupos\DeleteReceta.cshtml" />
+    <Content Include="Views\Grupos\UnirUsuario.cshtml" />
+    <Content Include="Views\Grupos\DeleteUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -678,6 +688,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511260358170_fixcolumn.resx">
       <DependentUpon>201511260358170_fixcolumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511260427593_GrupoUsuEliminado.resx">
+      <DependentUpon>201511260427593_GrupoUsuEliminado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511260544001_fixColEliminado.resx">
+      <DependentUpon>201511260544001_fixColEliminado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

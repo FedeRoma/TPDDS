@@ -9,8 +9,30 @@
     <hr />
     <p><strong>Creado Por:</strong> @Html.Encode(Model.Creador.Nombre) <strong>el:</strong> @Html.Encode(Model.FechaCreacion.ToString("dd/MM/yyyy"))</p>
     <p><strong>Ultima modif.:</strong> @Html.Encode(Model.FechaUltModif.ToString("dd/MM/yyyy"))</p>
-    <p><strong>Integrantes :</strong> @Html.Encode(Model.Usuarios.Count()) Usuarios</p>
-    <p><strong>Recetas :</strong> @Html.Encode(Model.Recetas.Count()) Recetas</p>
+    <p><strong>Integrantes :</strong> @Html.Encode(Model.Usuarios.Where(r => !r.Eliminado).Count()) Usuarios</p>
+    <p><strong>Recetas :</strong> @Html.Encode(Model.Recetas.Where(r => !r.Eliminada).Count()) Recetas</p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn-group" role="group" aria-label="...">
+                @if ((bool)ViewBag.PuedeUnirse)
+                {
+                    @Html.ActionLink("Unirme", "UnirUsuario", new { id = Model.Id }, new { @class = "btn btn-success btn-sm", role = "button" })
+                }
+                else if (!(bool)ViewBag.PuedeEditar)
+                {
+                    @Html.ActionLink("Dejar Grupo", "DeleteUsuario", new { id = Model.Id }, new { @class = "btn btn-info btn-sm", role = "button" })
+                }
+                @if ((bool)ViewBag.PuedeEditar)
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm", role = "button" })
+                }
+                @if ((bool)ViewBag.PuedeEliminar)
+                {
+                    @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger btn-sm", role = "button" })
+                }
+            </div>
+        </div>
+    </div>
 </div>
 
 <hr />
@@ -40,7 +62,7 @@
                 <th>Usuario</th>
             </tr>
 
-            @foreach (var item in Model.Usuarios)
+            @foreach (var item in Model.Usuarios.Where(u => !u.Eliminado))
             {
                 <tr>
                     <td>

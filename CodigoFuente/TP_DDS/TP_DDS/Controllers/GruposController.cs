@@ -66,10 +66,13 @@ namespace TP_DDS.Controllers
             var grupos = db.Grupos.Include(g => g.Creador)
                 .Include(i => i.Usuarios)
                 .Include(r => r.Recetas)
-                .Where(g => !g.Eliminado && g.UsuarioId == usuario.Id);
+                .Where(g => !g.Eliminado 
+                    && g.UsuarioId == usuario.Id);
 
             List<int> IDs = db.GruposUsuarios
-                .Where(gu => !gu.Grupo.Eliminado && gu.UsuarioId == usuario.Id)
+                .Where(gu => !gu.Eliminado
+                    && !gu.Grupo.Eliminado 
+                    && gu.UsuarioId == usuario.Id)
                 .Select(gu => gu.GrupoId).ToList<int>();
 
             var Misgrupos = db.Grupos.Include(g => g.Creador)
@@ -107,16 +110,28 @@ namespace TP_DDS.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            GrupoUsuario item = db.GruposUsuarios
-                .FirstOrDefault(gu => gu.GrupoId == grupo.Id 
-                    && gu.UsuarioId == usuario.Id);
+            ViewBag.PuedeEditarRecetas = PuedeEditarRecetas(grupo, usuario);
+            
+            //Puede unirse si no esta unido y no es el creador.
+            ViewBag.PuedeUnirse = (!(bool)ViewBag.PuedeEditarRecetas && grupo.UsuarioId != usuario.Id);
 
-            ViewBag.PuedeEditarRecetas = true;
+            //Tiene permisos para Editar - Solo el creador
+            ViewBag.PuedeEditar = (grupo.UsuarioId == usuario.Id);
 
-            if (item != null)
-                ViewBag.PuedeEditarRecetas = false;
+            //Tiene permisos para Eliminar - Solo el creador
+            ViewBag.PuedeEliminar = (grupo.UsuarioId == usuario.Id);
 
             return View(grupo);
+        }
+
+        private bool PuedeEditarRecetas(Grupo grupo, Usuario usuario)
+        {
+            GrupoUsuario item = db.GruposUsuarios
+                .FirstOrDefault(gu => gu.GrupoId == grupo.Id
+                    && !gu.Eliminado
+                    && gu.UsuarioId == usuario.Id);
+
+            return (item != null);
         }
 
         // GET: /Grupos/Create
@@ -365,6 +380,179 @@ namespace TP_DDS.Controllers
             db.Entry(item).State = EntityState.Modified;
             db.SaveChanges();
             Success(string.Format("<b>{0}!!</b> La Receta se elimino correctamente de su Grupo.", usuario.Nombre), true);
+            return RedirectToAction("Me");
+        }
+
+        // GET: /Grupos/UnirUsuario
+        public ActionResult UnirUsuario(int? id)
+        {
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Grupo grupo = db.Grupos.Find(id);
+
+            if (grupo == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            GrupoUsuario item = new GrupoUsuario();
+            item.Grupo = grupo;
+            item.GrupoId = grupo.Id;
+            item.Usuario = usuario;
+            item.UsuarioId = usuario.Id;
+
+            return View(item);
+        }
+
+        // POST: /Grupos/UnirUsuario
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UnirUsuario(GrupoUsuario item)
+        {
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                bool booExiste = false;
+
+                //Valido si existe la Planificacion
+                GrupoUsuario itemOrig = db.GruposUsuarios
+                    .FirstOrDefault(gr => gr.GrupoId == item.GrupoId
+                        && !(bool)gr.Eliminado
+                        && gr.UsuarioId == item.UsuarioId);
+
+                //Valido si ya fue agregada
+                if (itemOrig == null)
+                {
+                    booExiste = false;
+                }
+                else
+                {
+                    booExiste = true;
+                }
+
+                if (booExiste)
+                {
+                    //Ya existe
+                    Information(string.Format("<b>{0}!!</b> Usted ya pertence al grupo.", usuario.Nombre), true);
+                    return RedirectToAction("Me");
+                }
+                else
+                {
+                    item.Eliminado = false;
+
+                    //Actualizo BD
+                    db.GruposUsuarios.Add(item);
+                    db.SaveChanges();
+
+                    //Todo OK
+                    Success(string.Format("<b>{0}!!</b> Se unio correctamente al grupo.", usuario.Nombre), true);
+                    return RedirectToAction("Me");
+                }
+            }
+
+            item.Usuario = usuario;
+            item.UsuarioId = usuario.Id;
+
+            return View(item);
+        }
+
+        // GET: /Grupos/DeleteUsuario/5
+        public ActionResult DeleteUsuario(int? id)
+        {
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Grupo grupo = db.Grupos.Find(id);
+
+            if (grupo == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            GrupoUsuario item = db.GruposUsuarios
+                .FirstOrDefault(gu => !gu.Eliminado
+                    && gu.GrupoId == grupo.Id
+                    && gu.UsuarioId == usuario.Id);
+
+            return View(item);
+        }
+
+        // POST: /Grupos/DeleteUsuario/5
+        [HttpPost, ActionName("DeleteUsuario")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteUsuarioConfirmed(int id)
+        {
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            //Usuario Logueado
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
+            Grupo grupo = db.Grupos.Find(id);
+
+            if (grupo == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            GrupoUsuario item = db.GruposUsuarios
+                .FirstOrDefault(gu => !gu.Eliminado
+                    && gu.GrupoId == grupo.Id
+                    && gu.UsuarioId == usuario.Id);
+
+            item.Eliminado = true;
+            db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
+            Success(string.Format("<b>{0}!!</b> Usted dejo el Grupo.", usuario.Nombre), true);
             return RedirectToAction("Me");
         }
 

@@ -124,6 +124,10 @@ namespace TP_DDS.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            //Usuario Creador = Logueado
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
             if (id == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -136,33 +140,27 @@ namespace TP_DDS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ActualizarEstadisticas(receta, userEmail);
+            ActualizarEstadisticas(receta, usuario);
 
             //Tiene permisos para Calificar
-            ViewBag.PuedeCalificar = PuedeCalificar(receta, userEmail);
+            ViewBag.PuedeCalificar = PuedeCalificar(receta, usuario);
             Calificacion calif = receta.Calificaciones.
                 FirstOrDefault(c => c.RecetaId == receta.Id && c.UsuarioId == receta.Creador.Id);
 
             if (calif != null)
                 ViewBag.CalifUsuario = calif.Valor.ToString();
 
-            //Tiene permisos para Seleccionar
-            ViewBag.PuedeSeleccionar = true;
+            //Tiene permisos para Editar - Solo el creador
+            ViewBag.PuedeEditar = (receta.UsuarioId == usuario.Id);
 
-            //Tiene permisos para Editar
-            ViewBag.PuedeEditar = true;
-
-            //Tiene permisos para Eliminar
-            ViewBag.PuedeEliminar = true;
+            //Tiene permisos para Eliminar - Solo el creador
+            ViewBag.PuedeEliminar = (receta.UsuarioId == usuario.Id);
 
             return View(receta);
         }
 
-        private void ActualizarEstadisticas(Receta receta, string userEmail)
+        private void ActualizarEstadisticas(Receta receta, Usuario usuario)
         {
-            Usuario usuario = db.Usuarios.FirstOrDefault
-                (u => u.Email.Equals(userEmail));
-
             DateTime hoyMin = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
             DateTime hoyMax = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59);
 
@@ -184,14 +182,10 @@ namespace TP_DDS.Controllers
             }
         }
 
-        private bool PuedeCalificar(Receta receta, string userEmail)
+        private bool PuedeCalificar(Receta receta, Usuario usuario)
         {
-            //Usuario Creador = Logueado
-            Usuario usuario = db.Usuarios.FirstOrDefault
-                (u => u.Email.Equals(userEmail));
-
             //el creador no puede calificar su receta.
-            if (receta.Creador.Email == userEmail)
+            if (receta.UsuarioId == usuario.Id)
             {
                 return false;
             }
@@ -810,9 +804,12 @@ namespace TP_DDS.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            var misGrupos = db.Grupos
+                .Where(g => g.UsuarioId == usuario.Id);
+
             ViewBag.GrupoId = new SelectList(db.GruposUsuarios.Include(g => g.Grupo).
                 Where(g => g.UsuarioId == usuario.Id)
-                .Select(g => g.Grupo), "Id", "Nombre");
+                .Select(g => g.Grupo).Union(misGrupos), "Id", "Nombre");
 
             GrupoReceta item = new GrupoReceta();
             item.Receta = receta;
@@ -850,7 +847,7 @@ namespace TP_DDS.Controllers
                 //Valido si existe la Planificacion
                 GrupoReceta itemOrig = db.GruposRecetas
                     .FirstOrDefault(gr => gr.GrupoId == item.GrupoId
-                        //&& !cr.Eliminada
+                        && !gr.Eliminada
                         && gr.RecetaId == item.RecetaId);
 
                 //Valido si ya fue agregada
