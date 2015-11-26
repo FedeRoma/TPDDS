@@ -372,3 +372,4 @@ C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS
 C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.fixcolumn.resources
 C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.GrupoUsuEliminado.resources
 C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.fixColEliminado.resources
+C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.fechaBajaAll.resources

@@ -318,6 +318,7 @@ namespace TP_DDS.Controllers
         {
             Grupo grupo = db.Grupos.Find(id);
             grupo.Eliminado = true;
+            grupo.FechaBaja = DateTime.Now;
             db.Entry(grupo).State = EntityState.Modified;
             db.SaveChanges();
             //Todo OK
@@ -376,6 +377,7 @@ namespace TP_DDS.Controllers
 
             GrupoReceta item = db.GruposRecetas.Find(id);
             item.Eliminada = true;
+            item.FechaBaja = DateTime.Now;
             item.UsuarioBajaId = usuario.Id;
             db.Entry(item).State = EntityState.Modified;
             db.SaveChanges();
@@ -550,6 +552,7 @@ namespace TP_DDS.Controllers
                     && gu.UsuarioId == usuario.Id);
 
             item.Eliminado = true;
+            item.FechaBaja = DateTime.Now;
             db.Entry(item).State = EntityState.Modified;
             db.SaveChanges();
             Success(string.Format("<b>{0}!!</b> Usted dejo el Grupo.", usuario.Nombre), true);

@@ -17,6 +17,7 @@ namespace TP_DDS.Models
         public DateTime FechaUltModif { get; set; }
 
         public bool Eliminada { get; set; }
+        public DateTime? FechaBaja { get; set; }
 
         public int PiramideId { get; set; }
         public int UsuarioId { get; set; }

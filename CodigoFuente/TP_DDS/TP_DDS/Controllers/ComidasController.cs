@@ -405,6 +405,7 @@ namespace TP_DDS.Controllers
         {
             ComidaReceta item = db.ComidasRecetas.Find(id);
             item.Eliminada = true;
+            item.FechaBaja = DateTime.Now;
             db.Entry(item).State = EntityState.Modified;
             db.SaveChanges();
             Success(string.Format("<b>{0}!!</b> La Receta se elimino correctamente de la Planificación.", item.Comida.Usuario.Nombre), true);

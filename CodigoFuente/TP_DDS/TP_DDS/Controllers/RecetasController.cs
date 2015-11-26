@@ -639,6 +639,7 @@ namespace TP_DDS.Controllers
         {
             Receta receta = db.Recetas.Find(id);
             receta.Eliminada = true;
+            receta.FechaBaja = DateTime.Now;
             db.Entry(receta).State = EntityState.Modified;
             db.SaveChanges();
             //Todo OK

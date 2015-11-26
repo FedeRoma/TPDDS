@@ -13,6 +13,7 @@ namespace TP_DDS.Models
         public int ComidaId { get; set; }
         public int RecetaId { get; set; }
         public bool Eliminada { get; set; }
+        public DateTime? FechaBaja { get; set; }
 
         public virtual Comida Comida { get; set; }
         public virtual Receta Receta { get; set; }

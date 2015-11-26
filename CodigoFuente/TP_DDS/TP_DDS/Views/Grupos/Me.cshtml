@@ -74,8 +74,8 @@
 
             @foreach (var item in (IEnumerable<TP_DDS.Models.Grupo>)ViewBag.MisGrupos)
             {
-                var cantIntegrantes = item.Usuarios.Count();
-                var cantRecetas = item.Recetas.Count();
+                var cantIntegrantes = item.Usuarios.Where(u => !u.Eliminado).Count();
+                var cantRecetas = item.Recetas.Where(r => !r.Eliminada).Count();
 
                 <tr>
                     <td>

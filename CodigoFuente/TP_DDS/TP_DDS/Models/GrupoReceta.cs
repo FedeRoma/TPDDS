@@ -12,6 +12,7 @@ namespace TP_DDS.Models
         public int RecetaId { get; set; }
         public int UsuarioId { get; set; }
         public bool Eliminada { get; set; }
+        public DateTime? FechaBaja { get; set; }
         public int? UsuarioBajaId { get; set; }
 
         public virtual Grupo Grupo { get; set; }

@@ -13,6 +13,7 @@ namespace TP_DDS.Models
         public bool Eliminado { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaUltModif { get; set; }
+        public DateTime? FechaBaja { get; set; }
 
         public int UsuarioId { get; set; }
 
