@@ -535,6 +535,7 @@
     <Content Include="Views\Grupos\DeleteReceta.cshtml" />
     <Content Include="Views\Grupos\UnirUsuario.cshtml" />
     <Content Include="Views\Grupos\DeleteUsuario.cshtml" />
+    <Content Include="Views\Recetas\_ProcedimientosListEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -110,6 +110,7 @@
                 <th>Ingrediente</th>
                 <th>Cantidad</th>
                 <th>Cal.(Kg.)</th>
+                <th>Tipo</th>
             </tr>
 
             @foreach (var item in Model.Ingredientes)
@@ -125,6 +126,9 @@
                     </td>
                     <td>
                         @Html.Encode(calorias)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoIngrediente.Nombre)
                     </td>
                 </tr>
             }
@@ -163,18 +167,14 @@
             var urlImagen = "";
             if (!string.IsNullOrEmpty(item.Imagen))
             {
-                urlImagen = item.Imagen;
+                urlImagen = "~/Content/Images/" + item.Imagen;
+                
+                <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+                    <a class="thumbnail" style="margin-bottom: 20px;" href="#">
+                        <img class="img-responsive" src="@Url.Content(urlImagen)" alt="">
+                    </a>
+                </div>
             }
-            else
-            {
-                urlImagen = "~/Content/Images/recetaSinFoto.png";
-            }
-
-            <div class="col-lg-6 col-md-6 col-xs-6 thumb">
-                <a class="thumbnail" style="margin-bottom: 20px;" href="#">
-                    <img class="img-responsive" src="@Url.Content(urlImagen)" alt="">
-                </a>
-            </div>
         }
     </div>
 </div>

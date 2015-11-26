@@ -322,9 +322,11 @@ namespace TP_DDS.Controllers
                         if (file != null && file.ContentLength > 0)
                         {
                             var fileName = Path.GetFileName(file.FileName);
+                            fileName = DateTime.Now.ToString("yyyyMMddhhmmss") + fileName.Substring(fileName.Length-4, 4);
                             var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
                             file.SaveAs(path);
-                            oProc.Imagen = "~/Content/Images/" + fileName;
+                            //oProc.Imagen = "~/Content/Images/" + fileName;
+                            oProc.Imagen = fileName;
                         }
                     }
 
@@ -556,7 +558,23 @@ namespace TP_DDS.Controllers
                     oProc = new Procedimiento();
                     oProc.Numero = numero;
                     oProc.Nombre = item.Nombre;
-                    oProc.Imagen = item.Imagen;
+                    oProc.Imagen = item.Imagen != null ? item.Imagen.ToString() : "";
+
+                    if (Request.Files.Count > 0)
+                    {
+                        var file = Request.Files[numero - 1];
+
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            fileName = DateTime.Now.ToString("yyyyMMddhhmmss") + fileName.Substring(fileName.Length - 4, 4);
+                            var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
+                            file.SaveAs(path);
+                            //oProc.Imagen = "~/Content/Images/" + fileName;
+                            oProc.Imagen = fileName;
+                        }
+                    }
+
                     recetaToUpdate.Procedimientos.Add(oProc);
                     db.Entry(oProc).State = EntityState.Added;
                     numero++;
@@ -600,7 +618,7 @@ namespace TP_DDS.Controllers
                 return RedirectToAction("Me");
             }
 
-            ViewBag.Piramide = new SelectList(db.PiramideAlimenticia, "Id", "NombreGrupo", recetaNew.Piramide.Id);
+            ViewBag.Piramide = new SelectList(db.PiramideAlimenticia, "Id", "NombreGrupo");
             ViewBag.Dificultad = new SelectList(db.Dificultades, "Id", "Nombre");
 
             ViewBag.CondimentoId = new SelectList(db.Condimentos, "Id", "Nombre");

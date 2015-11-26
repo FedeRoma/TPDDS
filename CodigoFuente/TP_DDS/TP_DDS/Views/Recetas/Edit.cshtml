@@ -4,7 +4,7 @@
     ViewBag.Title = "Editar";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Recetas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -31,13 +31,6 @@
             </div>
 
             <div class="row">
-                @*<div class="col-md-4">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.DificultadId, "Dificultad", new { @class = "control-label" })
-                        @Html.DropDownListFor(model => model.DificultadId, (SelectList)ViewBag.Dificultad, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.DificultadId)
-                    </div>
-                </div>*@
                 <div class="col-md-12">
                     <div class="form-group">
                         @Html.LabelFor(model => model.PiramideId, "Grupo Piramide", new { @class = "control-label" })
@@ -55,13 +48,6 @@
                         @Html.ValidationMessageFor(model => model.DificultadId)
                     </div>
                 </div>
-                @*<div class="col-md-8">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.PiramideId, "Grupo Piramide", new { @class = "control-label" })
-                        @Html.DropDownListFor(model => model.PiramideId, (SelectList)ViewBag.Piramide, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.PiramideId)
-                    </div>
-                </div>*@
             </div>
 
             <div class="row">
@@ -98,6 +84,28 @@
                     </table>
                 </div>
 
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Fotos</h4>
+                    @foreach (var item in Model.Procedimientos)
+                    {
+                        var urlImagen = "";
+                        if (!string.IsNullOrEmpty(item.Imagen))
+                        {
+                            urlImagen = "~/Content/Images/" + item.Imagen;
+                            var divId = "divlinkfotopaso" + item.Numero.ToString();
+
+                            <div id="@Html.Encode(divId)" class="col-lg-6 col-md-6 col-xs-6 thumb" style="margin-bottom: 10px;">
+                                <a class="thumbnail" style="margin-bottom: 10px;" href="#">
+                                    <img class="img-responsive" src="@Url.Content(urlImagen)" alt="">
+                                </a>
+                                <p><strong>Paso @Html.Encode(item.Numero)</strong></p>
+                            </div>
+                        }
+                    }
+                </div>
             </div>
 
         </div>
@@ -165,33 +173,20 @@
                 <div class="col-md-12">
 
                     <h4>Procedimiento</h4>
-                    <table class="table">
+                    <table class="table" id="tableProcedimientos">
                         <tr style="background-color:aliceblue">
                             <th>Numero</th>
                             <th>Pasos</th>
                             <th>Foto</th>
+                            <th>Nueva Foto</th>
                         </tr>
 
                         @foreach (var item in Model.Procedimientos)
                         {
                             <tr>
-                                @Html.Partial("_ProcedimientosList", item)
+                                @Html.Partial("_ProcedimientosListEdit", item)
                             </tr>
                         }
-
-                        @*@for (var i = 1; i < 6; i++)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.Encode(i.ToString())
-                                    </td>
-                                    <td>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </td>
-                                    <td>
-                                    </td>
-                                </tr>
-                            }*@
                     </table>
                 </div>
 
@@ -229,12 +224,24 @@
             });
         });
 
+        function deleteFoto() {
+            $(this).closest('td').find("input").each(function () {
+                this.value = "";
+            });
+            var divid = 'div' + this.id;
+            elem = document.getElementById(divid);
+            elem.remove();
+            this.remove();
+        };
+
         function deleteRow() {
             var trow = $(this).closest("tr");
             trow.remove();
         };
         $("#tableIngredientes").on("click", "a.removeLink", deleteRow);
         $("#tableCondimentos").on("click", "a.removeLink", deleteRow);
+
+        $("#tableProcedimientos").on("click", "a.removeLinkFoto", deleteFoto);
 
         $("#chkSelectAllClasificaciones").bind("change", function () {
             $(".chkSelectClasif").prop("checked", $(this).prop("checked"));
