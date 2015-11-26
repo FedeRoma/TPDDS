@@ -353,7 +353,6 @@ namespace TP_DDS.Controllers
                     return RedirectToAction("Me");
                 }
 
-
                 return View(grupoNew);
             }
             catch (Exception)

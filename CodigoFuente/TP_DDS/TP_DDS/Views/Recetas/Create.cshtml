@@ -27,18 +27,21 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.DificultadId, "Dificultad", new { @class = "control-label" })
-                        @Html.DropDownListFor(model => model.DificultadId, (SelectList)ViewBag.DificultadId, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.DificultadId)
-                    </div>
-                </div>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="form-group">
                         @Html.LabelFor(model => model.PiramideId, "Grupo Piramide", new { @class = "control-label" })
                         @Html.DropDownListFor(model => model.PiramideId, (SelectList)ViewBag.PiramideId, "Seleccione un Grupo", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.PiramideId)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DificultadId, "Dificultad", new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.DificultadId, (SelectList)ViewBag.DificultadId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DificultadId)
                     </div>
                 </div>
             </div>
