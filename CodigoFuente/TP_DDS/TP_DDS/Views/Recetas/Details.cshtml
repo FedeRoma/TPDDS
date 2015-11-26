@@ -18,30 +18,32 @@
         <p><strong>Calificacion Otorgada:</strong> @Html.Encode((string)ViewBag.CalifUsuario) Estrellas</p>
     }
     <div class="row">
-        <div class="col-md-12">
-            @if((bool)ViewBag.PuedeCalificar)
-            { 
-                @Html.ActionLink("Calificar", "Calificar", new { id = Model.Id }, new { @class = "btn btn-info btn-sm" }) 
-            }
-            else
-            { 
-                @Html.ActionLink("Ver Calificaciones", "VerCalificaciones", new { id = Model.Id }, new { @class = "btn btn-info btn-sm" })
-            }
-            @if ((bool)ViewBag.PuedeSeleccionar)
-            {
-                @Html.ActionLink("Seleccionar", "SeleccionarReceta", "Comidas", new { id = Model.Id }, new { @class = "btn btn-success btn-sm" })
-            }
-            @if ((bool)ViewBag.PuedeEditar)
-            {
-                @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm" })
-            }
-            @if ((bool)ViewBag.PuedeEliminar)
-            {
-                @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger btn-sm" })
-            }
+            <div class="col-md-12">
+                @if((bool)ViewBag.PuedeCalificar)
+                {
+                    @Html.ActionLink("Calificar", "Calificar", new { id = Model.Id }, new { @class = "btn btn-info btn-sm", role = "button" })
+                }
+                else
+                {
+                    @Html.ActionLink("Ver Calificaciones", "VerCalificaciones", new { id = Model.Id }, new { @class = "btn btn-info btn-sm", role = "button" })
+                }
+
+                @Html.ActionLink("Seleccionar", "SeleccionarReceta", "Comidas", new { id = Model.Id }, new { @class = "btn btn-success btn-sm", role = "button" })
+                @Html.ActionLink("Compartir", "CompartirReceta", "Receta", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm", role = "button" })
+
+                @if ((bool)ViewBag.PuedeEditar)
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm", role = "button" })
+                }
+                @if ((bool)ViewBag.PuedeEliminar)
+                {
+                    @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger btn-sm", role="button" })
+                }
+            </div>
         </div>
-    </div>
 </div>
+
+
 
 <hr />
 
