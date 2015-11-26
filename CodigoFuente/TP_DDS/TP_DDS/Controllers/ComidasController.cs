@@ -41,7 +41,9 @@ namespace TP_DDS.Controllers
 
                 var comidas = db.Comidas.Include(c => c.Clasificacion)
                     .Include(c => c.Usuario)
-                    .Where(c => !c.Eliminada && c.Fecha >= hoy);
+                    .Where(c => c.UsuarioId == usuario.Id
+                        && !c.Eliminada 
+                        && c.Fecha >= hoy);
 
                 return View(comidas.ToList());
             }
@@ -69,7 +71,9 @@ namespace TP_DDS.Controllers
 
                 var comidas = db.Comidas.Include(c => c.Clasificacion)
                     .Include(c => c.Usuario)
-                    .Where(c => !c.Eliminada && c.Fecha < hoy)
+                    .Where(c => c.UsuarioId == usuario.Id 
+                        &&!c.Eliminada 
+                        && c.Fecha < hoy)
                     .OrderBy(c => c.Fecha);
 
                 return View(comidas.ToList());

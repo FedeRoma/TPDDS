@@ -10,14 +10,25 @@
 
     <h3>Crear nuevo Grupo</h3>
     <hr />
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(true, "Por favor complete todos los campos correctamente.")
 
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.Nombre, "Nombre", new { @class = "control-label" })
                 @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Nombre)
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    if (ViewData.ModelState["Nombre"] != null)
+                    {
+                        if (ViewData.ModelState["Nombre"].Errors.Count() > 0)
+                        {
+                            <span class="text-danger">
+                                @ViewData.ModelState["Nombre"].Errors[0].ErrorMessage
+                            </span>
+                        }
+                    }
+                }
             </div>
         </div>
     </div>
@@ -25,6 +36,18 @@
     <div class="row">
         <div class="col-md-6">
             <h4>Preferencias</h4>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                if (ViewData.ModelState["Preferencias"] != null)
+                {
+                    if (ViewData.ModelState["Preferencias"].Errors.Count() > 0)
+                        {
+                            <span class="text-danger">
+                                @ViewData.ModelState["Preferencias"].Errors[0].ErrorMessage
+                            </span>
+                        }
+                }
+            }
             <table class="table">
                 <tr style="background-color:aliceblue">
                     <th><input type="checkbox" id="chkSelectAll" /></th>

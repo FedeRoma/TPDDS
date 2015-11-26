@@ -190,10 +190,13 @@ namespace TP_DDS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
+                ValidarGrupo(ModelState, grupo);
+
                 if (ModelState.IsValid)
                 {
 
-                    grupo.Creador = usuario;
+                    //grupo.Creador = usuario;
+                    grupo.UsuarioId = usuario.Id;
                     grupo.FechaCreacion = DateTime.Now;
                     grupo.FechaUltModif = grupo.FechaCreacion;
 
@@ -213,7 +216,7 @@ namespace TP_DDS.Controllers
                     db.SaveChanges();
 
                     //Todo OK
-                    Success(string.Format("<b>{0}!!</b> El grupo <b>{1}</b> se creo correctamente.", grupo.Creador.Nombre, grupo.Nombre), true);
+                    Success(string.Format("<b>{0}!!</b> El grupo <b>{1}</b> se creo correctamente.", usuario.Nombre, grupo.Nombre), true);
                     return RedirectToAction("Me");
                 }
 
@@ -227,6 +230,29 @@ namespace TP_DDS.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+        }
+
+        private void ValidarGrupo(ModelStateDictionary ModelState, Grupo grupo)
+        {
+            foreach (var item in ModelState.Keys)
+            {
+                ModelState[item].Errors.Clear();
+            }
+
+            if (string.IsNullOrEmpty(grupo.Nombre))
+            {
+                ModelState.AddModelError("Nombre", "Ingrese un Nombre.");
+            }
+
+            if (grupo.Preferencias == null)
+            {
+                ModelState.AddModelError("Preferencias", "Seleccione al menos una Preferencia.");
+            }
+            else
+            {
+                if(grupo.Preferencias.Where(p => p.Sel).Count() == 0)
+                    ModelState.AddModelError("Preferencias", "Seleccione al menos una Preferencia.");
+            }
         }
 
         // GET: /Grupos/Edit/5
@@ -294,6 +320,8 @@ namespace TP_DDS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
+                ValidarGrupo(ModelState, grupoNew);
+
                 if (ModelState.IsValid)
                 {
                     //Grupo antes de modificar
@@ -321,7 +349,7 @@ namespace TP_DDS.Controllers
                     db.SaveChanges();
 
                     //Todo OK
-                    Success(string.Format("<b>{0}!!</b> El grupo <b>{1}</b> se actualizó correctamente.", grupoToUpdate.Creador.Nombre, grupoToUpdate.Nombre), true);
+                    Success(string.Format("<b>{0}!!</b> El grupo <b>{1}</b> se actualizó correctamente.", usuario.Nombre, grupoToUpdate.Nombre), true);
                     return RedirectToAction("Me");
                 }
 

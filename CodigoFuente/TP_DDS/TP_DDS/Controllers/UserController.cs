@@ -75,13 +75,6 @@ namespace TP_DDS.Controllers
         {
             try
             {
-                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
-
-                if (usuario == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
                 ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
                 ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
                 ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
@@ -125,13 +118,6 @@ namespace TP_DDS.Controllers
         {
             try
             {
-                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
-
-                if (usuario == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
                 if (ModelState.IsValid)
                 {
                     var selectedList = model.PreferenciasList.Where(t => t.Sel);

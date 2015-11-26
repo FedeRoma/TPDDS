@@ -61,13 +61,20 @@ namespace TP_DDS.Models
 
         public Usuario GetUserByEmail(string email)
         {
-            if (!string.IsNullOrEmpty(email))
+            try
             {
-                return db.Usuarios.FirstOrDefault
-                    (u => u.Email.Equals(email));
-            }
+                if (!string.IsNullOrEmpty(email))
+                {
+                    return db.Usuarios.FirstOrDefault
+                        (u => u.Email.Equals(email));
+                }
 
-            return null;
+                return null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

@@ -146,7 +146,7 @@ namespace TP_DDS.Controllers
                 //Tiene permisos para Calificar
                 ViewBag.PuedeCalificar = PuedeCalificar(receta, usuario);
                 Calificacion calif = receta.Calificaciones.
-                    FirstOrDefault(c => c.RecetaId == receta.Id && c.UsuarioId == receta.Creador.Id);
+                    FirstOrDefault(c => c.RecetaId == receta.Id && c.UsuarioId == usuario.Id);
 
                 if (calif != null)
                     ViewBag.CalifUsuario = calif.Valor.ToString();
@@ -304,9 +304,12 @@ namespace TP_DDS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
+                ValidarReceta(ModelState, receta);
+
                 if (ModelState.IsValid)
                 {
-                    receta.Creador = usuario;
+                    //receta.Creador = usuario;
+                    receta.UsuarioId = usuario.Id;
                     receta.FechaCreacion = DateTime.Now;
                     receta.FechaUltModif = receta.FechaCreacion;
 
@@ -389,7 +392,7 @@ namespace TP_DDS.Controllers
                     db.SaveChanges();
 
                     //Todo OK
-                    Success(string.Format("<b>{0}!!</b> La receta <b>{1}</b> se creo correctamente.", receta.Creador.Nombre, receta.Nombre), true);
+                    Success(string.Format("<b>{0}!!</b> La receta <b>{1}</b> se creo correctamente.", usuario.Nombre, receta.Nombre), true);
                     return RedirectToAction("Me");
                 }
 
@@ -419,6 +422,7 @@ namespace TP_DDS.Controllers
 
                     for (var i = 1; i < 6; i++)
                     {
+                        oProc = new Procedimiento();
                         oProc.Numero = i;
                         oProc.Nombre = "";
                         oProc.Imagen = "";
@@ -426,7 +430,24 @@ namespace TP_DDS.Controllers
                     }
 
                 }
+                else
+                {
+                    if (receta.Procedimientos.Where(c => c.Nombre == null || c.Nombre == "").Count() == 5)
+                    {
+                        receta.Procedimientos.Clear();
+                        receta.Procedimientos = new List<Procedimiento>();
+                        Procedimiento oProc = new Procedimiento();
 
+                        for (var i = 1; i < 6; i++)
+                        {
+                            oProc = new Procedimiento();
+                            oProc.Numero = i;
+                            oProc.Nombre = "";
+                            oProc.Imagen = "";
+                            receta.Procedimientos.Add(oProc);
+                        }
+                    }
+                }
                 return View(receta);
             }
             catch (Exception)
@@ -434,6 +455,81 @@ namespace TP_DDS.Controllers
                 Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
                 Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        private void ValidarReceta(ModelStateDictionary ModelState, Receta receta)
+        {
+            foreach (var item in ModelState.Keys)
+            {
+                ModelState[item].Errors.Clear();
+            }
+
+            if (string.IsNullOrEmpty(receta.Nombre))
+            {
+                ModelState.AddModelError("Nombre", "Ingrese un Nombre.");
+            }
+
+            if (receta.DificultadId == 0)
+            {
+                ModelState.AddModelError("DificultadId", "Seleccione un valor.");
+            }
+
+            if (receta.PiramideId == 0)
+            {
+                ModelState.AddModelError("PiramideId", "Seleccione un valor.");
+            }
+
+            if (receta.Temporadas == null)
+            {
+                ModelState.AddModelError("Temporadas", "Seleccione al menos una Temporada.");
+            }
+            else
+            {
+                if (receta.Temporadas.Where(p => p.Sel).Count() == 0)
+                    ModelState.AddModelError("Temporadas", "Seleccione al menos una Temporada.");
+            }
+
+            if (receta.Clasificaciones == null)
+            {
+                ModelState.AddModelError("Clasificaciones", "Seleccione al menos una Clasificacion.");
+            }
+            else
+            {
+                if (receta.Clasificaciones.Where(p => p.Sel).Count() == 0)
+                    ModelState.AddModelError("Clasificaciones", "Seleccione al menos una Clasificacion.");
+            }
+
+            if (receta.Condimentos == null)
+            {
+                ModelState.AddModelError("Condimentos", "Incorpore al menos un Condimento.");
+            }
+            else
+            {
+                if (receta.Condimentos.Where(c => c.Id > 0).Count() == 0)
+                    ModelState.AddModelError("Condimentos", "Incorpore al menos un Condimento.");
+            }
+
+            if (receta.Ingredientes == null)
+            {
+                ModelState.AddModelError("Ingredientes", "Incorpore al menos un Ingrediente.");
+            }
+            else
+            {
+                if (receta.Ingredientes.Where(c => c.IngredienteId > 0).Count() == 0)
+                    ModelState.AddModelError("Ingredientes", "Incorpore al menos un Ingrediente.");
+                else if (receta.Ingredientes.Where(c => c.TipoIngredienteId > 0).Count() == 0)
+                    ModelState.AddModelError("Ingredientes", "Seleccione el Tipo  de Ingrediente.");
+            }
+
+            if (receta.Procedimientos == null)
+            {
+                ModelState.AddModelError("Procedimientos", "Incorpore al menos un Procedimiento.");
+            }
+            else
+            {
+                if (receta.Procedimientos.Where(c => c.Nombre == null || c.Nombre == "").Count() == 5)
+                    ModelState.AddModelError("Procedimientos", "Incorpore al menos un Procedimiento.");
             }
         }
 
@@ -542,6 +638,8 @@ namespace TP_DDS.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+
+                ValidarReceta(ModelState, recetaNew);
 
                 if (ModelState.IsValid)
                 {
@@ -656,7 +754,7 @@ namespace TP_DDS.Controllers
                     db.SaveChanges();
 
                     //Todo OK
-                    Success(string.Format("<b>{0}!!</b> La receta <b>{1}</b> se actualizó correctamente.", recetaToUpdate.Creador.Nombre, recetaToUpdate.Nombre), true);
+                    Success(string.Format("<b>{0}!!</b> La receta <b>{1}</b> se actualizó correctamente.", usuario.Nombre, recetaToUpdate.Nombre), true);
                     return RedirectToAction("Me");
                 }
 
@@ -666,6 +764,34 @@ namespace TP_DDS.Controllers
                 ViewBag.CondimentoId = new SelectList(db.Condimentos, "Id", "Nombre");
                 ViewBag.Ingrediente = new SelectList(db.Ingredientes, "Id", "Nombre");
                 ViewBag.TipoIngrediente = new SelectList(db.TipoIngredientes, "Id", "Nombre");
+
+                if (recetaNew.Ingredientes == null)
+                    recetaNew.Ingredientes = new List<IngredienteReceta>();
+
+                if (recetaNew.Condimentos == null)
+                    recetaNew.Condimentos = new List<Condimento>();
+
+                if (recetaNew.Temporadas == null)
+                    recetaNew.Temporadas = db.Temporadas.OrderBy(p => p.Nombre).ToList();
+
+                if (recetaNew.Clasificaciones == null)
+                    recetaNew.Clasificaciones = db.Clasificaciones.OrderBy(p => p.Nombre).ToList();
+
+                if (recetaNew.Procedimientos == null)
+                {
+                    recetaNew.Procedimientos = new List<Procedimiento>();
+                    Procedimiento oProc = new Procedimiento();
+
+                    for (var i = 1; i < 6; i++)
+                    {
+                        oProc = new Procedimiento();
+                        oProc.Numero = i;
+                        oProc.Nombre = "";
+                        oProc.Imagen = "";
+                        recetaNew.Procedimientos.Add(oProc);
+                    }
+
+                }
 
                 return View(recetaNew);
             }
@@ -800,6 +926,8 @@ namespace TP_DDS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
+                ValidarCalificacion(ModelState, calificacion);
+
                 if (ModelState.IsValid)
                 {
                     Receta receta = db.Recetas.Find(calificacion.RecetaId);
@@ -842,6 +970,8 @@ namespace TP_DDS.Controllers
                                               new{Id="5",Valor="5 Estrellas"}
                                           },
                    "Id", "Valor");
+                
+                calificacion.Receta = db.Recetas.Find(calificacion.RecetaId);
 
                 return View(calificacion);
             }
@@ -850,6 +980,19 @@ namespace TP_DDS.Controllers
                 Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
                 Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        private void ValidarCalificacion(ModelStateDictionary ModelState, Calificacion calificacion)
+        {
+            foreach (var item in ModelState.Keys)
+            {
+                ModelState[item].Errors.Clear();
+            }
+
+            if (calificacion.Valor == 0)
+            {
+                ModelState.AddModelError("Valor", "Seleccione un valor.");
             }
         }
 
@@ -943,6 +1086,8 @@ namespace TP_DDS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
+                ValidarCompartir(ModelState, item);
+
                 if (ModelState.IsValid)
                 {
                     bool booExiste = false;
@@ -983,9 +1128,12 @@ namespace TP_DDS.Controllers
                     }
                 }
 
+                var misGrupos = db.Grupos
+                    .Where(g => g.UsuarioId == usuario.Id);
+
                 ViewBag.GrupoId = new SelectList(db.GruposUsuarios.Include(g => g.Grupo).
                     Where(g => g.UsuarioId == usuario.Id)
-                    .Select(g => g.Grupo), "Id", "Nombre");
+                    .Select(g => g.Grupo).Union(misGrupos), "Id", "Nombre");
 
                 item.Receta = db.Recetas.Find(item.RecetaId);
 
@@ -996,6 +1144,19 @@ namespace TP_DDS.Controllers
                 Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
                 Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        private void ValidarCompartir(ModelStateDictionary ModelState, GrupoReceta item)
+        {
+            foreach (var key in ModelState.Keys)
+            {
+                ModelState[key].Errors.Clear();
+            }
+
+            if (item.GrupoId == 0)
+            {
+                ModelState.AddModelError("GrupoId", "Seleccione un Grupo.");
             }
         }
 

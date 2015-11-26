@@ -47,6 +47,7 @@
 
                 <div class="col-md-6">
                     <h4>Temporadas</h4>
+                    @Html.ValidationMessageFor(model => model.Temporadas)
                     <table class="table">
                         <tr style="background-color:aliceblue">
                             <th><input type="checkbox" id="chkSelectAllTemporadas" /></th>
@@ -63,6 +64,7 @@
 
                 <div class="col-md-6">
                     <h4>Clasificaciones</h4>
+                    @Html.ValidationMessageFor(model => model.Clasificaciones)
                     <table class="table">
                         <tr style="background-color:aliceblue">
                             <th><input type="checkbox" id="chkSelectAllClasificaciones" /></th>
@@ -91,7 +93,7 @@
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
                     </h4>
-
+                    @Html.ValidationMessageFor(model => model.Condimentos)
                     <table class="table" id="tableCondimentos">
                         <tbody>
                             <tr style="background-color:aliceblue">
@@ -115,7 +117,7 @@
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
                     </h4>
-
+                    @Html.ValidationMessageFor(model => model.Ingredientes)
                     <table class="table" id="tableIngredientes">
                         <tbody>
                             <tr style="background-color:aliceblue">
@@ -143,7 +145,8 @@
 
                 <div class="col-md-12">
 
-                    <h4>Procedimiento</h4>
+                    <h4>Procedimientos</h4>
+                    @Html.ValidationMessageFor(model => model.Procedimientos)
                     <table class="table">
                         <tr style="background-color:aliceblue">
                             <th>Nro.</th>

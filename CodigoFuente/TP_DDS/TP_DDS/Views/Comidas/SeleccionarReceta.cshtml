@@ -37,9 +37,12 @@
                 {
                     if (ViewData.ModelState["Fecha"] != null)
                     {
-                        <span class="text-danger">
-                            @ViewData.ModelState["Fecha"].Errors[0].ErrorMessage
-                        </span>
+                        if (ViewData.ModelState["Fecha"].Errors.Count() > 0)
+                        {
+                            <span class="text-danger">
+                                @ViewData.ModelState["Fecha"].Errors[0].ErrorMessage
+                            </span>
+                        }
                     }
                 }
             </div>
@@ -52,9 +55,12 @@
                 {
                     if (ViewData.ModelState["ClasificacionId"] != null)
                     {
-                        <span class="text-danger">
-                            @ViewData.ModelState["ClasificacionId"].Errors[0].ErrorMessage
-                        </span>
+                        if (ViewData.ModelState["ClasificacionId"].Errors.Count() > 0)
+                        {
+                            <span class="text-danger">
+                                @ViewData.ModelState["ClasificacionId"].Errors[0].ErrorMessage
+                            </span>
+                        }
                     }
                 }
             </div>

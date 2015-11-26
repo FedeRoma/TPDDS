@@ -41,7 +41,11 @@ namespace TP_DDS.Controllers
                         .Include(c => c.Receta.Dificultad)
                         .Include(c => c.Receta.Piramide)
                         .Include(c => c.Receta.Creador)
-                        .Where(c => !c.Comida.Eliminada && !c.Eliminada && c.Comida.Fecha == hoy);
+                        .Where(c => c.Comida.UsuarioId == usuario.Id
+                            && !c.Comida.Eliminada 
+                            && !c.Eliminada 
+                            //&& !c.Receta.Eliminada
+                            && c.Comida.Fecha == hoy);
 
                     ViewBag.ComidasRecetas = comidas.ToList();
                 }
