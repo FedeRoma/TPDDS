@@ -57,12 +57,12 @@
                 <th id="col_nombre">Nombre</th>
                 <th id="col_dificultad">Dificultad</th>
                 <th id="col_totcal">Tot. Cal.(Kg)</th>
-                <th id="col_piramide">Grupo Piramide</th>
+                @*<th id="col_piramide">Grupo Piramide</th>*@
                 <th id="col_creador">Creador</th>
                 <th id="col_acciones">Acciones</th>
             </tr>
 
-            @foreach (var item in Model.Recetas)
+            @foreach (var item in Model.Recetas.Where(r => !r.Eliminada))
             {
                 <tr>
                     <td id="col_nombre">
@@ -74,15 +74,22 @@
                     <td id="col_totcal">
                         @Html.DisplayFor(modelItem => item.Receta.TotalCalorias)
                     </td>
-                    <td id="col_piramide">
+                    @*<td id="col_piramide">
                         @Html.DisplayFor(modelItem => item.Receta.Piramide.NombreGrupo)
-                    </td>
+                    </td>*@
                     <td id="col_creador">
                         @Html.DisplayFor(modelItem => item.Receta.Creador.Nombre)
                     </td>
                     <td id="col_acciones">
-                        @Html.ActionLink("Detalle", "Details", "Recetas",
-                                                new { id = item.RecetaId }, null)
+                        @if ((bool)ViewBag.PuedeEditarRecetas)
+                        {
+                            @Html.ActionLink("Detalles", "Details", "Recetas", new { id = item.Receta.Id }, htmlAttributes: null)
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Detalles", "Details", "Recetas", new { id = item.Receta.Id }, htmlAttributes: null) @Html.Encode(" | ")
+                            @Html.ActionLink("Eliminar", "DeleteReceta", "Grupos", new { id = item.Id }, htmlAttributes: null)
+                        }
                     </td>
                 </tr>
             }

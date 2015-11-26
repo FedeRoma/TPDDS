@@ -518,6 +518,7 @@ namespace TP_DDS.Controllers
 
                 //Actualizo datos Encabezado
                 recetaToUpdate.FechaUltModif = DateTime.Now;
+                recetaToUpdate.Nombre = recetaNew.Nombre;
                 recetaToUpdate.Dificultad = db.Dificultades.Find(recetaNew.DificultadId);
                 recetaToUpdate.DificultadId = recetaNew.DificultadId;
                 recetaToUpdate.Piramide = db.PiramideAlimenticia.Find(recetaNew.PiramideId);
@@ -782,6 +783,113 @@ namespace TP_DDS.Controllers
             }
 
             return View(receta);
+        }
+
+        // GET: /Recetas/CompartirReceta
+        public ActionResult CompartirReceta(int? id)
+        {
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Receta receta = db.Recetas.Find(id);
+
+            if (receta == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.GrupoId = new SelectList(db.GruposUsuarios.Include(g => g.Grupo).
+                Where(g => g.UsuarioId == usuario.Id)
+                .Select(g => g.Grupo), "Id", "Nombre");
+
+            GrupoReceta item = new GrupoReceta();
+            item.Receta = receta;
+            item.RecetaId = receta.Id;
+            item.Usuario = usuario;
+            item.UsuarioId = usuario.Id;
+
+            return View(item);
+        }
+
+        // POST: /Recetas/CompartirReceta
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CompartirReceta(GrupoReceta item)
+        {
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                bool booExiste = false;
+
+                //Valido si existe la Planificacion
+                GrupoReceta itemOrig = db.GruposRecetas
+                    .FirstOrDefault(gr => gr.GrupoId == item.GrupoId
+                        //&& !cr.Eliminada
+                        && gr.RecetaId == item.RecetaId);
+
+                //Valido si ya fue agregada
+                if (itemOrig == null)
+                {
+                    booExiste = false;
+                }
+                else
+                {
+                    booExiste = true;
+                }
+
+                if (booExiste)
+                {
+                    //Ya existe
+                    Information(string.Format("<b>{0}!!</b> La Receta ya fue compartida anteriormente.", usuario.Nombre), true);
+                    return RedirectToAction("Index", "Recetas");
+                }
+                else
+                {
+                    item.Eliminada = false;
+
+                    //Actualizo BD
+                    db.GruposRecetas.Add(item);
+                    db.SaveChanges();
+
+                    //Todo OK
+                    Success(string.Format("<b>{0}!!</b> La Receta fue Seleccionada correctamente.", usuario.Nombre), true);
+                    return RedirectToAction("Index", "Recetas");
+                }
+            }
+
+            ViewBag.GrupoId = new SelectList(db.GruposUsuarios.Include(g => g.Grupo).
+                Where(g => g.UsuarioId == usuario.Id)
+                .Select(g => g.Grupo), "Id", "Nombre");
+
+            item.Receta = db.Recetas.Find(item.RecetaId);
+
+            return View(item);
         }
 
         protected override void Dispose(bool disposing)

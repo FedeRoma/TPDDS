@@ -33,13 +33,14 @@ namespace TP_DDS.Controllers
 
             if (usuario == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
 
             var grupos = db.Grupos.Include(g => g.Creador)
                 .Include(i => i.Usuarios).
                 Include(r => r.Recetas).
-                Where(g => !g.Eliminado && g.Creador.DietaId == usuario.DietaId);
+                Where(g => !g.Eliminado 
+                    && g.Creador.DietaId == usuario.DietaId);
 
             return View(grupos.ToList());
         }
@@ -91,16 +92,30 @@ namespace TP_DDS.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home");
             }
+
             Grupo grupo = db.Grupos.Find(id);
 
             if (grupo == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
+
+            GrupoUsuario item = db.GruposUsuarios
+                .FirstOrDefault(gu => gu.GrupoId == grupo.Id 
+                    && gu.UsuarioId == usuario.Id);
+
+            ViewBag.PuedeEditarRecetas = true;
+
+            if (item != null)
+                ViewBag.PuedeEditarRecetas = false;
+
             return View(grupo);
         }
 
@@ -222,15 +237,15 @@ namespace TP_DDS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
+                //Usuario Logueado
+                Usuario usuario = db.Usuarios.FirstOrDefault
+                    (u => u.Email.Equals(userEmail));
+
                 //Grupo antes de modificar
                 var grupoToUpdate = db.Grupos
                    .Include(g => g.Creador)
                    .Where(g => g.Id == grupoNew.Id)
                    .Single();
-
-                //Usuario Logueado
-                Usuario usuario = db.Usuarios.FirstOrDefault
-                    (u => u.Email.Equals(userEmail));
 
                 //Actualizo datos Encabezado
                 grupoToUpdate.FechaUltModif = DateTime.Now;
@@ -292,6 +307,64 @@ namespace TP_DDS.Controllers
             db.SaveChanges();
             //Todo OK
             Success(string.Format("<b>{0}!!</b> El grupo <b>{1}</b> se elimno correctamente.", grupo.Creador.Nombre, grupo.Nombre), true);
+            return RedirectToAction("Me");
+        }
+
+        // GET: /Grupos/DeleteReceta/5
+        public ActionResult DeleteReceta(int? id)
+        {
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            GrupoReceta item = db.GruposRecetas.Find(id);
+
+            if (item == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(item);
+        }
+
+        // POST: /Grupos/DeleteReceta/5
+        [HttpPost, ActionName("DeleteReceta")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteRecetaConfirmed(int id)
+        {
+            string userEmail = User.Identity.GetUserName();
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            //Usuario Logueado
+            Usuario usuario = db.Usuarios.FirstOrDefault
+                (u => u.Email.Equals(userEmail));
+
+            GrupoReceta item = db.GruposRecetas.Find(id);
+            item.Eliminada = true;
+            item.UsuarioBajaId = usuario.Id;
+            db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
+            Success(string.Format("<b>{0}!!</b> La Receta se elimino correctamente de su Grupo.", usuario.Nombre), true);
             return RedirectToAction("Me");
         }
 

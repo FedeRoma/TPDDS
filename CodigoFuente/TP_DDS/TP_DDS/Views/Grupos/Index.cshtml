@@ -27,7 +27,7 @@
             @foreach (var item in Model)
             {
                 var cantIntegrantes = item.Usuarios.Count();
-                var cantRecetas = item.Recetas.Count();
+                var cantRecetas = item.Recetas.Where(r => !r.Eliminada).Count();
                 
                 <tr>
                     <td>

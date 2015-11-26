@@ -367,3 +367,6 @@ C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS
 C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.fixComRec.resources
 C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.bugEF.resources
 C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.fixBugEF.resources
+C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.GrupoRecetaEliminada.resources
+C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.userBajaID.resources
+C:\Users\Juan\Documents\GitHub\TPDDS\CodigoFuente\TP_DDS\TP_DDS\obj\Debug\TP_DDS.Migrations.fixcolumn.resources

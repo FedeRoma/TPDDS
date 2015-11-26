@@ -359,6 +359,18 @@
     <Compile Include="Migrations\201511240501373_fixBugEF.Designer.cs">
       <DependentUpon>201511240501373_fixBugEF.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511260338296_GrupoRecetaEliminada.cs" />
+    <Compile Include="Migrations\201511260338296_GrupoRecetaEliminada.Designer.cs">
+      <DependentUpon>201511260338296_GrupoRecetaEliminada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511260349099_userBajaID.cs" />
+    <Compile Include="Migrations\201511260349099_userBajaID.Designer.cs">
+      <DependentUpon>201511260349099_userBajaID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511260358170_fixcolumn.cs" />
+    <Compile Include="Migrations\201511260358170_fixcolumn.Designer.cs">
+      <DependentUpon>201511260358170_fixcolumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessException.cs" />
@@ -507,6 +519,8 @@
     <Content Include="Views\Reportes\RecetasNuevas.cshtml" />
     <Content Include="Views\Reportes\RecetasPorCalorias.cshtml" />
     <Content Include="Views\Reportes\RecetasPorPeriodo.cshtml" />
+    <Content Include="Views\Recetas\CompartirReceta.cshtml" />
+    <Content Include="Views\Grupos\DeleteReceta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -655,6 +669,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511240501373_fixBugEF.resx">
       <DependentUpon>201511240501373_fixBugEF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511260338296_GrupoRecetaEliminada.resx">
+      <DependentUpon>201511260338296_GrupoRecetaEliminada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511260349099_userBajaID.resx">
+      <DependentUpon>201511260349099_userBajaID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511260358170_fixcolumn.resx">
+      <DependentUpon>201511260358170_fixcolumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

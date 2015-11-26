@@ -3,11 +3,6 @@
                 ? (List<TP_DDS.Helpers.Alert>)TempData[TP_DDS.Helpers.Alert.TempDataKey]
                 : new List<TP_DDS.Helpers.Alert>();
 
-    @*if (alerts.Any())
-    {
-        <hr />
-    }*@
-
     foreach (var alert in alerts)
     {
         var dismissableClass = alert.Dismissable ? "alert-dismissable" : null;
@@ -22,7 +17,22 @@
 
     <script>
         window.setTimeout(function () {
-            $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
+            $(".alert-success").fadeTo(800, 0).slideUp(800, function () {
+                $(this).remove();
+            });
+        }, 1500);
+        window.setTimeout(function () {
+            $(".alert-info").fadeTo(800, 0).slideUp(800, function () {
+                $(this).remove();
+            });
+        }, 1500);
+        window.setTimeout(function () {
+            $(".alert-warning").fadeTo(800, 0).slideUp(800, function () {
+                $(this).remove();
+            });
+        }, 1500);
+        window.setTimeout(function () {
+            $(".alert-danger").fadeTo(800, 0).slideUp(800, function () {
                 $(this).remove();
             });
         }, 1500);

@@ -45,7 +45,7 @@
                         }
                         else
                         {
-                            @Html.ActionLink("Detalles", "Details", "Recetas", new { id = item.Receta.Id }, htmlAttributes: null) @Html.Encode("|")
+                            @Html.ActionLink("Detalles", "Details", "Recetas", new { id = item.Receta.Id }, htmlAttributes: null) @Html.Encode(" | ")
                             @Html.ActionLink("Eliminar", "DeleteReceta", "Comidas", new { id = item.Id }, htmlAttributes: null)
                         }
                     </td>

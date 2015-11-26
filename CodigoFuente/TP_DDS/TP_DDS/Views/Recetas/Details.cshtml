@@ -18,8 +18,9 @@
         <p><strong>Calificacion Otorgada:</strong> @Html.Encode((string)ViewBag.CalifUsuario) Estrellas</p>
     }
     <div class="row">
-            <div class="col-md-12">
-                @if((bool)ViewBag.PuedeCalificar)
+        <div class="col-md-12">
+            <div class="btn-group" role="group" aria-label="...">
+                @if ((bool)ViewBag.PuedeCalificar)
                 {
                     @Html.ActionLink("Calificar", "Calificar", new { id = Model.Id }, new { @class = "btn btn-info btn-sm", role = "button" })
                 }
@@ -29,19 +30,28 @@
                 }
 
                 @Html.ActionLink("Seleccionar", "SeleccionarReceta", "Comidas", new { id = Model.Id }, new { @class = "btn btn-success btn-sm", role = "button" })
-                @Html.ActionLink("Compartir", "CompartirReceta", "Receta", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm", role = "button" })
-
+                @Html.ActionLink("Compartir", "CompartirReceta", "Recetas", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm", role = "button" })
+            </div>
+        </div>
+        <div style="height:5px"></div>
+        <div class="col-md-12">
+            <div class="btn-group" role="group" aria-label="...">
                 @if ((bool)ViewBag.PuedeEditar)
                 {
                     @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm", role = "button" })
                 }
                 @if ((bool)ViewBag.PuedeEliminar)
                 {
-                    @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger btn-sm", role="button" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger btn-sm", role = "button" })
                 }
             </div>
         </div>
+    </div>
 </div>
+
+
+
+
 
 
 
