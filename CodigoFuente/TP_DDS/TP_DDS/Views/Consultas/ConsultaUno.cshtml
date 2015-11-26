@@ -19,7 +19,12 @@
                 @Html.DropDownListFor(model => model.RutinaId, 
                     (SelectList)ViewBag.Rutinas, "-- Seleccione una Rutina --", 
                     new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.RutinaId)
+                @if (!string.IsNullOrEmpty((string)ViewBag.MsjError))
+                {
+                    <span class="text-danger">
+                        @Html.Encode((string)ViewBag.MsjError)
+                    </span>
+                }
             </div>
         </div>
         <div class="col-md-2">

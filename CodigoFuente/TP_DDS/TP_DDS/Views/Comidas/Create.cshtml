@@ -10,22 +10,38 @@
 
     <h4>Crear Planificación</h4>
     <hr />
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(true, "Por favor complete todos los campos correctamente.")
     @Html.HiddenFor(model => model.UsuarioId)
-    
+
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
                 @Html.LabelFor(model => model.Fecha, "Fecha", new { @class = "control-label" })
                 @Html.TextBoxFor(model => model.Fecha, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Fecha)
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    if (ViewData.ModelState["Fecha"] != null)
+                    {
+                        <span class="text-danger">
+                            @ViewData.ModelState["Fecha"].Errors[0].ErrorMessage
+                        </span>
+                    }
+                }
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
                 @Html.LabelFor(model => model.ClasificacionId, "Clasificacion", new { @class = "control-label" })
                 @Html.DropDownListFor(model => model.ClasificacionId, (SelectList)ViewBag.ClasificacionId, "-- Seleccione --", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ClasificacionId)
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    if (ViewData.ModelState["ClasificacionId"] != null)
+                    {
+                        <span class="text-danger">
+                            @ViewData.ModelState["ClasificacionId"].Errors[0].ErrorMessage
+                        </span>
+                    }
+                }
             </div>
         </div>
     </div>

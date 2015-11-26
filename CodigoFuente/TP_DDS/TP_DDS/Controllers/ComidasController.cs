@@ -171,6 +171,8 @@ namespace TP_DDS.Controllers
         {
             try
             {
+                ValidarComida(ModelState, comida);
+
                 if (ModelState.IsValid)
                 {
                     string userEmail = User.Identity.GetUserName();
@@ -186,8 +188,6 @@ namespace TP_DDS.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-
-                    //Validar Fecha >= a hoy.
 
                     //Actualizo BD
                     db.Comidas.Add(comida);
@@ -207,6 +207,33 @@ namespace TP_DDS.Controllers
                 Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
                 Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        private void ValidarComida(ModelStateDictionary ModelState, Comida comida)
+        {
+            foreach (var item in ModelState.Keys)
+            {
+                ModelState[item].Errors.Clear();
+            }
+
+            DateTime hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+
+            if (comida.Fecha == null || comida.Fecha == DateTime.MinValue)
+            {
+                ModelState.AddModelError("Fecha", "Ingrese una Fecha");
+            }
+            else
+            {
+                if (comida.Fecha < hoy)
+                {
+                    ModelState.AddModelError("Fecha", "La Fecha debe ser mayor o igual a hoy " + hoy.ToString("dd/MM/yyyy"));
+                }
+            }
+
+            if (comida.ClasificacionId == null || comida.ClasificacionId == 0)
+            {
+                ModelState.AddModelError("ClasificacionId", "Seleccione una Clasificacion");
             }
         }
 
@@ -254,6 +281,8 @@ namespace TP_DDS.Controllers
         {
             try
             {
+                ValidarComida(ModelState, item.Comida);
+
                 if (ModelState.IsValid)
                 {
                     Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
@@ -262,8 +291,6 @@ namespace TP_DDS.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-
-                    //Validar Fecha >= a HOY
 
                     bool booExiste = false;
 

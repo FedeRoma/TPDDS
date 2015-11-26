@@ -19,7 +19,12 @@
                 @Html.DropDownListFor(model => model.PiramideId,
                         (SelectList)ViewBag.PiramideAlimenticia, "-- Seleccione un Grupo --", 
                         new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PiramideId)
+                @if (!string.IsNullOrEmpty((string)ViewBag.MsjError))
+                {
+                    <span class="text-danger">
+                        @Html.Encode((string)ViewBag.MsjError)
+                    </span>
+                }
             </div>
         </div>
     </div>

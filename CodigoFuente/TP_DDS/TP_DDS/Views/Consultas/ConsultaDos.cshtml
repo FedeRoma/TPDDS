@@ -19,7 +19,12 @@
                 @Html.DropDownListFor(model => model.TemporadaId, 
                     (SelectList)ViewBag.Temporadas, "-- Seleccione una Temporada --", 
                     new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TemporadaId)
+                @if (!string.IsNullOrEmpty((string)ViewBag.MsjErrorTemp))
+                {
+                    <span class="text-danger">
+                        @Html.Encode((string)ViewBag.MsjErrorTemp)
+                    </span>
+                }
             </div>
         </div>
         <div class="col-md-4">
@@ -27,7 +32,12 @@
                 @Html.DropDownListFor(model => model.CalificacionId, 
                     (SelectList)ViewBag.Calificaciones, "-- Seleccione una Calificacion --", 
                     new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CalificacionId)
+                @if (!string.IsNullOrEmpty((string)ViewBag.MsjErrorCalif))
+                {
+                    <span class="text-danger">
+                        @Html.Encode((string)ViewBag.MsjErrorCalif)
+                    </span>
+                }
             </div>
         </div>
     </div>

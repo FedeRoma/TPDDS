@@ -42,10 +42,15 @@ namespace TP_DDS.Controllers
                                               new {Id="2",Valor="Semanal"}
                                           },
                                            "Id", "Valor");
+                ViewBag.MsjError = "";
 
                 if (param.Tipo > 0)
                 {
                     ViewBag.Results = (IEnumerable<EstadisticaSexo>)param.Ejecutar(new EstadisticaSexo()); ;
+                }
+                else
+                {
+                    ViewBag.MsjError = "Seleccione un Tipo";
                 }
 
                 return View(viewModel);
@@ -79,10 +84,15 @@ namespace TP_DDS.Controllers
                                               new {Id="2",Valor="Semanal"}
                                           },
                                            "Id", "Valor");
+                ViewBag.MsjError = "";
 
                 if (param.Tipo > 0)
                 {
                     ViewBag.Results = (IEnumerable<EstadisticaDificultad>)param.Ejecutar(new EstadisticaDificultad()); ;
+                }
+                else
+                {
+                    ViewBag.MsjError = "Seleccione un Tipo";
                 }
 
                 return View(viewModel);
@@ -116,10 +126,15 @@ namespace TP_DDS.Controllers
                                               new {Id="2",Valor="Semanal"}
                                           },
                                            "Id", "Valor");
+                ViewBag.MsjError = "";
 
                 if (param.Tipo > 0)
                 {
                     ViewBag.Results = (IEnumerable<EstadisticaRanking>)param.Ejecutar(new EstadisticaRanking()); ;
+                }
+                else
+                {
+                    ViewBag.MsjError = "Seleccione un Tipo";
                 }
 
                 return View(viewModel);

@@ -34,10 +34,15 @@ namespace TP_DDS.Controllers
                 ViewBag.Rutinas = new SelectList(db.Rutinas, "Id", "Nombre");
 
                 viewModel.Results = null;
+                ViewBag.MsjError = "";
 
                 if (param.RutinaId > 0)
                 {
                     viewModel.Results = db.GetCaloriasMaxByRutina(param.RutinaId);
+                }
+                else
+                {
+                    ViewBag.MsjError = "Seleccione una Rutina";
                 }
 
                 return View(viewModel);
@@ -78,9 +83,20 @@ namespace TP_DDS.Controllers
 
                 viewModel.Results = null;
 
+                ViewBag.MsjErrorTemp = "";
+                ViewBag.MsjErrorCalif = "";
+
                 if ((param.TemporadaId > 0) && (param.CalificacionId > 0))
                 {
                     viewModel.Results = db.GetRecetasByTempoCalif(param.TemporadaId, param.CalificacionId);
+                }
+                else
+                {
+                    if(!(param.TemporadaId > 0))
+                        ViewBag.MsjErrorTemp = "Seleccione una Temporada";
+
+                    if (!(param.CalificacionId > 0))
+                        ViewBag.MsjErrorCalif = "Seleccione una Calificacion";
                 }
 
                 return View(viewModel);
@@ -111,10 +127,15 @@ namespace TP_DDS.Controllers
                 ViewBag.Dietas = new SelectList(db.Dietas, "Id", "Nombre");
 
                 viewModel.Results = null;
+                ViewBag.MsjError = "";
 
                 if (param.DietaId > 0)
                 {
                     viewModel.Results = db.GetRecetasByDieta(param.DietaId);
+                }
+                else
+                {
+                    ViewBag.MsjError = "Seleccione una Dieta";
                 }
 
                 return View(viewModel);
@@ -145,10 +166,15 @@ namespace TP_DDS.Controllers
                 ViewBag.Preferencias = new SelectList(db.Preferencias, "Id", "Nombre");
 
                 viewModel.Results = null;
+                ViewBag.MsjError = "";
 
                 if (param.PreferenciaId > 0)
                 {
                     viewModel.Results = db.GetRecetasByPreferencia(param.PreferenciaId);
+                }
+                else
+                {
+                    ViewBag.MsjError = "Seleccione una Preferencia";
                 }
 
                 return View(viewModel);
@@ -179,10 +205,15 @@ namespace TP_DDS.Controllers
                 ViewBag.Condimentos = new SelectList(db.Condimentos, "Id", "Nombre");
 
                 viewModel.Results = null;
+                ViewBag.MsjError = "";
 
                 if (param.CondimentoId > 0)
                 {
                     viewModel.Results = db.GetRecetasByCondimento(param.CondimentoId);
+                }
+                else
+                {
+                    ViewBag.MsjError = "Seleccione un Condimento";
                 }
 
                 return View(viewModel);
@@ -224,12 +255,25 @@ namespace TP_DDS.Controllers
                                            "Id", "Valor");
 
                 viewModel.Results = null;
+                ViewBag.MsjErrorSexo = "";
+                ViewBag.MsjErrorComplexion = "";
+                ViewBag.MsjErrorCalificacionId = "";
 
                 if ((param.SexoId > 0) && (param.ComplexionId > 0) && (param.CalificacionId > 0))
                 {
                     viewModel.Results = db.GetRecetasBySexComplex(param.SexoId, param.ComplexionId, param.CalificacionId);
                 }
+                else
+                {
+                    if (!(param.SexoId > 0))
+                        ViewBag.MsjErrorTemp = "Seleccione un Sexo";
 
+                    if (!(param.ComplexionId > 0))
+                        ViewBag.MsjErrorCalif = "Seleccione una Complexion";
+
+                    if (!(param.CalificacionId > 0))
+                        ViewBag.MsjErrorCalif = "Seleccione una Calificacion";
+                }
                 return View(viewModel);
             }
             catch (Exception)
@@ -258,10 +302,15 @@ namespace TP_DDS.Controllers
                 ViewBag.PiramideAlimenticia = new SelectList(db.PiramideAlimenticia, "Id", "NombreGrupo");
 
                 viewModel.Results = null;
+                ViewBag.MsjError = "";
 
                 if (param.PiramideId > 0)
                 {
                     viewModel.Results = db.GetRecetasByPiramide(param.PiramideId);
+                }
+                else
+                {
+                    ViewBag.MsjError = "Seleccione un Grupo";
                 }
 
                 return View(viewModel);

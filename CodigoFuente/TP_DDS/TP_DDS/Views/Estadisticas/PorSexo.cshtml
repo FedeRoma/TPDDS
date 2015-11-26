@@ -19,7 +19,12 @@
                 @Html.DropDownListFor(model => model.Tipo,
                         (SelectList)ViewBag.Tipos, "-- Seleccione un Tipo --", 
                         new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Tipo)
+                @if (!string.IsNullOrEmpty((string)ViewBag.MsjError))
+                {
+                    <span class="text-danger">
+                        @Html.Encode((string)ViewBag.MsjError)
+                    </span>
+                }
             </div>
         </div>
     </div>

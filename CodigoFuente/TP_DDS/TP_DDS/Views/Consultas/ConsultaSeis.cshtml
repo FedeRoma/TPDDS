@@ -19,15 +19,25 @@
                 @Html.DropDownListFor(model => model.SexoId, 
                     (SelectList)ViewBag.Sexo, "-- Seleccione un Sexo --", 
                     new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SexoId)
+                @if (!string.IsNullOrEmpty((string)ViewBag.MsjErrorSexo))
+                {
+                    <span class="text-danger">
+                        @Html.Encode((string)ViewBag.MsjErrorSexo)
+                    </span>
+                }
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                @Html.DropDownListFor(model => model.ComplexionId, 
-                    (SelectList)ViewBag.Complexiones, "-- Seleccione una Calificacion --", 
+                @Html.DropDownListFor(model => model.ComplexionId,
+             (SelectList)ViewBag.Complexiones, "-- Seleccione una Complexion --", 
                     new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ComplexionId)
+                @if (!string.IsNullOrEmpty((string)ViewBag.MsjErrorComplexion))
+                {
+                    <span class="text-danger">
+                        @Html.Encode((string)ViewBag.MsjErrorComplexion)
+                    </span>
+                }
             </div>
         </div>
         <div class="col-md-4">
@@ -35,7 +45,12 @@
                 @Html.DropDownListFor(model => model.CalificacionId, 
                     (SelectList)ViewBag.Calificaciones, "-- Seleccione una Calificacion --", 
                     new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CalificacionId)
+                @if (!string.IsNullOrEmpty((string)ViewBag.MsjErrorCalificacion))
+                {
+                    <span class="text-danger">
+                        @Html.Encode((string)ViewBag.MsjErrorCalificacion)
+                    </span>
+                }
             </div>
         </div>
     </div>
