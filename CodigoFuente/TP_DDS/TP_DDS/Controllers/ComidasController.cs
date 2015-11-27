@@ -43,7 +43,8 @@ namespace TP_DDS.Controllers
                     .Include(c => c.Usuario)
                     .Where(c => c.UsuarioId == usuario.Id
                         && !c.Eliminada 
-                        && c.Fecha >= hoy);
+                        && c.Fecha >= hoy)
+                    .OrderBy(c => c.Fecha);
 
                 return View(comidas.ToList());
             }
@@ -74,7 +75,7 @@ namespace TP_DDS.Controllers
                     .Where(c => c.UsuarioId == usuario.Id 
                         &&!c.Eliminada 
                         && c.Fecha < hoy)
-                    .OrderBy(c => c.Fecha);
+                    .OrderByDescending(c => c.Fecha);
 
                 return View(comidas.ToList());
             }

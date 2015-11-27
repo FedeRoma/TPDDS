@@ -31,6 +31,7 @@ namespace TP_DDS.Controllers
                         (u => u.Email.Equals(userEmail));
 
                     ViewBag.Usuario = usuario.Nombre;
+                    ViewBag.RecetasNuevas = null;
 
                     DateTime hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
@@ -47,7 +48,36 @@ namespace TP_DDS.Controllers
                             //&& !c.Receta.Eliminada
                             && c.Comida.Fecha == hoy);
 
-                    ViewBag.ComidasRecetas = comidas.ToList();
+                    if (comidas.ToList().Count() == 0)
+                        ViewBag.ComidasRecetas = null;
+                    else
+                        ViewBag.ComidasRecetas = comidas.ToList();
+
+                    usuario.CargarCondicion();
+
+                    if (usuario.condicion != null)
+                    {
+                        UsuarioProponerVisitor upv = new UsuarioProponerVisitor();
+                        UsuarioRecomendarVisitor urv = new UsuarioRecomendarVisitor();
+
+                        usuario.condicion.Accept(upv);
+                        usuario.condicion.Accept(urv);
+
+                        ViewBag.Propuestas = upv.ProponerRecetas().ToList();
+                        ViewBag.Recomendaciones = urv.MostrarRecomendaciones().ToList();
+                    }
+                    else
+                    {
+                        if (comidas.ToList().Count() == 0)
+                        {
+                            Reporte param = new Reporte();
+                            param.UsuarioId = usuario.Id;
+                            param.FiltroIni = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
+                            param.FiltroFin = DateTime.Now.ToString("yyyy-MM-dd");
+                            ViewBag.RecetasNuevas = (IEnumerable<RptRecetasNuevas>)param.Ejecutar(new RptRecetasNuevas());
+                        }
+                    }
+
                 }
 
                 return View();

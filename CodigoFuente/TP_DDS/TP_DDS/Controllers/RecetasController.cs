@@ -500,6 +500,13 @@ namespace TP_DDS.Controllers
             {
                 ModelState.AddModelError("Nombre", "Ingrese un Nombre.");
             }
+            else
+            {
+                if (receta.Nombre.Length > 100)
+                {
+                    ModelState.AddModelError("Nombre", "Supero los 100 caracteres.");
+                }
+            }
 
             if (receta.DificultadId == 0)
             {
@@ -1081,10 +1088,11 @@ namespace TP_DDS.Controllers
                 }
 
                 var misGrupos = db.Grupos
-                    .Where(g => g.UsuarioId == usuario.Id);
+                    .Where(g => !g.Eliminado
+                        && g.UsuarioId == usuario.Id);
 
                 ViewBag.GrupoId = new SelectList(db.GruposUsuarios.Include(g => g.Grupo).
-                    Where(g => g.UsuarioId == usuario.Id)
+                    Where(g => !g.Eliminado && g.UsuarioId == usuario.Id && !g.Grupo.Eliminado)
                     .Select(g => g.Grupo).Union(misGrupos), "Id", "Nombre");
 
                 GrupoReceta item = new GrupoReceta();

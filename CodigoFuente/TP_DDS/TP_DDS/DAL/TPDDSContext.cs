@@ -42,6 +42,7 @@ namespace TP_DDS.DAL
             public DbSet<TipoIngrediente> TipoIngredientes { get; set; }
             public DbSet<Comida> Comidas { get; set; }
             public DbSet<ComidaReceta> ComidasRecetas { get; set; }
+            public DbSet<Recomendacion> Recomendaciones { get; set; }
         #endregion
 
         #region Mapeo_SP_Consultas
@@ -146,6 +147,13 @@ namespace TP_DDS.DAL
 
                 return this.Database.SqlQuery<RecetasIndexViewModel_Result>(command);
             }
+
+            public IEnumerable<Receta> Recetas_Hipertensos()
+            {
+                string command = "Recetas_Hipertensos ";
+                return this.Database.SqlQuery<Receta>(command);
+            }
+
         #endregion
 
         #region Mapeo_SP_Reportes
@@ -237,6 +245,7 @@ namespace TP_DDS.DAL
             modelBuilder.Entity<TipoIngrediente>().ToTable("TipoIngredientes");
             modelBuilder.Entity<Comida>().ToTable("Comidas");
             modelBuilder.Entity<ComidaReceta>().ToTable("ComidasRecetas");
+            modelBuilder.Entity<Recomendacion>().ToTable("Recomendaciones");
 
             //modelBuilder.Entity<Comida>()
             //        .HasMany(x => x.Recetas)

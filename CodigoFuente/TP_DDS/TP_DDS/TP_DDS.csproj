@@ -382,6 +382,10 @@
     <Compile Include="Migrations\201511260631142_fechaBajaAll.Designer.cs">
       <DependentUpon>201511260631142_fechaBajaAll.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511270243066_Recomendaciones.cs" />
+    <Compile Include="Migrations\201511270243066_Recomendaciones.Designer.cs">
+      <DependentUpon>201511270243066_Recomendaciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BusinessException.cs" />
     <Compile Include="Models\Calificacion.cs" />
@@ -418,11 +422,14 @@
     <Compile Include="Models\TipoIngrediente.cs" />
     <Compile Include="Models\Comida.cs" />
     <Compile Include="Models\Usuario.cs" />
-    <Compile Include="Models\UsuarioPreferenciasViewModel.cs" />
-    <Compile Include="Models\Validaciones\ValidacionDatos.cs" />
-    <Compile Include="Models\Validaciones\ValidacionFechaNacimiento.cs" />
-    <Compile Include="Models\Validaciones\ValidacionNombre.cs" />
-    <Compile Include="Models\Validaciones\ValidacionUsuario.cs" />
+    <Compile Include="Models\Visitor\Celiaco.cs" />
+    <Compile Include="Models\Visitor\Condicion.cs" />
+    <Compile Include="Models\Visitor\Hipertenso.cs" />
+    <Compile Include="Models\Visitor\Diabetico.cs" />
+    <Compile Include="Models\Recomendacion.cs" />
+    <Compile Include="Models\Visitor\UsuarioRecomendarVisitor.cs" />
+    <Compile Include="Models\Visitor\UsuarioProponerVisitor.cs" />
+    <Compile Include="Models\Visitor\UsuarioVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -533,8 +540,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Filtros\" />
-    <Folder Include="Models\Procesamientos\" />
     <Folder Include="Models\Repositorios\" />
   </ItemGroup>
   <ItemGroup>
@@ -696,6 +701,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511260631142_fechaBajaAll.resx">
       <DependentUpon>201511260631142_fechaBajaAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511270243066_Recomendaciones.resx">
+      <DependentUpon>201511270243066_Recomendaciones.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

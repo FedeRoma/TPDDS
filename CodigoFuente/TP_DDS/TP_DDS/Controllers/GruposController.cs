@@ -243,6 +243,13 @@ namespace TP_DDS.Controllers
             {
                 ModelState.AddModelError("Nombre", "Ingrese un Nombre.");
             }
+            else
+            {
+                if (grupo.Nombre.Length > 100)
+                {
+                    ModelState.AddModelError("Nombre", "Supero los 100 caracteres.");
+                }
+            }
 
             if (grupo.Preferencias == null)
             {

@@ -178,12 +178,11 @@ namespace TP_DDS.Controllers
                     return RedirectToAction("LogIn", "User");
                 }
 
-                ViewBag.Complexion = new SelectList(db.Complexiones, "Id", "Nombre");
-                ViewBag.CondicionPreexistente = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
-                ViewBag.Dieta = new SelectList(db.Dietas, "Id", "Nombre");
-                ViewBag.Sexo = new SelectList(db.Sexo, "Id", "Nombre");
-                ViewBag.Rutina = new SelectList(db.Rutinas, "Id", "Nombre");
-                ViewBag.Preferencias = db.Preferencias.OrderBy(p => p.Nombre);
+                ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre");
+                ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
+                ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre");
+                ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre");
+                ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre");
 
                 return View(usuario);
             }
@@ -211,6 +210,16 @@ namespace TP_DDS.Controllers
                 {
                     ModelState.AddModelError("Email", "Ingre un email valido.");
                 }
+                else
+                {
+                    if (!IsEdit)
+                    {
+                        Usuario existeUsu = db.Usuarios.FirstOrDefault(u => u.Email.Equals(usuario.Email));
+
+                        if (existeUsu != null)
+                            ModelState.AddModelError("Email", "Ya existe un usuario con este mail.");
+                    }
+                }
             }
             else
             {
@@ -220,6 +229,13 @@ namespace TP_DDS.Controllers
             if (string.IsNullOrEmpty(usuario.Nombre))
             {
                 ModelState.AddModelError("Nombre", "Ingrese su Nombre.");
+            }
+            else
+            {
+                if (usuario.Nombre.Length > 50)
+                {
+                    ModelState.AddModelError("Nombre", "Supero los 50 caracteres.");
+                }
             }
 
             if (!IsEdit)
@@ -356,11 +372,11 @@ namespace TP_DDS.Controllers
                 //    model.PreferenciasList.Add(prefer);
                 //}
 
-                ViewBag.ComplexionId = new SelectList(db.Complexiones, "Id", "Nombre", usuario.ComplexionId);
-                ViewBag.CondicionPreexistenteId = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre", usuario.CondicionPreexistenteId);
-                ViewBag.DietaId = new SelectList(db.Dietas, "Id", "Nombre", usuario.DietaId);
-                ViewBag.SexoId = new SelectList(db.Sexo, "Id", "Nombre", usuario.SexoId);
-                ViewBag.RutinaId = new SelectList(db.Rutinas, "Id", "Nombre", usuario.RutinaId);
+                ViewBag.Complexion = new SelectList(db.Complexiones, "Id", "Nombre");
+                ViewBag.CondicionPreexistente = new SelectList(db.CondicionesPreexistentes, "Id", "Nombre");
+                ViewBag.Dieta = new SelectList(db.Dietas, "Id", "Nombre");
+                ViewBag.Sexo = new SelectList(db.Sexo, "Id", "Nombre");
+                ViewBag.Rutina = new SelectList(db.Rutinas, "Id", "Nombre");
 
                 return View(usuario);
 
@@ -437,46 +453,6 @@ namespace TP_DDS.Controllers
                 Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
                 Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
                 return RedirectToAction("Index", "Home");
-            }
-        }
-
-        private void ActualizaDatosUsuario(UsuarioViewModel model, Usuario usuarioToUpdate)
-        {
-            try
-            {
-                //preferencias antes de modificar
-                model.Usuario.Preferencias = usuarioToUpdate.Preferencias;
-
-                //actualizco con los datos de la vista
-                usuarioToUpdate = model.Usuario;
-
-                //actualizo preferencias
-                var selectedList = new HashSet<int>(model.PreferenciasList.Where(t => t.Sel).Select(c => c.Id));
-                var usuarioPreferencias = new HashSet<int>(usuarioToUpdate.Preferencias.Select(c => c.Id));
-
-                foreach (var item in db.Preferencias)
-                {
-                    if (selectedList.Contains(item.Id))
-                    {
-                        if (!usuarioPreferencias.Contains(item.Id))
-                        {
-                            usuarioToUpdate.Preferencias.Add(item);
-                        }
-                    }
-                    else
-                    {
-                        if (usuarioPreferencias.Contains(item.Id))
-                        {
-                            usuarioToUpdate.Preferencias.Remove(item);
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                Usuario usuario = new Usuario().GetUserByEmail(User.Identity.GetUserName());
-                Danger(string.Format("<b>{0}!!</b> Ha ocurrido un Error inesperado. Pronto lo solucionaremos. Intenta mas tarde. Gracias.", usuario.Nombre), true);
-                throw;
             }
         }
 

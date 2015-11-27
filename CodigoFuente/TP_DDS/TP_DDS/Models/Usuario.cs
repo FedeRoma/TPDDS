@@ -59,6 +59,9 @@ namespace TP_DDS.Models
         public virtual ICollection<Receta> Recetas { get; set; }
         public virtual ICollection<Grupo> Grupos { get; set; }
 
+        [NotMapped]
+        public Condicion condicion { get; set; }
+
         public Usuario GetUserByEmail(string email)
         {
             try
@@ -75,6 +78,18 @@ namespace TP_DDS.Models
             {
                 throw;
             }
+        }
+
+        public void CargarCondicion()
+        {
+            if (this.CondicionPreexistenteId == 1)
+                this.condicion = new Diabetico();
+
+            if (this.CondicionPreexistenteId == 2)
+                this.condicion = new Hipertenso();
+
+            if (this.CondicionPreexistenteId == 3)
+                this.condicion = new Celiaco();
         }
     }
 }
