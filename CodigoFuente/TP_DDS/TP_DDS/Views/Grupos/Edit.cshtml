@@ -1,0 +1,85 @@
+﻿@model TP_DDS.Models.Grupo
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h3>Modificar Grupo</h3>
+    <hr />
+    @Html.ValidationSummary(true, "Por favor complete todos los campos correctamente.")
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, "Nombre", new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    if (ViewData.ModelState["Nombre"] != null)
+                    {
+                        if (ViewData.ModelState["Nombre"].Errors.Count() > 0)
+                        {
+                            <span class="text-danger">
+                                @ViewData.ModelState["Nombre"].Errors[0].ErrorMessage
+                            </span>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Preferencias</h4>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                if (ViewData.ModelState["Preferencias"] != null)
+                {
+                    if (ViewData.ModelState["Preferencias"].Errors.Count() > 0)
+                    {
+                        <span class="text-danger">
+                            @ViewData.ModelState["Preferencias"].Errors[0].ErrorMessage
+                        </span>
+                    }
+                }
+            }
+            <table class="table">
+                <tr style="background-color:aliceblue">
+                    <th><input type="checkbox" id="chkSelectAll" /></th>
+                    <th>Preferencia</th>
+                </tr>
+                @foreach (var item in Model.Preferencias)
+                {
+                    <tr>
+                        @Html.Partial("_PreferenciasList", item)
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Modificar Grupo" class="btn btn-primary">Modificar Grupo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#chkSelectAll").bind("change", function () {
+            $(".chkSelect").prop("checked", $(this).prop("checked"));
+        });
+        $(".chkSelect").bind("change", function () {
+            if (!$(this).prop("checked"))
+                $("#chkSelectAll").prop("checked", false);
+        });
+    </script>
+}

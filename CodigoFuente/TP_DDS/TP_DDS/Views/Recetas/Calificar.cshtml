@@ -1,0 +1,54 @@
+﻿@model TP_DDS.Models.Calificacion
+
+@{
+    ViewBag.Title = "Calificar";
+}
+
+<div class="well">
+    <h2>@Html.DisplayFor(m => m.Receta.Nombre)</h2>
+    <hr />
+    <p><strong>Calif. Promedio:</strong> @Html.Encode(Model.Receta.CalificacionPromedio.ToString()) Estrellas</p>
+</div>
+
+<hr />
+
+<h3>Ingrese su calificacion: </h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.RecetaId)
+    @Html.HiddenFor(model => model.UsuarioId)
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Valor, "Calificacion", new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.Valor, 
+                    (SelectList)ViewBag.Calificaciones, "-- Seleccione una Calificacion --", 
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Valor)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comentario, "Comentario (Opcional)", new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Comentario, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+        
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Calificar Receta" class="btn btn-primary">Calificar Receta</button>
+            </div>
+        </div>
+    </div>
+}

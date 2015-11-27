@@ -1,0 +1,19 @@
+﻿@model TP_DDS.Models.Procedimiento
+
+@using HtmlHelpers.BeginCollectionItem
+
+@using (Html.BeginCollectionItem("Procedimientos"))
+{
+    @Html.HiddenFor(m => m.Id)
+    <td class="col-md-1">
+        @Html.Encode(Model.Numero)
+        @Html.HiddenFor(m => m.Numero)
+    </td>
+    <td class="col-md-8">
+        @Html.TextAreaFor(m => m.Nombre, new { @class = "form-control" })
+        @*@Html.HiddenFor(m => m.Nombre)*@
+    </td>
+    <td class="col-md-3">
+        <input type="file" name="file" />
+    </td>
+}

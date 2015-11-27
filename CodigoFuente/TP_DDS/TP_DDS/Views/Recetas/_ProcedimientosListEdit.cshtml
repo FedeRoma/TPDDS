@@ -1,0 +1,28 @@
+﻿@model TP_DDS.Models.Procedimiento
+
+@using HtmlHelpers.BeginCollectionItem
+
+@using (Html.BeginCollectionItem("Procedimientos"))
+{
+    @Html.HiddenFor(m => m.Id)
+    <td class="col-md-1">
+        @Html.Encode(Model.Numero)
+        @Html.HiddenFor(m => m.Numero)
+    </td>
+    <td class="col-md-7">
+        @Html.TextAreaFor(m => m.Nombre, new { @class = "form-control" })
+        @*@Html.HiddenFor(m => m.Nombre)*@
+    </td>
+    <td class="col-md-1" style="vertical-align:middle">
+        @*@Html.TextBoxFor(m => m.Imagen, new { @class = "form-control", @disabled = "true" })*@
+        @Html.HiddenFor(m => m.Imagen)
+        @if (!string.IsNullOrEmpty(Model.Imagen))
+        {
+            var linkId = "linkfotopaso" + Model.Numero.ToString();
+            <a id="@Html.Encode(linkId)" href="#" class="removeLinkFoto" style="text-align:center"><span class="glyphicon glyphicon-remove"></span></a>
+        }
+    </td>
+    <td class="col-md-3">
+        <input type="file" name="file" />
+    </td>
+}

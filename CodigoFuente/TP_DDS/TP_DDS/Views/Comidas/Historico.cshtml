@@ -1,0 +1,64 @@
+﻿@model IEnumerable<TP_DDS.Models.Comida>
+
+@{
+    ViewBag.Title = "Planificaciones";
+}
+
+<h3>Mi Historico de Planificaciones</h3>
+
+<p>
+    @Html.ActionLink("Crear Planificación", "Create", "Comidas", null, new { @class = "btn btn-success btn-sm" })
+    @Html.ActionLink("Ver Recetario", "Index", "Recetas", null, new { @class = "btn btn-info btn-sm" })
+</p>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <tr>
+                <th>Fecha</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            @if (Model != null)
+            {
+                DateTime fecha = new DateTime(1900, 1, 1);
+
+                foreach (var item in Model.Where(c => !c.Eliminada))
+                {
+                    var cantRecetas = item.Recetas.Where(r => !r.Eliminada).Count();
+
+                    if (fecha != item.Fecha)
+                    {
+                        fecha = item.Fecha;
+                        <tr style="background-color:aliceblue">
+                            <th>@Html.Encode(item.Fecha.ToString("dd/MM/yyyy"))</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr style="background-color:lightgray">
+                            <th></th>
+                            <th>Clasificación</th>
+                            <th>Recetas</th>
+                            <th></th>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Clasificacion.Nombre)
+                        </td>
+                        <td>
+                            @Html.Encode(cantRecetas.ToString())
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalle", "Details", new { id = item.Id, hist = true })
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

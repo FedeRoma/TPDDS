@@ -1,0 +1,14 @@
+﻿@model  TP_DDS.Models.Condimento
+@using HtmlHelpers.BeginCollectionItem
+
+<tr>
+    @using (Html.BeginCollectionItem("Condimentos"))
+    {
+        <td>
+            @Html.DropDownListFor(model => model.Id, (SelectList)ViewBag.CondimentoId, "", new { @class = "form-control" })
+        </td>
+        <td style="vertical-align:middle">
+            <a href="#" class="removeLink" style="text-align:center"><span class="glyphicon glyphicon-remove"></span></a>
+        </td>
+    }
+</tr>

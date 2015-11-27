@@ -1,0 +1,37 @@
+﻿@model TP_DDS.Models.ComidaReceta
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<div class="well">
+    <h2>@Html.DisplayFor(m => m.Receta.Nombre)</h2>
+    @*<hr />
+    <p><strong>Tot. Calorias:</strong> @Html.Encode(Model.Receta.TotalCalorias.ToString("0.##")) Kg.</p>
+    <p><strong>Dificultad:</strong> @Html.DisplayFor(m => m.Receta.Dificultad.Nombre)</p>
+    <p><strong>Grupo Piramide:</strong> @Html.Encode(Model.Receta.Piramide.NombreGrupo)</p>
+    <p><strong>Creada Por:</strong> @Html.Encode(Model.Receta.Creador.Nombre) <strong>el:</strong> @Html.Encode(Model.Receta.FechaCreacion.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Ultima modif.:</strong> @Html.Encode(Model.Receta.FechaUltModif.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Calificacion :</strong> @Html.Encode(Model.Receta.CalificacionPromedio.ToString()) Estrellas</p>*@
+</div>
+
+<hr />
+
+<h4>Confirma que desea Eliminar esta Receta de su Planificación?</h4>
+<p><strong>Fecha:</strong> @Html.Encode(Model.Comida.Fecha.ToString("dd/MM/yyyy"))</p>
+<p><strong>Clasificación:</strong> @Html.Encode(Model.Comida.Clasificacion.Nombre)</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div style="height:10px"></div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Eliminar" class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+}

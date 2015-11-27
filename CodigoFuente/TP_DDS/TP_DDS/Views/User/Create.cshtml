@@ -1,0 +1,158 @@
+﻿@model TP_DDS.Models.Usuario
+
+@{
+    ViewBag.Title = "Registro";
+}
+
+<h2>Registro</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h3>Crear nueva cuenta</h3>
+    <hr />
+    @Html.ValidationSummary(true, "Por favor complete todos los campos correctamente.")
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre, "Nombre Completo", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Nombre)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Pass, new { @class = "control-label" })
+                        @Html.PasswordFor(model => model.Pass, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Pass)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConfirmPass, new { @class = "control-label" })
+                        @Html.PasswordFor(model => model.ConfirmPass, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPass)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SexoId, "Sexo", new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.SexoId, (SelectList)ViewBag.SexoId, "Seleccione su Sexo", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SexoId)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FechaNacimiento, "Fecha de Nacimiento", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.FechaNacimiento, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.FechaNacimiento)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Peso, "Peso (Kg)", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Peso, new { @class = "form-control", @type = "number", @min = "20", @max = "250", @step = "1" })
+                        @Html.ValidationMessageFor(model => model.Peso)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Altura, "Altura (cm)", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Altura, new { @class = "form-control", @type = "number", @pattern = "[0-9].{3,3}", @min = "100", @max = "250", @step = "1" })
+                        @Html.ValidationMessageFor(model => model.Altura)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RutinaId, "Rutina", new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.RutinaId, (SelectList)ViewBag.RutinaId, "Seleccione su Rutina", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.RutinaId)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DietaId, "Dieta", new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.DietaId, (SelectList)ViewBag.DietaId, "Seleccione su Dieta", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DietaId)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CondicionPreexistenteId, "Condicion Preexistente", new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.CondicionPreexistenteId, (SelectList)ViewBag.CondicionPreexistenteId, "Seleccione su Condición", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CondicionPreexistenteId)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ComplexionId, "Complexion", new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.ComplexionId, (SelectList)ViewBag.ComplexionId, "Seleccione su Complexión", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ComplexionId)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h4>Preferencias</h4>
+            @Html.ValidationMessageFor(model => model.Preferencias)
+            <table class="table">
+                <tr style="background-color:aliceblue">
+                    <th><input type="checkbox" id="chkSelectAll" /></th>
+                    <th>Preferencia</th>
+                </tr>
+                @foreach (var item in Model.Preferencias)
+                {
+                    <tr>
+                        @Html.Partial("_PreferenciasList", item)
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Registrar Usuario" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#chkSelectAll").bind("change", function () {
+            $(".chkSelect").prop("checked", $(this).prop("checked"));
+        });
+        $(".chkSelect").bind("change", function () {
+            if (!$(this).prop("checked"))
+                $("#chkSelectAll").prop("checked", false);
+        });
+    </script>
+}

@@ -1,0 +1,7 @@
+Anotaciones de pruebas:
+
+Cambiar "Normal" del combo de eleccion de dieta
+
+Poner correctamente los mensajes de error en registrar usuario (aparecen IDs)
+
+mensaje ok al modificar perfil   

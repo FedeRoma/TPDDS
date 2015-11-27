@@ -1,0 +1,21 @@
+﻿@model  TP_DDS.Models.IngredienteReceta
+@using HtmlHelpers.BeginCollectionItem
+
+<tr>
+    @using (Html.BeginCollectionItem("Ingredientes"))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <td class="col-md-5">
+            @Html.DropDownListFor(model => model.IngredienteId, (SelectList)ViewBag.Ingrediente, "", new { @class = "form-control" })
+        </td>
+        <td class="col-md-3">
+            @Html.TextBoxFor(model => model.Cantidad, new { @class = "form-control", @type = "number", @min = "1", @step = "1" })
+        </td>
+        <td class="col-md-3">
+            @Html.DropDownListFor(model => model.TipoIngredienteId, (SelectList)ViewBag.TipoIngrediente, "", new { @class = "form-control" })
+        </td>
+        <td class="col-md-1" style="vertical-align:middle">
+            <a href="#" class="removeLink" style="text-align:center"><span class="glyphicon glyphicon-remove"></span></a>
+        </td>
+    }
+</tr>

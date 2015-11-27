@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TP_DDS.Models.Grupo>
+
+@{
+    ViewBag.Title = "Grupos";
+}
+
+<h2>Grupos de Usuarios</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Grupo", "Create")
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div style="height:5px"></div>
+
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Nombre</th>
+                <th>Creador</th>
+                <th>Integrantes</th>
+                <th>Recetas</th>
+                <th>Acciones</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                var cantIntegrantes = item.Usuarios.Where(u => !u.Eliminado).Count();
+                var cantRecetas = item.Recetas.Where(r => !r.Eliminada).Count();
+                
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Creador.Nombre)
+                    </td>
+                    <td>
+                        @Html.Encode(cantIntegrantes)
+                    </td>
+                    <td>
+                        @Html.Encode(cantRecetas)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

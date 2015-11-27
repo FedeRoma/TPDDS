@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+    
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Recetas <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
+                <li>@Html.ActionLink("Recetario", "Index", "Recetas")</li>
+                <li>@Html.ActionLink("Mis Recetas", "Me", "Recetas")</li>
+                <li role="separator" class="divider"></li>
+                <li>@Html.ActionLink("Planificar Comidas", "Me", "Comidas", routeValues: null, htmlAttributes: new { title = "Planificar Comidas" })</li>
+                <li>@Html.ActionLink("Historico Comidas", "Historico", "Comidas", routeValues: null, htmlAttributes: new { title = "Historico Comidas" })</li>
+                <li role="separator" class="divider"></li>
+                <li>@Html.ActionLink("Nueva Receta", "Create", "Recetas")</li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Grupos <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
+                <li>@Html.ActionLink("Buscar", "Index", "Grupos")</li>
+                <li>@Html.ActionLink("Mis Grupos", "Me", "Grupos")</li>
+                <li role="separator" class="divider"></li>
+                <li>@Html.ActionLink("Nuevo Grupo", "Create", "Grupos")</li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Recetas Por Periodo", "RecetasPorPeriodo", "Reportes")</li>
+                <li>@Html.ActionLink("Recetas Nuevas", "RecetasNuevas", "Reportes")</li>
+                <li>@Html.ActionLink("Recetas Por Calorias", "RecetasPorCalorias", "Reportes")</li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estadisticas <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Por Sexo", "PorSexo", "Estadisticas")</li>
+                <li>@Html.ActionLink("Por Dificultad", "PorDificultad", "Estadisticas")</li>
+                <li>@Html.ActionLink("Ranking", "Ranking", "Estadisticas")</li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Entrega_5 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Consulta 1", "ConsultaUno", "Consultas")</li>
+                <li>@Html.ActionLink("Consulta 2", "ConsultaDos", "Consultas")</li>
+                <li>@Html.ActionLink("Consulta 3", "ConsultaTres", "Consultas")</li>
+                <li>@Html.ActionLink("Consulta 4", "ConsultaCuatro", "Consultas")</li>
+                <li>@Html.ActionLink("Consulta 5", "ConsultaCinco", "Consultas")</li>
+                <li>@Html.ActionLink("Consulta 6", "ConsultaSeis", "Consultas")</li>
+                <li>@Html.ActionLink("Consulta 7", "ConsultaSiete", "Consultas")</li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Html.Encode(User.Identity.GetUserName()) <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
+                <li>@Html.ActionLink("Administrar Perfil", "Edit", "User", routeValues: null, htmlAttributes: new { title = "Administrar Perfil" })</li>
+                <li role="separator" class="divider"></li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesion</a></li>
+            </ul>
+        </li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Registrarse", "Create", "User", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Iniciar Sesion", "Login", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

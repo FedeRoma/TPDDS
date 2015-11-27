@@ -1,0 +1,28 @@
+﻿@model TP_DDS.Models.Comida
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h3>Eliminar Planificación</h3>
+<p><strong>Fecha:</strong> @Html.Encode(Model.Fecha.ToString("dd/MM/yyyy"))</p>
+<p><strong>Clasificación:</strong> @Html.Encode(Model.Clasificacion.Nombre)</p>
+
+<hr />
+
+<h4>Confirma que desea Eliminar esta Planificación?</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div style="height:10px"></div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Eliminar" class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,51 @@
+﻿@model TP_DDS.Models.GrupoReceta
+
+@{
+    ViewBag.Title = "Seleccionar";
+}
+
+<div class="well">
+    <h2>@Html.DisplayFor(m => m.Receta.Nombre)</h2>
+    @*<hr />*@
+    @*<p><strong>Tot. Calorias:</strong> @Html.Encode(Model.Receta.TotalCalorias.ToString("0.##")) Kg.</p>
+    <p><strong>Dificultad:</strong> @Html.DisplayFor(m => m.Receta.Dificultad.Nombre)</p>
+    <p><strong>Grupo Piramide:</strong> @Html.Encode(Model.Receta.Piramide.NombreGrupo)</p>
+    <p><strong>Creada Por:</strong> @Html.Encode(Model.Receta.Creador.Nombre) <strong>el:</strong> @Html.Encode(Model.Receta.FechaCreacion.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Ultima modif.:</strong> @Html.Encode(Model.Receta.FechaUltModif.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Calificacion:</strong> @Html.Encode(Model.Receta.CalificacionPromedio.ToString()) Estrellas</p>*@
+</div>
+
+<hr />
+
+<h3>Seleccione el Grupo con el que desea compartir esta Receta</h3>
+<hr />
+
+<div style="height:10px;"></div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.RecetaId)
+    @Html.HiddenFor(model => model.UsuarioId)
+    
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                @Html.LabelFor(model => model.GrupoId, "Grupo", new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.GrupoId, (SelectList)ViewBag.GrupoId, "-- Seleccione --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GrupoId)
+            </div>
+        </div>
+    </div>
+    
+    <div style="height:10px"></div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Compartir" class="btn btn-primary">Compartir</button>
+            </div>
+        </div>
+    </div>
+}

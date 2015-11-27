@@ -1,0 +1,190 @@
+﻿@model TP_DDS.Models.Receta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="well">
+    <h2>@Html.DisplayFor(m => m.Nombre)</h2>
+    <hr />
+    <p><strong>Tot. Calorias:</strong> @Html.Encode(Model.TotalCalorias.ToString("0.##")) Kg.</p>
+    <p><strong>Dificultad:</strong> @Html.DisplayFor(m => m.Dificultad.Nombre)</p>
+    <p><strong>Grupo Piramide:</strong> @Html.Encode(Model.Piramide.NombreGrupo)</p>
+    <p><strong>Creada Por:</strong> @Html.Encode(Model.Creador.Nombre) <strong>el:</strong> @Html.Encode(Model.FechaCreacion.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Ultima modif.:</strong> @Html.Encode(Model.FechaUltModif.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Calif. Promedio:</strong> @Html.Encode(Model.CalificacionPromedio.ToString()) Estrellas</p>
+    @if (!(bool)ViewBag.PuedeCalificar)
+    {
+        <p><strong>Calificacion Otorgada:</strong> @Html.Encode((string)ViewBag.CalifUsuario) Estrellas</p>
+    }
+    @if (!Model.Eliminada)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group" role="group" aria-label="...">
+                    @if ((bool)ViewBag.PuedeCalificar)
+                    {
+                        @Html.ActionLink("Calificar", "Calificar", new { id = Model.Id }, new { @class = "btn btn-info btn-sm", role = "button" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Ver Calificaciones", "VerCalificaciones", new { id = Model.Id }, new { @class = "btn btn-info btn-sm", role = "button" })
+                    }
+
+                    @Html.ActionLink("Seleccionar", "SeleccionarReceta", "Comidas", new { id = Model.Id }, new { @class = "btn btn-success btn-sm", role = "button" })
+                    @Html.ActionLink("Compartir", "CompartirReceta", "Recetas", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm", role = "button" })
+                </div>
+            </div>
+            <div style="height:5px"></div>
+            <div class="col-md-12">
+                <div class="btn-group" role="group" aria-label="...">
+                    @if ((bool)ViewBag.PuedeEditar)
+                    {
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm", role = "button" })
+                    }
+                    @if ((bool)ViewBag.PuedeEliminar)
+                    {
+                        @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger btn-sm", role = "button" })
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+	{
+        <h4>Receta fue Eliminada el: @Html.Encode(((DateTime)Model.FechaBaja).ToString("dd/MM/yyyy"))</h4>
+	}
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-2">
+        <h4>Temporadas</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Temporada</th>
+            </tr>
+
+            @foreach (var item in Model.Temporadas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-2">
+        <h4>Clasificaciones</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Clasificacion</th>
+            </tr>
+
+            @foreach (var item in Model.Clasificaciones)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-2">
+        <h4>Condimentos</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Condimento</th>
+            </tr>
+
+            @foreach (var item in Model.Condimentos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h4>Ingredientes</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Ingrediente</th>
+                <th>Cantidad</th>
+                <th>Cal.(Kg.)</th>
+                <th>Tipo</th>
+            </tr>
+
+            @foreach (var item in Model.Ingredientes)
+            {
+                var calorias = (item.Ingrediente.CaloriasPorcion * item.Cantidad).ToString("0.##");
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ingrediente.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td>
+                        @Html.Encode(calorias)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoIngrediente.Nombre)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <h4>Procedimiento</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>#</th>
+                <th>Pasos</th>
+            </tr>
+
+            @foreach (var item in Model.Procedimientos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-4">
+        <h4>Fotos</h4>
+        @foreach (var item in Model.Procedimientos)
+        {
+            var urlImagen = "";
+            if (!string.IsNullOrEmpty(item.Imagen))
+            {
+                urlImagen = "~/Content/Images/" + item.Imagen;
+                
+                <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+                    <a class="thumbnail" style="margin-bottom: 20px;" href="#">
+                        <img class="img-responsive" src="@Url.Content(urlImagen)" alt="">
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+<hr />
+
+<a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>

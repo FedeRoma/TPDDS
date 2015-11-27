@@ -1,0 +1,32 @@
+﻿@model TP_DDS.Models.Grupo
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<div class="well">
+    <h2>@Html.Encode(Model.Nombre)</h2>
+    <hr />
+    <p><strong>Creado Por:</strong> @Html.Encode(Model.Creador.Nombre) <strong>el:</strong> @Html.Encode(Model.FechaCreacion.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Ultima modif.:</strong> @Html.Encode(Model.FechaUltModif.ToString("dd/MM/yyyy"))</p>
+    <p><strong>Integrantes :</strong> @Html.Encode(Model.Usuarios.Where(u => !u.Eliminado).Count()) Usuarios</p>
+    <p><strong>Recetas :</strong> @Html.Encode(Model.Recetas.Where(r => !r.Eliminada).Count()) Recetas</p>
+</div>
+
+<hr />
+
+<h3>Confirma que desea Eliminar este Grupo?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Eliminar Grupo" class="btn btn-danger">Eliminar Grupo</button>
+            </div>
+        </div>
+    </div>
+}

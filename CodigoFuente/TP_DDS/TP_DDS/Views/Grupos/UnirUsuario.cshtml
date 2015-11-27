@@ -1,0 +1,34 @@
+﻿@model TP_DDS.Models.GrupoUsuario
+
+@{
+    ViewBag.Title = "Unirme";
+}
+
+<div class="well">
+    <h2>@Html.DisplayFor(m => m.Grupo.Nombre)</h2>
+</div>
+
+<hr />
+
+<h3>Confirma que desea unirse a este Grupo?</h3>
+<hr />
+
+<div style="height:10px;"></div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.GrupoId)
+    @Html.HiddenFor(model => model.UsuarioId)
+    
+    <div style="height:10px"></div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-10">
+                <a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>
+                <button type="submit" value="Unirme" class="btn btn-primary">Unirme</button>
+            </div>
+        </div>
+    </div>
+}

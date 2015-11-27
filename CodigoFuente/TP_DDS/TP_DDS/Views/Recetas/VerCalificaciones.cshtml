@@ -1,0 +1,46 @@
+﻿@model TP_DDS.Models.Receta
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="well">
+    <h2>@Html.DisplayFor(m => m.Nombre)</h2>
+    <hr />
+    <p><strong>Calif. Promedio:</strong> @Html.Encode(Model.CalificacionPromedio.ToString()) Estrellas</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div style="height:5px"></div>
+        <h4>Calificaciones de Usuarios</h4>
+        <table class="table">
+            <tr style="background-color:aliceblue">
+                <th>Usuario</th>
+                <th>Calificacion</th>
+                <th>Comentario</th>
+                <th>Fecha</th>
+            </tr>
+                @foreach (var item in Model.Calificaciones)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuario.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comentario)
+                        </td>
+                        <td>
+                            @Html.Encode(item.FechaHora.ToString("dd/MM/yyyy"))
+                        </td>
+                    </tr>
+                }
+        </table>
+    </div>
+</div>
+
+<a class="btn btn-default" href="javascript:window.history.back();">&laquo; Volver atrás</a>

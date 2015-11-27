@@ -1,0 +1,15 @@
+﻿@model TP_DDS.Models.Clasificacion
+
+@using HtmlHelpers.BeginCollectionItem
+
+@using (Html.BeginCollectionItem("Clasificaciones"))
+{
+    @Html.HiddenFor(m => m.Id)
+    <td>
+        @Html.CheckBoxFor(m => m.Sel, new { @class = "chkSelectClasif" })
+    </td>
+    <td>
+        @Model.Nombre
+        @Html.HiddenFor(m => m.Nombre)
+    </td>
+}

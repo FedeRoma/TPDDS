@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <h3>Bienvenido @Html.Encode((string)ViewBag.Usuario)!!</h3>
+    <hr />
+
+    if (ViewBag.ComidasRecetas != null)
+    {
+        var clasifId = 0;
+
+        <h4>Planificación del día</h4>
+        <div class="row">
+            <div class="col-md-10">
+                <div style="height:5px"></div>
+                <table class="table">
+                    @foreach (var item in (IEnumerable<TP_DDS.Models.ComidaReceta>)ViewBag.ComidasRecetas)
+                    {
+                        if (clasifId != item.Comida.ClasificacionId)
+                        {
+                            clasifId = item.Comida.ClasificacionId;
+                            <tr style="background-color:aliceblue">
+                                <th>@Html.DisplayFor(modelItem => item.Comida.Clasificacion.Nombre)</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr style="background-color:lightgray">
+                                <th id="col_nombre">Nombre</th>
+                                <th id="col_dificultad">Dificultad</th>
+                                <th id="col_totcal">Tot. Cal.(Kg)</th>
+                                <th id="col_piramide">Grupo Piramide</th>
+                                <th id="col_creador">Calificacion</th>
+                                <th id="col_acciones">Acciones</th>
+                            </tr>
+                        }
+                        <tr>
+                            <td id="col_nombre">
+                                @Html.DisplayFor(modelItem => item.Receta.Nombre)
+                            </td>
+                            <td id="col_dificultad">
+                                @Html.DisplayFor(modelItem => item.Receta.Dificultad.Nombre)
+                            </td>
+                            <td id="col_totcal">
+                                @Html.DisplayFor(modelItem => item.Receta.TotalCalorias)
+                            </td>
+                            <td id="col_piramide">
+                                @Html.DisplayFor(modelItem => item.Receta.Piramide.NombreGrupo)
+                            </td>
+                            <td id="col_creador">
+                                @Html.DisplayFor(modelItem => item.Receta.CalificacionPromedio)
+                            </td>
+                            <td id="col_acciones">
+                                @Html.ActionLink("Detalles", "Details", "Recetas", new { id = item.Receta.Id }, htmlAttributes: null) |
+                                @Html.ActionLink("Eliminar", "DeleteReceta", "Comidas", new { id = item.Id }, htmlAttributes: null)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+
+    if (ViewBag.Recomendaciones != null)
+    {
+         <div class="row">
+             <div class="col-md-8">
+                 <div style="height:5px"></div>
+                 <table class="table">
+                     <tr style="background-color:aliceblue">
+                         <th id="col_nombre"><h4>Propuestas para Vos</h4></th>
+                         <th id="col_dificultad"></th>
+                         <th id="col_totcal"></th>
+                         <th id="col_creador"></th>
+                         <th id="col_acciones"></th>
+                     </tr>
+                     <tr style="background-color:lightgray">
+                         <th id="col_nombre">Nombre</th>
+                         <th id="col_dificultad">Dif.</th>
+                         <th id="col_totcal">Cal.(Kg)</th>
+                         <th id="col_creador">Calif.</th>
+                         <th id="col_acciones"></th>
+                     </tr>
+                     @if (ViewBag.Propuestas != null)
+                     {
+                         foreach (var item in (IEnumerable<TP_DDS.Models.Receta>)ViewBag.Propuestas)
+                         {
+                             <tr>
+                                 <td id="col_nombre">
+                                     @Html.DisplayFor(modelItem => item.Nombre)
+                                 </td>
+                                 <td id="col_dificultad">
+                                     @Html.DisplayFor(modelItem => item.Dificultad.Nombre)
+                                 </td>
+                                 <td id="col_totcal">
+                                     @Html.DisplayFor(modelItem => item.TotalCalorias)
+                                 </td>
+                                 <td id="col_creador">
+                                     @Html.DisplayFor(modelItem => item.CalificacionPromedio)
+                                 </td>
+                                 <td id="col_acciones">
+                                     @Html.ActionLink("Detalles", "Details", "Recetas", new { id = item.Id }, htmlAttributes: null)
+                                 </td>
+                             </tr>
+                         } 
+                     }
+                 </table>
+             </div>
+             <div class="col-md-4">
+                 <div style="height:5px"></div>
+                 <table class="table">
+                     <tr style="background-color:aliceblue">
+                         <th><h4>Recomendaciones</h4></th>
+                     </tr>
+                     @foreach (var item in (IEnumerable<TP_DDS.Models.Recomendacion>)ViewBag.Recomendaciones)
+                     {
+                         <tr>
+                             <td>
+                                 @Html.DisplayFor(modelItem => item.Descripcion)
+                             </td>
+                         </tr>
+                     }
+
+                 </table>
+             </div>
+         </div>
+    }
+
+    if (ViewBag.RecetasNuevas != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+
+                <h4>Recetas Nuevas</h4>
+
+                <div style="height:10px"></div>
+
+                <table class="table">
+
+                    <tr style="background-color:lightgray">
+                        <th id="col_nombre">Nombre</th>
+                        <th id="col_dificultad">Dificultad</th>
+                        <th id="col_totcal">Calorias (Kg)</th>
+                        <th id="col_piramide">Grupo Piramide</th>
+                        <th id="col_creador">Calificacion</th>
+                        <th id="col_creador">Creador</th>
+                        <th id="col_creador">Creada</th>
+                        <th id="col_acciones"></th>
+                    </tr>
+
+                    @if (ViewBag.RecetasNuevas != null)
+                    {
+                        foreach (var item in (IEnumerable<TP_DDS.Models.RptRecetasNuevas>)ViewBag.RecetasNuevas)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Dificultad)
+                                </td>
+                                <td>
+                                    @Html.Encode(item.TotalCalorias.ToString("0.##"))
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SectorPiramide)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CalificacionPromedio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Creador)
+                                </td>
+                                <td>
+                                    @Html.Encode(item.FechaCreacion.ToString("dd/MM/yyyy"))
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Detalle", "Details", "Recetas",
+                                                new { id = item.Id }, null)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="jumbotron" id="banner">
+        <h1 style="display:none">Que Podemos Comer Hoy?</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Bienvenido a "Que Podemos Comer hoy?"</h2>
+            <p>
+                Esta es una aplicacion Web para el TP de DDS UTN 2015 - Grupo 85.
+                Esta aplicacion fue creada con ASP.NET MVC 5 y utiliza Entity Framework 6.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Codigo Fuente</h2>
+            <p>El codigo fuente esta disponible en Github.</p>
+            <p><a class="btn btn-default" href="https://github.com/FedeRoma/TPDDS/tree/master/CodigoFuente/DDS_TP" target="_blank">Download &raquo;</a></p>
+        </div>
+    </div>
+}
