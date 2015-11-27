@@ -105,6 +105,47 @@ namespace TP_DDS.DAL
                     new SqlParameter("@temporadaId", temporadaId),
                     new SqlParameter("@calificacion", calificacion));
             }
+
+            public IEnumerable<RecetasIndexViewModel_Result>
+                Recetas_Buscar(int IngredienteID, int TemporadaID, int DificultadId, 
+                    int caloriasMin, int caloriasMax, int PiramideId, 
+                    int CalificacionPromedio, int UsuarioId)
+            {
+                //Recetas_Buscar NULL, NULL, NULL, 0, 0, NULL, NULL, 10
+                string command = "Recetas_Buscar ";
+                
+                if(IngredienteID == 0)
+                    command = command + "NULL, ";
+                else
+                    command = command + IngredienteID.ToString() +", ";
+
+                if (TemporadaID == 0)
+                    command = command + "NULL, ";
+                else
+                    command = command + TemporadaID.ToString() + ", ";
+
+                if (DificultadId == 0)
+                    command = command + "NULL, ";
+                else
+                    command = command + DificultadId.ToString() + ", ";
+
+                command = command + caloriasMin.ToString() + ", ";
+                command = command + caloriasMax.ToString() + ", ";
+
+                if (PiramideId == 0)
+                    command = command + "NULL, ";
+                else
+                    command = command + PiramideId.ToString() + ", ";
+
+                if (CalificacionPromedio == 0)
+                    command = command + "NULL, ";
+                else
+                    command = command + CalificacionPromedio.ToString() + ", ";
+
+                command = command + UsuarioId.ToString();
+
+                return this.Database.SqlQuery<RecetasIndexViewModel_Result>(command);
+            }
         #endregion
 
         #region Mapeo_SP_Reportes

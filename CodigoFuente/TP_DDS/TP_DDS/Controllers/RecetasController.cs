@@ -21,7 +21,7 @@ namespace TP_DDS.Controllers
         private TPDDSContext db = new TPDDSContext();
 
         // GET: /Recetas/
-        public ActionResult Index()
+        public ActionResult Index([Bind(Include = "IngredienteID, TemporadaID, DificultadId, caloriasMin, caloriasMax, PiramideId, CalificacionPromedio")] RecetasIndexViewModel param)
         {
             try
             {
@@ -32,39 +32,70 @@ namespace TP_DDS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                Dieta normal = db.Dietas.FirstOrDefault(d => d.Nombre.Equals("Normal"));
+                ViewBag.Ingrediente = new SelectList(db.Ingredientes, "Id", "Nombre");
+                ViewBag.Temporada = new SelectList(db.Temporadas, "Id", "Nombre");
+                ViewBag.Dificultad = new SelectList(db.Dificultades, "Id", "Nombre");
+                ViewBag.Piramide = new SelectList(db.PiramideAlimenticia, "Id", "NombreGrupo");
+                ViewBag.Calificaciones = new SelectList(new[]
+                                          {
+                                              new{Id="1",Valor="1 Estrella"},
+                                              new{Id="2",Valor="2 Estrellas"},
+                                              new{Id="3",Valor="3 Estrellas"},
+                                              new{Id="4",Valor="4 Estrellas"},
+                                              new{Id="5",Valor="5 Estrellas"}
+                                          },
+                                            "Id", "Valor");
 
-                //No es Dieta Normal
-                if (usuario.DietaId != normal.Id)
+                var viewModel = new RecetasIndexViewModel();
+                viewModel.Results = null;
+
+                if (param.caloriasMin > param.caloriasMax)
                 {
-                    var recetas = db.Recetas.Include(r => r.Dificultad)
-                    .Include(r => r.Creador)
-                    .Include(r => r.Piramide)
-                    .Where(r => !r.Eliminada && r.Creador.DietaId == usuario.DietaId);
-
-                    return View(recetas.ToList());
+                    ViewBag.MsjErrorMayor = "Las Calorias Min. no pueden ser Mayor que las Max.";
+                    return View(viewModel);
                 }
-                else
-                {
-                    //Preferencias del usuario
-                    List<int> IDs = usuario.Preferencias.ToList().Select(p => p.Id).ToList<int>();
 
-                    //Recetas con esas preferencias
-                    List<int> recetasIDs = db.IngredientesRecetas.Include(i => i.Ingrediente)
-                        .Where(i => IDs.Contains(i.Ingrediente.Preferencia.Id))
-                        .ToList().Select(i => i.RecetaId).Distinct().ToList<int>();
 
-                    //obtenemos las recetas
-                    var recetas = db.Recetas.Include(r => r.Dificultad)
-                    .Include(r => r.Creador)
-                    .Include(r => r.Piramide)
-                    .Include(r => r.Ingredientes)
-                    .Where(r => !r.Eliminada
-                        && recetasIDs.Contains(r.Id)
-                    );
+                viewModel.Results = db.Recetas_Buscar(param.IngredienteID, 
+                    param.TemporadaID, param.DificultadId, param.caloriasMin,
+                    param.caloriasMax, param.PiramideId, 
+                    param.CalificacionPromedio, usuario.Id);
 
-                    return View(recetas.ToList());
-                }
+                return View(viewModel);
+
+                //Dieta normal = db.Dietas.FirstOrDefault(d => d.Nombre.Equals("Normal"));
+
+                ////No es Dieta Normal
+                //if (usuario.DietaId != normal.Id)
+                //{
+                //    var recetas = db.Recetas.Include(r => r.Dificultad)
+                //    .Include(r => r.Creador)
+                //    .Include(r => r.Piramide)
+                //    .Where(r => !r.Eliminada && r.Creador.DietaId == usuario.DietaId);
+
+                //    return View(recetas.ToList());
+                //}
+                //else
+                //{
+                //    //Preferencias del usuario
+                //    List<int> IDs = usuario.Preferencias.ToList().Select(p => p.Id).ToList<int>();
+
+                //    //Recetas con esas preferencias
+                //    List<int> recetasIDs = db.IngredientesRecetas.Include(i => i.Ingrediente)
+                //        .Where(i => IDs.Contains(i.Ingrediente.Preferencia.Id))
+                //        .ToList().Select(i => i.RecetaId).Distinct().ToList<int>();
+
+                //    //obtenemos las recetas
+                //    var recetas = db.Recetas.Include(r => r.Dificultad)
+                //    .Include(r => r.Creador)
+                //    .Include(r => r.Piramide)
+                //    .Include(r => r.Ingredientes)
+                //    .Where(r => !r.Eliminada
+                //        && recetasIDs.Contains(r.Id)
+                //    );
+
+                //    return View(recetas.ToList());
+                //}
             }
             catch (Exception)
             {

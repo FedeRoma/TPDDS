@@ -426,12 +426,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\RecetasByDieta.cs" />
     <Compile Include="ViewModels\RecetasMeViewModel.cs" />
     <Compile Include="ViewModels\RecetasByTempoCalif.cs" />
     <Compile Include="ViewModels\RecetasBySexComplex.cs" />
     <Compile Include="ViewModels\RecetasByPreferencia.cs" />
     <Compile Include="ViewModels\RecetasByPiramide.cs" />
-    <Compile Include="ViewModels\RecetasByDieta.cs" />
+    <Compile Include="ViewModels\RecetasIndexViewModel.cs" />
     <Compile Include="ViewModels\RecetasByCondimento.cs" />
     <Compile Include="ViewModels\CaloriasMaxByRutina.cs" />
   </ItemGroup>

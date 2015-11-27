@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TP_DDS.Models.Receta>
+﻿@model TP_DDS.ViewModels.RecetasIndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -10,7 +10,83 @@
     @Html.ActionLink("Crear Nueva Receta", "Create")
 </p>
 
-<div class="row">
+@using (Html.BeginForm("Index", "Recetas",
+                new { ReturnUrl = ViewBag.ReturnUrl },
+                FormMethod.Get, new { role = "form" }))
+{
+
+    <h5>Filtros</h5>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.IngredienteID, "Ingrediente Principal", new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.IngredienteID,
+                  (SelectList)ViewBag.Ingrediente, "-- Sin Filtro --",
+                        new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TemporadaID, "Temporada", new { @class = "control-label"})
+                @Html.DropDownListFor(model => model.TemporadaID,
+                    (SelectList)ViewBag.Temporada, "-- Sin Filtro --",
+                        new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DificultadId, "Dificultad", new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.DificultadId,
+                    (SelectList)ViewBag.Dificultad, "-- Sin Filtro --",
+                        new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PiramideId, "Piramide", new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.PiramideId,
+                    (SelectList)ViewBag.Piramide, "-- Sin Filtro --",
+                        new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.caloriasMin, "Cal. Mínimas", new { @class = "control-label", @ID = "InputCalMin" })
+                @Html.TextBoxFor(model => model.caloriasMin, new { @class = "form-control", @type = "number", @min = "0", @step = "1"})
+                @if (ViewBag.MsjErrorMayor != null)
+                {
+                    <p style="color:red">@Html.Encode((string)ViewBag.MsjErrorMayor)</p>
+                }
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.caloriasMax, "Cal. Máximas", new { @class = "control-label", @ID = "InputCalMax" })
+                @Html.TextBoxFor(model => model.caloriasMax, new { @class = "form-control", @type = "number", @min = "0", @step = "1" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CalificacionPromedio, "Calificacion", new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.CalificacionPromedio,
+                    (SelectList)ViewBag.Calificaciones, "-- Sin Filtro --",
+                        new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-info" />
+        </div>
+    </div>
+    <hr />
+}
+
+ <div class="row">
     <div class="col-md-12">
 
         <div style="height:5px"></div>
@@ -25,23 +101,25 @@
                 <th id="col_creador">Calificacion</th>
                 <th id="col_acciones">Acciones</th>
             </tr>
-                @foreach (var item in Model)
+            @if (Model.Results != null) 
+            {
+                foreach (var item in Model.Results)
                 {
                     <tr>
                         <td id="col_nombre">
                             @Html.DisplayFor(modelItem => item.Nombre)
                         </td>
                         <td id="col_dificultad">
-                            @Html.DisplayFor(modelItem => item.Dificultad.Nombre)
+                            @Html.DisplayFor(modelItem => item.Dificultad)
                         </td>
                         <td id="col_totcal">
                             @Html.DisplayFor(modelItem => item.TotalCalorias)
                         </td>
                         <td id="col_piramide">
-                            @Html.DisplayFor(modelItem => item.Piramide.NombreGrupo)
+                            @Html.DisplayFor(modelItem => item.SectorPiramide)
                         </td>
                         <td id="col_creador">
-                            @Html.DisplayFor(modelItem => item.Creador.Nombre)
+                            @Html.DisplayFor(modelItem => item.Creador)
                         </td>
                         <td id="col_piramide">
                             @Html.DisplayFor(modelItem => item.CalificacionPromedio)
@@ -51,6 +129,27 @@
                         </td>
                     </tr>
                 }
+            }
         </table>
     </div>
 </div>
+
+<script>
+    //$("#SomeValue").removeAttr("data-val-required")
+    $(document).ready(function () {
+        $("#InputCalMin").removeAttr("data-val")
+        $("#InputCalMax").removeAttr("data-val")
+    });
+
+    $("button").each(function (elem) {
+        var button = $($("button")[elem]);
+
+        if (button.attr('type') == 'submit') {
+
+            button.click(function (e) {
+                var validator = button.closest('form').validate();
+                validator.cancelSubmit = true;
+            });
+        }
+    });
+</script>
